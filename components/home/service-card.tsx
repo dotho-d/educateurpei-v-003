@@ -5,6 +5,7 @@
  */
 import { ReactNode } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import styles from "./styles/ServiceCard.module.css";
 
 interface ServiceCardProps {
   /** Icône à afficher en haut de la carte */
@@ -22,17 +23,17 @@ interface ServiceCardProps {
  */
 export default function ServiceCard({ icon, title, description }: ServiceCardProps) {
   return (
-    <Card className="ServiceCard rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-2 border-0 bg-gradient-to-br from-background to-primary/5">
-      <CardHeader className="pb-2 px-3 sm:px-4 pt-4 sm:pt-6">
-        <div className="flex justify-center mb-4">
+    <Card className={styles.serviceCard}>
+      <CardHeader className={styles.serviceCardHeader}>
+        <div className={styles.iconContainer}>
           {icon}
         </div>
-        <h3 className="typography-card-title text-xl font-semibold mb-2 text-center">
+        <h3 className={styles.serviceCardTitle}>
           {title}
         </h3>
       </CardHeader>
-      <CardContent className="px-3 sm:px-4 pb-4 sm:pb-6">
-        <p className="typography-body-small text-muted-foreground text-center">
+      <CardContent className={styles.serviceCardContent}>
+        <p className={styles.serviceCardDescription}>
           {description}
         </p>
       </CardContent>

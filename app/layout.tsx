@@ -56,11 +56,56 @@ const cormorantGaramond = Cormorant_Garamond({
   preload: true,
 });
 
-// Métadonnées de l'application
+// Métadonnées de l'application optimisées pour le SEO
 export const metadata: Metadata = {
-  title: 'Services de Travail Social',
-  description: 'Services professionnels de travail social - assistance administrative, sociale, psychologique, financière, et éducative',
-  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0',
+  title: 'Services de Travail Social | Éducateur péi',
+  description: 'Services professionnels de travail social - assistance administrative, sociale, psychologique, financière, et éducative à La Réunion',
+  keywords: 'travail social, éducateur, accompagnement, handicap, insertion, addictions, problèmes familiaux, démarches administratives, La Réunion',
+  authors: [{ name: 'Éducateur péi', url: 'https://educateur-pei.re' }],
+  creator: 'Éducateur péi',
+  metadataBase: new URL('https://educateur-pei.re'),
+  openGraph: {
+    title: 'Services de Travail Social | Éducateur péi',
+    description: 'Services professionnels de travail social à La Réunion - accompagnement administratif, social, psychologique, et éducatif',
+    url: 'https://educateur-pei.re',
+    siteName: 'Éducateur péi',
+    locale: 'fr_FR',
+    type: 'website',
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Éducateur péi - Services de travail social à La Réunion',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Services de Travail Social | Éducateur péi',
+    description: 'Services professionnels de travail social à La Réunion',
+    images: ['/images/twitter-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://educateur-pei.re',
+    languages: {
+      'fr-FR': 'https://educateur-pei.re',
+    },
+  },
+  manifest: '/site.webmanifest',
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=5.0',
+  themeColor: '#f8765f',
+  category: 'social services',
 };
 
 /**
@@ -82,6 +127,9 @@ export default function RootLayout({
       <head>
         {/* Optimisation pour le rendu des polices */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+        {/* Préconnexion aux origines externes */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body>
         <ThemeProvider

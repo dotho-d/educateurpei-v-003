@@ -9,7 +9,7 @@
  @tailwind base;
  @tailwind components;
  @tailwind utilities;
- 
+  
  /* =========================================
   * BASE & VARIABLES
   * ========================================= */
@@ -21,7 +21,7 @@
      text-rendering: optimizeLegibility;
      font-feature-settings: "kern" 1, "liga" 1;
    }
-  
+   
    /* Variables globales */
    :root {
      /* Couleurs - Mode clair */
@@ -63,8 +63,25 @@
      /* Variables pour ajustements Hero */
      --hero-image-y: 0;
      --hero-circles-y: 0;
-   }
+
+     /* Tailles de police - Desktop (≥1024px) */
+     --font-size-h1: 56px;
+     --font-size-h2: 50px;
+     --font-size-h3: 44px;
+     --font-size-h4: 36px;
+     --font-size-h5: 30px;
+     --font-size-h6: 24px;
+     --font-size-nav: 24px;
+     --font-size-body: 20px;
+     --font-size-body-medium: 17px;
+     --font-size-body-small: 14px;
      
+     /* Line heights */
+     --line-height-heading: 1.2;
+     --line-height-subheading: 1.3;
+     --line-height-body: 1.6;
+   }
+      
    /* Mode sombre */
    .dark {
      --background: 30 15% 12%;
@@ -98,172 +115,113 @@
      --section-bg-1: 30 15% 14%;
      --section-bg-2: 30 15% 10%;
    }
- 
+  
    /* =========================================
     * SYSTÈME TYPOGRAPHIQUE
     * ========================================= */
-    
-   /* Système de titres - Desktop par défaut (≥1280px) */
+     
+   /* Système de titres - utilisant les variables */
    .typography-h1,
    html h1 {
      font-family: var(--font-alegreya), Georgia, serif;
-     font-size: 56px;
+     font-size: var(--font-size-h1);
      font-weight: 700;
      letter-spacing: 0.25px;
      color: hsl(var(--foreground));
-     line-height: 1.2;
+     line-height: var(--line-height-heading);
    }
-     
+      
    .typography-h2,
    html h2 {
      font-family: var(--font-alegreya), Georgia, serif;
-     font-size: 52px;
+     font-size: var(--font-size-h2);
      font-weight: 700;
      letter-spacing: 0.25px;
      color: hsl(var(--foreground));
-     line-height: 1.2;
+     line-height: var(--line-height-heading);
    }
-     
+      
    .typography-h3,
    html h3 {
      font-family: var(--font-alegreya), Georgia, serif;
-     font-size: 40px;
+     font-size: var(--font-size-h3);
      font-weight: 600;
      letter-spacing: 0.25px;
      color: hsl(var(--foreground));
-     line-height: 1.2;
+     line-height: var(--line-height-heading);
    }
-     
+      
    .typography-h4,
    html h4 {
      font-family: var(--font-alegreya), Georgia, serif;
-     font-size: 36px;
+     font-size: var(--font-size-h4);
      font-weight: 600;
      letter-spacing: 0.25px;
      color: hsl(var(--foreground));
-     line-height: 1.3;
+     line-height: var(--line-height-subheading);
    }
-     
+      
    .typography-h5,
    html h5 {
      font-family: var(--font-alegreya), Georgia, serif;
-     font-size: 32px;
+     font-size: var(--font-size-h5);
      font-weight: 500;
      letter-spacing: 0.25px;
      color: hsl(var(--foreground));
-     line-height: 1.3;
+     line-height: var(--line-height-subheading);
    }
-     
+      
    .typography-h6,
    html h6 {
      font-family: var(--font-alegreya), Georgia, serif;
-     font-size: 26px;
+     font-size: var(--font-size-h6);
      font-weight: 500;
      letter-spacing: 0.25px;
      color: hsl(var(--foreground));
-     line-height: 1.3;
+     line-height: var(--line-height-subheading);
    }
-     
+      
    /* Système de paragraphes */
    .typography-body,
    html p {
      font-family: var(--font-brawler), Georgia, serif;
-     font-size: 20px;
+     font-size: var(--font-size-body);
      font-weight: 400;
-     line-height: 1.6;
+     line-height: var(--line-height-body);
    }
-  
+   
    .typography-body-medium {
      font-family: var(--font-brawler), Georgia, serif;
-     font-size: 17px;
+     font-size: var(--font-size-body-medium);
      font-weight: 400;
      line-height: 1.5;
    }
-  
+   
    .typography-body-small {
      font-family: var(--font-brawler), Georgia, serif;
-     font-size: 14px;
+     font-size: var(--font-size-body-small);
      font-weight: 400;
      line-height: 1.5;
    }
-     
+      
    /* Paragraphes dans des contextes spécifiques */
    h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
      font-family: var(--font-brawler), Georgia, serif;
-     font-size: 20px;
+     font-size: var(--font-size-body);
      font-weight: 400;
-     line-height: 1.6;
+     line-height: var(--line-height-body);
    }
- 
-   /* =========================================
-    * COMPOSANTS SPÉCIFIQUES - SLIDESHOW
-    * ========================================= */
-   .ClientSlideshow .typography-slideshow-heading,
-   .ClientSlideshow h3 {
-     font-family: var(--font-alegreya), Georgia, serif;
-     font-size: 40px;
-     font-weight: 600;
-     letter-spacing: 0.25px;
-     color: hsl(var(--foreground));
-     line-height: 1.2;
-   }
-     
-   .ClientSlideshow .typography-slideshow-description,
-   .ClientSlideshow h3 + p,
-   .ClientSlideshow p.text-muted-foreground {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: 17px;
-     font-weight: 400;
-     line-height: 1.5;
-   }
-     
-   .ClientSlideshow .typography-slideshow-list,
-   .ClientSlideshow ul li {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: 14px;
-     font-weight: 400;
-     line-height: 1.5;
-   }
-     
-   /* =========================================
-    * COMPOSANTS SPÉCIFIQUES - CARTES
-    * ========================================= */
-   .ServiceCard .typography-card-title {
-     font-family: var(--font-alegreya), Georgia, serif;
-     font-size: 20px;
-     font-weight: 600;
-     letter-spacing: 0.25px;
-     line-height: 1.3;
-   }
-     
-   .ServiceCard .typography-card-description,
-   .ServiceCard p.text-muted-foreground {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: 14px;
-     font-weight: 400;
-     line-height: 1.5;
-   }
-     
+
    /* =========================================
     * COMPOSANTS SPÉCIFIQUES - TICKER
     * ========================================= */
    .ticker-item {
      font-family: var(--font-brawler), Georgia, serif;
-     font-size: 17px;
+     font-size: var(--font-size-body-medium);
      font-weight: 400;
      line-height: 1.5;
    }
-     
-   /* =========================================
-    * COMPOSANTS SPÉCIFIQUES - SERVICES
-    * ========================================= */
-   section#services .section-description {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: 20px;
-     font-weight: 400;
-     line-height: 1.6;
-   }
-     
+      
    /* =========================================
     * COMPOSANTS SPÉCIFIQUES - PRIX
     * ========================================= */
@@ -271,43 +229,7 @@
      font-family: var(--font-cormorant), Georgia, serif;
      font-weight: 600;
    }
-     
-   /* =========================================
-    * COMPOSANTS SPÉCIFIQUES - FOOTER
-    * ========================================= */
-   footer .footer-title {
-     font-family: var(--font-alegreya), Georgia, serif;
-     font-weight: 600;
-     font-size: 20px;
-   }
-  
-   footer .footer-brand {
-     font-family: var(--font-annie), cursive;
-     font-weight: 400;
-     font-size: 28px;
-   }
-     
-   footer .footer-text {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: 17px;
-     font-weight: 400;
-     line-height: 1.5;
-   }
-     
-   footer .footer-small {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: 14px;
-     font-weight: 400;
-     line-height: 1.5;
-   }
-     
-   footer .footer-link {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: 14px;
-     font-weight: 400;
-     line-height: 1.5;
-   }
-  
+   
    /* =========================================
     * BOUTONS ET NAVIGATION
     * ========================================= */
@@ -319,55 +241,55 @@
    html .tabs-list button,
    html [role="tab"] {
      font-family: var(--font-caveat), cursive;
-     font-size: 24px;
+     font-size: var(--font-size-nav);
    }
-     
+      
    .typography-nav,
    html nav a,
    html .navbar a,
    html .nav-item,
    html header a:not(.logo-text) {
      font-family: var(--font-caveat), cursive;
-     font-size: 24px;
+     font-size: var(--font-size-nav);
    }
-     
+      
    /* =========================================
     * ÉLÉMENTS DE BASE ET STRUCTURE
     * ========================================= */
    * {
      @apply border-border;
    }
-     
+      
    body {
      @apply bg-background text-foreground;
    }
  }
- 
+  
  /* =========================================
   * CLASSES TYPOGRAPHIQUES UTILITAIRES
   * ========================================= */
  .font-alegreya {
    font-family: var(--font-alegreya), Georgia, serif;
  }
- 
+  
  .font-brawler {
    font-family: var(--font-brawler), Georgia, serif;
    font-weight: 400;
  }
- 
+  
  .font-caveat {
    font-family: var(--font-caveat), cursive;
  }
- 
+  
  .font-cormorant {
    font-family: var(--font-cormorant), Georgia, serif;
  }
- 
+  
  .logo-text {
    font-family: var(--font-annie), cursive;
    font-weight: 400;
  }
- 
+  
  /* =========================================
   * UTILITAIRES DE TEXTE ET COULEURS
   * ========================================= */
@@ -377,107 +299,39 @@
    background-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary)));
    font-family: var(--font-alegreya), Georgia, serif;
  }
- 
+  
  /* =========================================
   * UTILITAIRES DE FONDS POUR LES SECTIONS
   * ========================================= */
  .section-bg-1 {
    background-color: hsl(var(--section-bg-1));
  }
- 
+  
  .section-bg-2 {
    background-color: hsl(var(--section-bg-2));
  }
- 
+  
  /* =========================================
   * UTILITAIRES POUR TAILLES DE TEXTE
   * ========================================= */
  .text-brawler-large {
    font-family: var(--font-brawler), Georgia, serif;
-   font-size: 20px;
+   font-size: var(--font-size-body);
    font-weight: 400;
  }
- 
+  
  .text-brawler-medium {
    font-family: var(--font-brawler), Georgia, serif;
-   font-size: 17px;
+   font-size: var(--font-size-body-medium);
    font-weight: 400;
  }
- 
+  
  .text-brawler-small {
    font-family: var(--font-brawler), Georgia, serif;
-   font-size: 14px;
+   font-size: var(--font-size-body-small);
    font-weight: 400;
  }
- 
- /* =========================================
-  * STYLES DE BOUTONS
-  * ========================================= */
- .btn, 
- button[class*="btn"], 
- .button,
- button,
- [type="button"],
- [type="submit"],
- [type="reset"] {
-   border-radius: var(--button-radius);
-   font-family: var(--font-caveat), cursive;
-   font-size: 24px;
-   padding: 0.5rem 1.25rem;
-   transition: all 0.2s ease-in-out;
- }
- 
- /* Exception pour les boutons d'icône */
- button[class*="size-icon"],
- .btn-icon,
- .button-icon {
-   border-radius: 9999px !important;
-   padding: 0.5rem !important;
-   display: inline-flex !important;
-   align-items: center !important;
-   justify-content: center !important;
-   background-color: hsl(var(--background) / 0.2) !important;
-   color: hsl(var(--foreground)) !important;
- }
- 
- /* S'assurer que les icônes à l'intérieur des boutons sont visibles */
- button[class*="size-icon"] svg,
- .btn-icon svg,
- .button-icon svg {
-   color: currentColor !important;
-   visibility: visible !important;
-   opacity: 1 !important;
- }
- 
- /* Styles améliorés pour les boutons au survol */
- .btn-icon:hover,
- button[variant="ghost"]:hover {
-   background-color: hsl(var(--primary) / 0.1) !important;
-   color: hsl(var(--primary)) !important;
- }
- 
- /* Taille des boutons dans des sections spécifiques */
- section[id="hero"] button,
- .cta-section button,
- div[class*="hero"] button {
-   font-size: 24px;
- }
- 
- /* =========================================
-  * STYLES POUR CARTES ET ÉLÉMENTS CONTENEURS
-  * ========================================= */
- .rounded-card {
-   @apply rounded-3xl overflow-hidden shadow-md;
- }
- 
- .rounded-btn {
-   border-radius: var(--button-radius);
- }
- 
- .hover-scale {
-   @apply transition-transform duration-300 hover:scale-105;
- }
- 
+  
  /* =========================================
   * ANIMATIONS
   * ========================================= */
@@ -491,7 +345,7 @@
      transform: translateY(0);
    }
  }
- 
+  
  @keyframes rotate {
    from {
      transform: rotate(0deg);
@@ -500,7 +354,7 @@
      transform: rotate(360deg);
    }
  }
- 
+  
  @keyframes pulse {
    0% {
      transform: scale(1);
@@ -515,17 +369,82 @@
      opacity: 0.8;
    }
  }
- 
+  
+ @keyframes tickerAnimation {
+   0% {
+     transform: translateX(0);
+   }
+   100% {
+     transform: translateX(-100%);
+   }
+ }
+  
  .animate-fadeIn {
    animation: fadeIn 0.6s ease-out forwards;
  }
- 
+  
  .animate-rotate {
    animation: rotate 30s linear infinite;
  }
- 
+  
  .animate-pulse {
    animation: pulse 4s infinite ease-in-out;
+ }
+  
+ /* =========================================
+  * STYLES POUR TICKER
+  * ========================================= */
+ .ticker {
+   display: flex;
+   width: fit-content;
+   height: 30px;
+   align-items: center;
+ }
+ 
+ .ticker-content {
+   display: flex;
+   white-space: nowrap;
+   animation: tickerAnimation 30s linear infinite;
+   height: 100%;
+   align-items: center;
+ }
+ 
+ .ticker-wrap {
+   position: relative;
+   width: 100%;
+   overflow: hidden;
+   padding: 8px 0;
+   display: flex;
+   align-items: center;
+ }
+ 
+ .ticker-item {
+   flex-shrink: 0;
+   padding-left: 1rem;
+   padding-right: 1rem;
+   font-size: 17px;
+   line-height: 1.4;
+   padding-top: 3px;
+   padding-bottom: 3px;
+ }
+ 
+ /* =========================================
+  * STYLES POUR LES AJUSTEMENTS HERO
+  * ========================================= */
+ .hero-image-container {
+   transform: translateY(var(--hero-image-y));
+   transition: transform 0.3s ease;
+ }
+ 
+ .hero-circles-container {
+   position: absolute;
+   inset: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transform: translateY(var(--hero-circles-y));
+   transition: transform 0.3s ease;
+   pointer-events: none;
  }
  
  /* =========================================
@@ -534,18 +453,18 @@
  .gradient-bg-primary {
    @apply bg-gradient-to-r from-primary/10 to-primary/10;
  }
- 
+  
  .gradient-bg-footer {
    @apply bg-gradient-to-t from-primary/20 to-background;
  }
- 
+  
  /* =========================================
   * UTILITAIRES DE CONTENEURS
   * ========================================= */
  .container-custom {
    @apply max-w-[76%] mx-auto px-4;
  }
- 
+  
  /* =========================================
   * ESPACEMENT DE SECTIONS
   * ========================================= */
@@ -553,7 +472,7 @@
    padding-top: 6rem;
    padding-bottom: 6rem;
  }
- 
+  
  /* =========================================
   * AMÉLIORATION DE L'ACCESSIBILITÉ
   * ========================================= */
@@ -567,63 +486,7 @@
    outline-offset: 0;
    box-shadow: none;
  }
- 
- /* =========================================
-  * STYLES SPÉCIFIQUES - NAVIGATION
-  * ========================================= */
- header a[href="/rendez-vous"] {
-   position: relative;
-   z-index: 1;
-   transition: color 0.3s ease;
- }
- 
- header a[href="/rendez-vous"]:hover {
-   color: hsl(var(--primary-foreground));
- }
- 
- header a[href="/rendez-vous"]::before {
-   content: "";
-   position: absolute;
-   inset: 0;
-   background-color: hsl(var(--primary));
-   border-radius: var(--button-radius);
-   z-index: -1;
-   opacity: 0;
-   transition: opacity 0.3s ease;
- }
- 
- header a[href="/rendez-vous"]:hover::before {
-   opacity: 1;
- }
- 
- /* =========================================
-  * STYLES POUR TICKER
-  * ========================================= */
- .ticker {
-   display: flex;
-   width: fit-content;
- }
- 
- .ticker-content {
-   animation: tickerAnimation 30s linear infinite;
- }
- 
- @keyframes tickerAnimation {
-   0% {
-     transform: translateX(0);
-   }
-   100% {
-     transform: translateX(-100%);
-   }
- }
- 
- .ticker-wrap {
-   position: relative;
-   width: 100%;
-   overflow: hidden;
-   padding: 8px 0;
- }
- 
+  
  /* =========================================
   * CONTAINER RESPONSIVE
   * ========================================= */
@@ -634,7 +497,7 @@
    padding-left: 1rem;
    padding-right: 1rem;
  }
- 
+  
  @media (min-width: 640px) {
    .container {
      max-width: 640px;
@@ -642,167 +505,140 @@
      padding-right: 1.5rem;
    }
  }
- 
+  
  @media (min-width: 768px) {
    .container {
      max-width: 768px;
    }
  }
- 
+  
  @media (min-width: 1024px) {
    .container {
      max-width: 1024px;
    }
  }
- 
+  
  @media (min-width: 1280px) {
    .container {
      max-width: 1280px;
    }
  }
- 
+  
  /* =========================================
   * MEDIA QUERIES - TYPOGRAPHIE RESPONSIVE
   * ========================================= */
- 
+  
  /* BREAKPOINT 768px-1024px (md) */
- @media (min-width: 768px) and (max-width: 1023px) {
-   .typography-h1,
-   html h1 {
-     font-size: 46px;
-     line-height: 1.2;
+ @media (max-width: 1023px) {
+   :root {
+     --font-size-h1: 46px;
+     --font-size-h2: 42px;
+     --font-size-h3: 36px;
+     --font-size-h4: 32px;
+     --font-size-h5: 28px;
+     --font-size-h6: 24px;
+     --font-size-nav: 22px;
+     --font-size-body: 18px;
+     --font-size-body-medium: 16px;
+     --font-size-body-small: 14px;
    }
-   
-   .typography-h2,
-   html h2 {
-     font-size: 42px;
-     line-height: 1.2;
+ }
+    
+ /* BREAKPOINT MOBILE (<= 768px) */
+ @media (max-width: 767px) {
+   :root {
+     --font-size-h1: 40px;
+     --font-size-h2: 36px;
+     --font-size-h3: 32px;
+     --font-size-h4: 28px;
+     --font-size-h5: 24px;
+     --font-size-h6: 20px;
+     --font-size-nav: 21px;
+     --font-size-body: 18px;
+     --font-size-body-medium: 15px;
+     --font-size-body-small: 14px;
    }
-   
-   .typography-h3,
-   html h3 {
-     font-size: 36px;
-     line-height: 1.3;
-   }
-   
-   .typography-h4,
-   html h4 {
-     font-size: 32px;
-     line-height: 1.3;
-   }
-   
-   .typography-h5,
-   html h5 {
-     font-size: 28px;
-     line-height: 1.3;
-   }
-   
-   .typography-h6,
-   html h6 {
-     font-size: 24px;
-     line-height: 1.3;
-   }
-   
-   .typography-body,
-   html p {
-     font-size: 18px;
-     line-height: 1.5;
-   }
-   
-   .typography-body-medium {
-     font-size: 16px;
-     line-height: 1.5;
-   }
-   
-   .typography-body-small {
-     font-size: 14px;
-     line-height: 1.4;
-   }
-   
-   .ClientSlideshow .typography-slideshow-heading,
-   .ClientSlideshow h3 {
-     font-size: 38px;
-     line-height: 1.2;
-   }
-   
-   .ClientSlideshow .typography-slideshow-description,
-   .ClientSlideshow h3 + p,
-   .ClientSlideshow p.text-muted-foreground {
-     font-size: 16px;
-     line-height: 1.5;
-   }
-   
-   .typography-button,
-   html button, 
-   html .btn,
-   html [type="button"], 
-   html [type="submit"] {
-     font-size: 22px;
-   }
-   
-   .typography-nav,
-   html nav a,
-   html .navbar a,
-   html .nav-item,
-   html header a:not(.logo-text) {
-     font-size: 22px;
-   }
-   
+    
    section {
-     padding-top: 5rem;
-     padding-bottom: 5rem;
+     padding-top: 4rem;
+     padding-bottom: 4rem;
    }
-   
-   .btn, 
-   button[class*="btn"], 
-   .button,
-   button,
-   [type="button"],
-   [type="submit"],
-   [type="reset"] {
-     padding: 0.5rem 1.25rem;
-     font-size: 22px;
+ }
+  
+ /* BREAKPOINT PETIT MOBILE (<= 640px) */
+ @media (max-width: 639px) {
+   :root {
+     --font-size-h1: 34px;
+     --font-size-h2: 30px;
+     --font-size-h3: 28px;
+     --font-size-h4: 26px;
+     --font-size-h5: 22px;
+     --font-size-h6: 20px;
+     --font-size-nav: 21px;
+     --font-size-body: 16px;
+     --font-size-body-medium: 14px;
+     --font-size-body-small: 14px;
    }
-   
-   section[id="hero"] button,
-   .cta-section button,
-   div[class*="hero"] button {
-     font-size: 22px;
+    
+   section {
+     padding-top: 3rem;
+     padding-bottom: 3rem;
    }
-   
-   /* Ajustements spécifiques pour la section hero */
-   section#hero {
-     padding-top: 7rem;
+ }
+ 
+ /* BREAKPOINT TRÈS PETIT (<= 480px) */
+ @media (max-width: 479px) {
+   :root {
+     --font-size-h1: 32px;
+     --font-size-h2: 28px;
+     --font-size-h3: 24px;
+     --font-size-h4: 22px;
+     --font-size-h5: 20px;
+     --font-size-h6: 18px;
+     --font-size-nav: 21px;
+     --font-size-body: 16px;
+     --font-size-body-medium: 14px;
+     --font-size-body-small: 14px;
    }
-   
-   section#hero h1 {
-     margin-top: 2rem;
-     margin-bottom: 2rem;
-   }
-   
-   section#hero .container {
-     padding-top: 2rem;
-     max-width: 86%;
-   }
-   
-   section#hero .absolute[style*="top: 92%"] {
-     top: 94% !important;
-   }
-   
-   /* Ajustements pour le ticker */
+ }
+
+ /* =========================================
+ * AJUSTEMENTS SPÉCIFIQUES POUR LE TICKER (640px-768px)
+ * ========================================= */
+@media (min-width: 641px) and (max-width: 767px) {
+  .ticker-wrap {
+    padding: 5px 0 !important;
+  }
+  
+  .ticker {
+    height: 26px !important;
+    align-items: center !important;
+  }
+  
+  .ticker-item {
+    font-size: 15px !important;
+    line-height: 1.3 !important;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+  }
+  
+  .ticker-content {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+  }
+}
+  
+ /* =========================================
+  * AJUSTEMENTS POUR LE TICKER (> 1024px)
+  * ========================================= */
+ @media (min-width: 1024px) {
    .ticker-wrap {
-     padding: 4px 0 !important;
-   }
-   
-   .ticker-item {
-     font-size: 16px !important;
-     line-height: 1.3 !important;
-     padding-top: 3px !important;
-     padding-bottom: 3px !important;
+     padding: 5px 0 !important;
    }
    
    .ticker {
-     height: 26px !important;
+     height: 30px !important;
      align-items: center !important;
    }
    
@@ -812,1118 +648,320 @@
      height: 100% !important;
    }
    
-   /* Ajustements divers */
-   .price-display {
-     font-size: 2.5rem;
-   }
-   
-   .ServiceCard {
-     padding: 1rem;
-   }
-   
-   .ClientSlideshow .typography-slideshow-description {
-     margin-bottom: 1rem;
-   }
-   
-   .ClientSlideshow ul {
-     margin-bottom: 1.5rem;
-   }
- }
- 
- /* BREAKPOINT MOBILE (<= 768px) */
- @media (max-width: 768px) {
-   .typography-h1,
-   html h1 {
-     font-size: 40px;
-     line-height: 1.2;
-   }
-   
-   .typography-h2,
-   html h2 {
-     font-size: 36px;
-     line-height: 1.2;
-   }
-   
-   .typography-h3,
-   html h3 {
-     font-size: 32px;
-     line-height: 1.3;
-   }
-   
-   .typography-h4,
-   html h4 {
-     font-size: 28px;
-     line-height: 1.3;
-   }
-   
-   .typography-h5,
-   html h5 {
-     font-size: 24px;
-     line-height: 1.3;
-   }
-   
-   .typography-h6,
-   html h6 {
-     font-size: 20px;
-     line-height: 1.3;
-   }
-   
-   .typography-body,
-   html p {
-     font-size: 18px;
-     line-height: 1.5;
-   }
-   
-   .typography-body-medium {
-     font-size: 15px;
-     line-height: 1.5;
-   }
-   
-   .typography-body-small {
-     font-size: 14px;
-     line-height: 1.5;
-   }
-   
-   .typography-button,
-   html button, 
-   html .btn,
-   html [type="button"], 
-   html [type="submit"] {
-     font-size: 24px;
-   }
-   
-   .typography-nav,
-   html nav a,
-   html .navbar a,
-   html .nav-item,
-   html header a:not(.logo-text) {
-     font-size: 24px;
-   }
-   
-   section {
-     padding-top: 4rem;
-     padding-bottom: 4rem;
-   }
-   
-   .btn, 
-   button[class*="btn"], 
-   .button,
-   button,
-   [type="button"],
-   [type="submit"],
-   [type="reset"] {
-     padding: 0.5rem 1.25rem;
-     font-size: 24px;
-   }
-   
-   section[id="hero"] button,
-   .cta-section button,
-   div[class*="hero"] button {
-     font-size: 24px;
-   }
-   
    .ticker-item {
-     font-size: 15px;
+     font-size: 17px !important;
+     line-height: 1.4 !important;
+     padding-top: 3px !important;
+     padding-bottom: 3px !important;
+   }
+   
+   section#hero .hero-content-container {
+     display: flex;
+     justify-content: space-around;
+     width: 100%;
+   }
+   
+   section#hero .hero-text-column,
+   section#hero .hero-image-column {
+     width: 45% !important;
    }
  }
- 
- /* BREAKPOINT PETIT MOBILE (<= 640px) */
- @media (max-width: 640px) {
-   .typography-h1,
-   html h1 {
-     font-size: 34px;
-   }
-   
-   .typography-h2,
-   html h2 {
-     font-size: 30px;
-   }
-   
-   .typography-h3,
-   html h3 {
-     font-size: 28px;
-   }
-   
-   .typography-h4,
-   html h4 {
-     font-size: 26px;
-   }
-   
-   .typography-h5,
-   html h5 {
-     font-size: 22px;
-   }
-   
-   .typography-h6,
-   html h6 {
-     font-size: 20px;
-   }
-   
-   .typography-body,
-   html p {
-     font-size: 16px;
-   }
-   
-   .typography-body-medium {
-     font-size: 14px;
-   }
-   
-   .typography-body-small {
-     font-size: 14px;
-   }
-   
-   .ClientSlideshow .typography-slideshow-heading,
-   .ClientSlideshow h3 {
-     font-size: 28px;
-   }
-   
-   .ClientSlideshow .typography-slideshow-description,
-   .ClientSlideshow h3 + p,
-   .ClientSlideshow p.text-muted-foreground {
-     font-size: 15px;
-   }
-   
-   .ClientSlideshow .typography-slideshow-list,
-   .ClientSlideshow ul li {
-     font-size: 14px;
-   }
-   
-   .typography-button,
-   html button, 
-   html .btn,
-   html [type="button"], 
-   html [type="submit"] {
-     font-size: 21px;
-   }
-   
-   .typography-nav,
-   html nav a,
-   html .navbar a,
-   html .nav-item,
-   html header a:not(.logo-text) {
-     font-size: 21px;
-   }
-   
-   section {
-     padding-top: 3rem;
-     padding-bottom: 3rem;
-   }
-   
-   .btn, 
-   button[class*="btn"], 
-   .button,
-   button,
-   [type="button"],
-   [type="submit"],
-   [type="reset"] {
-     padding: 0.4rem 1rem;
-     font-size: 21px;
-   }
-   
-   section[id="hero"] button,
-   .cta-section button,
-   div[class*="hero"] button {
-     font-size: 21px;
-   }
-   
-   .ticker-item {
-    font-size: 14px;
-  }
- }
- 
- /* BREAKPOINT TRÈS PETIT (<= 480px) */
- @media (max-width: 480px) {
-  .typography-h1,
-  html h1 {
-    font-size: 32px;
-  }
   
-  .typography-h2,
-  html h2 {
-    font-size: 28px;
-  }
-  
-  .typography-h3,
-  html h3 {
-    font-size: 24px;
-  }
-  
-  .typography-h4,
-  html h4 {
-    font-size: 22px;
-  }
-  
-  .typography-h5,
-  html h5 {
-    font-size: 20px;
-  }
-  
-  .typography-h6,
-  html h6 {
-    font-size: 18px;
-  }
-  
-  .typography-body,
-  html p {
-    font-size: 16px;
-  }
-  
-  .typography-body-medium {
-    font-size: 14px;
-  }
-  
-  .typography-body-small {
-    font-size: 14px;
-  }
-  
-  .ClientSlideshow .typography-slideshow-heading,
-  .ClientSlideshow h3 {
-    font-size: 24px;
-  }
-  
-  .ClientSlideshow .typography-slideshow-description,
-  .ClientSlideshow h3 + p,
-  .ClientSlideshow p.text-muted-foreground {
-    font-size: 15px;
-  }
-  
-  .ClientSlideshow .typography-slideshow-list,
-  .ClientSlideshow ul li {
-    font-size: 13px;
-  }
-  
-  .typography-button,
-  html button, 
-  html .btn,
-  html [type="button"], 
-  html [type="submit"] {
-    font-size: 21px;
-  }
-  
-  .typography-nav,
-  html nav a,
-  html .navbar a,
-  html .nav-item,
-  html header a:not(.logo-text) {
-    font-size: 21px;
-  }
-  
-  section {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-  
-  .btn, 
-  button[class*="btn"], 
-  .button,
-  button,
-  [type="button"],
-  [type="submit"],
-  [type="reset"] {
-    padding: 0.35rem 0.75rem;
-    font-size: 21px;
-  }
-  
-  section[id="hero"] button,
-  .cta-section button,
-  div[class*="hero"] button {
-    font-size: 21px;
-  }
-  
-  .ticker-item {
-    font-size: 14px;
-  }
- }
- 
  /* =========================================
- * AJUSTEMENTS POUR LE TICKER (> 1024px)
- * ========================================= */
- @media (min-width: 1024px) {
-  .ticker-wrap {
-    padding: 5px 0 !important;
-  }
-  
-  .ticker-item {
-    font-size: 17px !important;
-    line-height: 1.4 !important;
-    padding-top: 3px !important;
-    padding-bottom: 3px !important;
-  }
-  
-  .ticker {
-    height: 30px !important;
-    align-items: center !important;
-  }
-  
-  .ticker-content {
-    display: flex !important;
-    align-items: center !important;
-    height: 100% !important;
-  }
-  
-  section#hero .hero-content-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
-  
-  section#hero .hero-text-column,
-  section#hero .hero-image-column {
-    width: 45% !important;
-  }
- }
- 
- /* =========================================
- * AJUSTEMENTS POUR LES PRIX PAR BREAKPOINT
- * ========================================= */
+  * AJUSTEMENTS POUR LES PRIX PAR BREAKPOINT
+  * ========================================= */
  /* Breakpoint très petit (<= 480px) */
  @media (max-width: 480px) {
-  .price-display.text-xl {
-    font-size: 1.3rem !important;
-  }
-  
-  .price-display.text-2xl {
-    font-size: 1.8rem !important;
-  }
-  
-  .price-display.text-4xl,
-  span.text-4xl.font-cormorant {
-    font-size: 2.5rem !important;
-  }
-  
-  span.font-cormorant.font-medium.text-\[24px\] {
-    font-size: 1.6rem !important;
-  }
+   .price-display.text-xl {
+     font-size: 1.3rem !important;
+   }
+   
+   .price-display.text-2xl {
+     font-size: 1.8rem !important;
+   }
+   
+   .price-display.text-4xl,
+   span.text-4xl.font-cormorant {
+     font-size: 2.5rem !important;
+   }
+   
+   span.font-cormorant.font-medium.text-\[24px\] {
+     font-size: 1.6rem !important;
+   }
  }
- 
+  
  /* Breakpoint petit (480px - 640px) */
  @media (min-width: 481px) and (max-width: 640px) {
-  .price-display.text-xl {
-    font-size: 1.5rem !important;
-  }
-  
-  .price-display.text-2xl {
-    font-size: 2rem !important;
-  }
-  
-  .price-display.text-4xl,
-  span.text-4xl.font-cormorant {
-    font-size: 2.6rem !important;
-  }
-  
-  span.font-cormorant.font-medium.text-\[24px\] {
-    font-size: 1.8rem !important;
-  }
+   .price-display.text-xl {
+     font-size: 1.5rem !important;
+   }
+   
+   .price-display.text-2xl {
+     font-size: 2rem !important;
+   }
+   
+   .price-display.text-4xl,
+   span.text-4xl.font-cormorant {
+     font-size: 2.6rem !important;
+   }
+   
+   span.font-cormorant.font-medium.text-\[24px\] {
+     font-size: 1.8rem !important;
+   }
  }
- 
+  
  /* Breakpoint moyen (640px - 768px) */
  @media (min-width: 641px) and (max-width: 768px) {
-  .price-display.text-xl {
-    font-size: 1.6rem !important;
-  }
-  
-  .price-display.text-2xl {
-    font-size: 2.1rem !important;
-  }
-  
-  .price-display.text-4xl,
-  span.text-4xl.font-cormorant {
-    font-size: 2.75rem !important;
-  }
-  
-  span.font-cormorant.font-medium.text-\[24px\] {
-    font-size: 2rem !important;
-  }
+   .price-display.text-xl {
+     font-size: 1.6rem !important;
+   }
+   
+   .price-display.text-2xl {
+     font-size: 2.1rem !important;
+   }
+   
+   .price-display.text-4xl,
+   span.text-4xl.font-cormorant {
+     font-size: 2.75rem !important;
+   }
+   
+   span.font-cormorant.font-medium.text-\[24px\] {
+     font-size: 2rem !important;
+   }
  }
- 
+  
  /* Breakpoint tablette large (768px - 1024px) */
  @media (min-width: 769px) and (max-width: 1023px) {
-  .price-display.text-xl {
-    font-size: 1.8rem !important;
-  }
-  
-  .price-display.text-2xl {
-    font-size: 2.25rem !important;
-  }
-  
-  .price-display.text-4xl,
-  span.text-4xl.font-cormorant {
-    font-size: 2.8rem !important;
-  }
-  
-  span.font-cormorant.font-medium.text-\[24px\] {
-    font-size: 2.25rem !important;
-  }
+   .price-display.text-xl {
+     font-size: 1.8rem !important;
+   }
+   
+   .price-display.text-2xl {
+     font-size: 2.25rem !important;
+   }
+   
+   .price-display.text-4xl,
+   span.text-4xl.font-cormorant {
+     font-size: 2.8rem !important;
+   }
+   
+   span.font-cormorant.font-medium.text-\[24px\] {
+     font-size: 2.25rem !important;
+   }
  }
- 
+  
  /* Breakpoint desktop (>= 1024px) */
  @media (min-width: 1024px) {
-  .price-display.text-xl {
-    font-size: 2rem !important;
-  }
-  
-  .price-display.text-2xl {
-    font-size: 2.4rem !important;
-  }
-  
-  .price-display.text-4xl,
-  span.text-4xl.font-cormorant {
-    font-size: 3rem !important;
-  }
-  
-  span.font-cormorant.font-medium.text-\[24px\] {
-    font-size: 2.4rem !important;
-  }
+   .price-display.text-xl {
+     font-size: 2rem !important;
+   }
+   
+   .price-display.text-2xl {
+     font-size: 2.4rem !important;
+   }
+   
+   .price-display.text-4xl,
+   span.text-4xl.font-cormorant {
+     font-size: 3rem !important;
+   }
+   
+   span.font-cormorant.font-medium.text-\[24px\] {
+     font-size: 2.4rem !important;
+   }
  }
- 
+  
  /* =========================================
- * OPTIMISATION DU CONTENEUR
- * ========================================= */
+  * OPTIMISATION DU CONTENEUR
+  * ========================================= */
  .container-optimized {
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  max-width: 100%;
- } 
- 
+   margin-left: auto;
+   margin-right: auto;
+   padding-left: 1rem;
+   padding-right: 1rem;
+   max-width: 100%;
+ }
+  
  @media (min-width: 480px) {
-  .container-optimized {
-    max-width: 90%;
-  }
+   .container-optimized {
+     max-width: 90%;
+   }
  }
- 
+  
  @media (min-width: 640px) {
-  .container-optimized {
-    max-width: 90%;
-  }
+   .container-optimized {
+     max-width: 90%;
+   }
  }
- 
+  
  @media (min-width: 768px) {
-  .container-optimized {
-    max-width: 86%;
-  }
+   .container-optimized {
+     max-width: 86%;
+   }
  }
- 
+  
  @media (min-width: 1024px) {
-  .container-optimized {
-    max-width: 82%;
-  }
+   .container-optimized {
+     max-width: 82%;
+   }
  }
- 
+  
  @media (min-width: 1280px) {
-  .container-optimized {
-    max-width: 76%;
-  }
+   .container-optimized {
+     max-width: 76%;
+   }
+ }
+  
+ /* Adaptations spécifiques pour sous-breakpoints du menu mobile */
+ @media (min-width: 480px) and (max-width: 640px) {
+   .fixed.inset-0.top-16 .typography-nav.font-medium {
+     font-size: 20px !important;
+   }
+   
+   .fixed.inset-0.top-16 .pt-6.space-y-4 {
+     padding-top: 1.5rem !important;
+   }
+ }
+  
+ @media (min-width: 640px) and (max-width: 768px) {
+   .fixed.inset-0.top-16 .typography-nav.font-medium {
+     font-size: 21px !important;
+   }
+   
+   .fixed.inset-0.top-16 .pt-6.space-y-4 {
+     padding-top: 1.75rem !important;
+   }
+ }
+  
+ @media (min-width: 768px) and (max-width: 1023px) {
+   .tablet-menu .typography-nav.font-medium,
+   .fixed.inset-0.top-16 .typography-nav.font-medium {
+     font-size: 22px !important;
+   }
+   
+   .tablet-menu .space-y-6,
+   .fixed.inset-0.top-16 .space-y-6 {
+     margin-top: 1rem !important;
+   }
+   
+   .tablet-menu .pt-6.space-y-4,
+   .fixed.inset-0.top-16 .pt-6.space-y-4 {
+     padding-top: 2rem !important;
+     margin-top: 2rem !important;
+   }
+   
+   .tablet-menu .max-w-\[80\%\],
+   .fixed.inset-0.top-16 .max-w-\[80\%\] {
+     max-width: 86% !important;
+   }
+ }
+  
+ /* Adaptation générale pour tous les menus déroulants sur petits écrans */
+ @media (max-width: 1023px) {
+   /* Forcer le fond opaque pour le menu déroulant */
+   .fixed.inset-0.top-16 {
+     background-color: hsl(var(--background)) !important;
+     backdrop-filter: none !important;
+   }
+   
+   /* S'assurer que le texte des liens est bien visible */
+   .fixed.inset-0.top-16 a {
+     color: hsl(var(--foreground)) !important;
+   }
+   
+   /* S'assurer que les liens ont un état de survol visible */
+   .fixed.inset-0.top-16 a:hover {
+     color: hsl(var(--primary)) !important;
+   }
+   
+   /* Adaptation de la largeur du conteneur de menu */
+   .fixed.inset-0.top-16 > div {
+     width: 86% !important;
+     max-width: 86% !important;
+   }
  }
  
  /* =========================================
- * AJUSTEMENTS POUR LE SLIDESHOW RESPONSIVE
- * ========================================= */
- @media (max-width: 768px) {
-  .ClientSlideshow {
-    width: 100%;
-    overflow-x: hidden;
-    margin-top: 20px;
-    padding-top: 10px;
-    padding-bottom: 20px;
-  }
- 
-  .ClientSlideshow .bg-gradient-to-br {
-    padding: 1.5rem;
-    border-radius: 1rem;
-  }
-  
-  .ClientSlideshow ul {
-    padding-left: 1.25rem;
-  }
-  
-  .ClientSlideshow .typography-slideshow-heading {
-    font-size: 36px;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-  }
-  
-  .ClientSlideshow .py-2 {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-  }
- }
- 
- @media (max-width: 640px) {
-  .ClientSlideshow {
-    width: 100%;
-    overflow-x: hidden;
-    padding-top: 0;
-  }
-  
-  .ClientSlideshow .typography-slideshow-heading {
-    font-size: 28px;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-  }
- 
-  .ClientSlideshow [style="opacity: 0"] {
-    display: none !important;
-  }
-  
-  .ClientSlideshow .bg-gradient-to-br {
-    padding: 1rem;
-    margin-top: 0;
-  }
- }
- 
- @media (max-width: 480px) {
-  .ClientSlideshow {
-    width: 100%;
-    overflow-x: hidden;
-    padding-top: 0;
-  }
-  
-  .ClientSlideshow .typography-slideshow-heading {
-    font-size: 24px;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-  }
-  
-  .ClientSlideshow .bg-gradient-to-br {
-    padding: 0.75rem;
-    margin-top: 0;
-  }
- }
- 
- /* =========================================
- * AJUSTEMENTS POUR LE TICKER RESPONSIVE
- * ========================================= */
- @media (max-width: 640px) {
-  .ticker-item {
-    font-size: 14px;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
- 
-  .ticker-wrap {
-    padding: 6px 0;
-  }
- 
-  @keyframes tickerAnimation {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-200%);
-    }
-  }
-  
-  .ticker-content {
-    animation: tickerAnimation 30s linear infinite;
-  }
- }
- 
- @media (max-width: 480px) {
-  .ticker-item {
-    font-size: 14px;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  
-  .ticker-wrap {
-    padding: 4px 0;
-  }
- }
- 
- /* =========================================
- * AJUSTEMENTS POUR LES BOUTONS SUR MOBILE
- * ========================================= */
- @media (max-width: 640px) {
-  button[class="size-lg"],
-  .btn-lg,
-  .button-lg {
-    padding: 0.5rem 1rem !important;
-    font-size: 21px !important;
-  }
- 
-  button[class*="size-icon"],
-  .btn-icon,
-  .button-icon {
-    padding: 0.4rem !important;
-  }
-  
-  button[class*="size-icon"] svg,
-  .btn-icon svg,
-  .button-icon svg {
-    width: 1rem !important;
-    height: 1rem !important;
-  }
- }
- 
- @media (max-width: 480px) {
-  button[class*="size-lg"],
-  .btn-lg,
-  .button-lg {
-    padding: 0.5rem 1rem !important;
-    font-size: 21px !important;
-  }
-  
-  button[class*="size-icon"],
-  .btn-icon,
-  .button-icon {
-    padding: 0.35rem !important;
-  }
-  
-  button[class*="size-icon"] svg,
-  .btn-icon svg,
-  .button-icon svg {
-    width: 0.9rem !important;
-    height: 0.9rem !important;
-  }
- }
- 
- /* =========================================
- * AJUSTEMENTS POUR LE FOOTER RESPONSIVE
- * ========================================= */
- @media (max-width: 768px) {
-  footer {
-    height: auto !important;
-    min-height: auto !important;
-  }
- 
-  footer .grid {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
-  }
-  
-  footer .footer-brand {
-    font-size: 24px;
-  }
-  
-  footer .footer-text {
-    font-size: 15px;
-  }
- }
- 
- @media (max-width: 480px) {
-  footer .footer-brand {
-    font-size: 22px;
-  }
-  
-  footer .footer-text {
-    font-size: 14px;
-  }
-  
-  footer .footer-small {
-    font-size: 13px;
-  }
-  
-  footer .footer-link {
-    font-size: 13px;
-  }
- }
- 
- /* =========================================
- * AJUSTEMENTS POUR LE HEADER RESPONSIVE
- * ========================================= */
- @media (max-width: 640px) {
-  header .container {
-    max-width: 98% !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-  }
-  
-  header .logo-text {
-    font-size: 1.75rem;
-  }
- }
- 
- @media (max-width: 480px) {
-  header .container {
-    max-width: 100% !important;
-    padding-left: 0.25rem !important;
-    padding-right: 0.25rem !important;
-  }
-  
-  header .logo-text {
-    font-size: 1.5rem;
-  }
-  
-  header [class="max-w-"] {
-    max-width: 96% !important;
-  }
-  
-  header .flex {
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  header [class*="w-1/2"] {
-    width: auto !important;
-  }
- }
- 
- /* =========================================
- * STYLES SECTION HERO
- * ========================================= */
+  * STYLES SECTION HERO 
+  * ========================================= */
  section#hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   padding-top: 8rem;
+   padding-bottom: 8rem;
  }
- 
+  
  @media (max-width: 768px) {
-  section#hero {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
+   section#hero {
+     padding-top: 6rem;
+     padding-bottom: 6rem;
+   }
  }
- 
+  
  @media (max-width: 640px) {
-  section#hero {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
+   section#hero {
+     padding-top: 5rem;
+     padding-bottom: 5rem;
+   }
  }
  
  /* =========================================
- * STYLES POUR LES AJUSTEMENTS HERO
- * ========================================= */
- .hero-image-container {
-  transform: translateY(var(--hero-image-y));
-  transition: transform 0.3s ease;
- }
- 
- .hero-circles-container {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(var(--hero-circles-y));
-  transition: transform 0.3s ease;
-  pointer-events: none;
- }
- 
- /* =========================================
- * AJUSTEMENTS SPÉCIFIQUES PAR BREAKPOINT POUR HERO
- * ========================================= */
+  * AJUSTEMENTS SPÉCIFIQUES PAR BREAKPOINT POUR HERO
+  * ========================================= */
  @media (max-width: 480px) {
-  :root {
-    --hero-image-y: -5%;
-    --hero-circles-y: -10%;
-  }
+   :root {
+     --hero-image-y: -5%;
+     --hero-circles-y: -10%;
+   }
  }
  
  @media (min-width: 481px) and (max-width: 1024px) {
-  :root {
-    --hero-image-y: -3%;
-    --hero-circles-y: -5%;
-  }
+   :root {
+     --hero-image-y: -3%;
+     --hero-circles-y: -5%;
+   }
  }
  
  @media (min-width: 1025px) {
-  :root {
-    --hero-image-y: 0;
-    --hero-circles-y: 0;
-  }
+   :root {
+     --hero-image-y: 0;
+     --hero-circles-y: 0;
+   }
  }
- 
+  
  /* =========================================
- * AJUSTEMENTS POUR LE SLIDESHOW CONTENT
- * ========================================= */
- .slide-content-only .h-[180px] {
-  display: none !important;
- }
- 
- .slide-content-only [class*="md:h-full"] {
-  display: none !important;
- }
- 
- .slide-content-only [class*="rounded-xl overflow-hidden"] {
-  display: none !important;
- }
- 
- .slide-content-only [class*="bg-muted/10"] {
-  display: none !important;
- }
- 
- .slide-content-only [class*="w-full md:w-[42%]"] {
-  display: none !important;
- }
- 
- @media (max-width: 1023px) {
-  .slide-content-only > div > div > div > div:last-child {
-    display: none !important;
-  }
- }
- 
- .ClientSlideshow h3 + p:first-of-type,
- .ClientSlideshow .typography-slideshow-heading + p:first-of-type {
-  margin-top: 0.25rem !important;
- }
- 
- @media (max-width: 639px) {
-  .ClientSlideshow h3 + p:first-of-type,
-  .ClientSlideshow .typography-slideshow-heading + p:first-of-type {
-    margin-top: 0.15rem !important;
-  }
- }
- 
- /* =========================================
- * AJUSTEMENTS POUR TABLETTE (640px-768px)
- * ========================================= */
- @media (min-width: 640px) and (max-width: 768px) {
-  section#hero {
-    padding-top: 7rem;
-  }
-  
-  :root {
-    --hero-image-y: -5px;
-  }
-  
-  section#hero .container {
-    padding-top: 1.5rem;
-    max-width: 90%;
-  }
-  
-  section#hero h1 {
-    margin-bottom: 1.5rem;
-  }
-  
-  section#hero .absolute[style*="top: 92%"] {
-    top: 94% !important;
-  }
-  
-  .ticker-wrap {
-    padding: 3px 0 !important;
-  }
-  
-  .ticker-item {
-    font-size: 16px !important;
-    line-height: 1.2 !important;
-    padding-top: 2px !important;
-    padding-bottom: 2px !important;
-  }
-  
-  .ticker {
-    height: 24px !important;
-    align-items: center !important;
-  }
-  
-  .ticker-content {
-    display: flex !important;
-    align-items: center !important;
-    height: 100% !important;
-  }
- }
- 
- /* =========================================
- * CLASSES UTILITAIRES HERO
- * ========================================= */
+  * CLASSES UTILITAIRES HERO
+  * ========================================= */
  .hero-justify-around {
-  display: flex;
-  flex-direction: column;
+   display: flex;
+   flex-direction: column;
  }
- 
+  
  @media (min-width: 1024px) {
-  .hero-justify-around {
-    flex-direction: row;
-    justify-content: space-around;
-  }
+   .hero-justify-around {
+     flex-direction: row;
+     justify-content: space-around;
+   }
  }
  
  /* =========================================
- * MENU DÉROULANT MOBILE ET TABLETTE - CORRECTION OPACITÉ
- * ========================================= */
- /* Version mobile et tablette - correction d'opacité */
- .fixed.inset-0.top-16,
- .tablet-menu {
-  background-color: hsl(var(--background)) !important;
-  backdrop-filter: none !important;
-  opacity: 1 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-  z-index: 40 !important;
-  border-bottom: 1px solid hsl(var(--border));
- }
- 
- /* Styles spécifiques pour garantir une police cohérente par breakpoint */
- /* XSmall screens (<480px) */
- .fixed.inset-0.top-16 a.typography-nav,
- .fixed.inset-0.top-16 a.typography-nav.font-medium,
- .fixed.inset-0.top-16 button.typography-button,
- .tablet-menu a.typography-nav,
- .tablet-menu a.typography-nav.font-medium,
- .tablet-menu button.typography-button {
-  font-size: 18px !important;
- }
- 
- /* Small screens (480px-640px) */
- @media (min-width: 480px) and (max-width: 639px) {
-  .fixed.inset-0.top-16 a.typography-nav,
-  .fixed.inset-0.top-16 a.typography-nav.font-medium,
-  .fixed.inset-0.top-16 button.typography-button,
-  .tablet-menu a.typography-nav,
-  .tablet-menu a.typography-nav.font-medium,
-  .tablet-menu button.typography-button {
-    font-size: 20px !important;
-  }
- }
- 
- /* Medium screens (640px-768px) */
- @media (min-width: 640px) and (max-width: 767px) {
-  .fixed.inset-0.top-16 a.typography-nav,
-  .fixed.inset-0.top-16 a.typography-nav.font-medium,
-  .fixed.inset-0.top-16 button.typography-button,
-  .tablet-menu a.typography-nav,
-  .tablet-menu a.typography-nav.font-medium,
-  .tablet-menu button.typography-button {
-    font-size: 21px !important;
-  }
- }
- 
- /* Tablet screens (768px-1024px) */
- @media (min-width: 768px) and (max-width: 1023px) {
-  .fixed.inset-0.top-16 a.typography-nav,
-  .fixed.inset-0.top-16 a.typography-nav.font-medium,
-  .fixed.inset-0.top-16 button.typography-button,
-  .tablet-menu a.typography-nav,
-  .tablet-menu a.typography-nav.font-medium,
-  .tablet-menu button.typography-button {
-    font-size: 22px !important;
-  }
- }
- 
- /* Desktop screens (>=1024px) */
- @media (min-width: 1024px) {
-  .fixed.inset-0.top-16 a.typography-nav,
-  .fixed.inset-0.top-16 a.typography-nav.font-medium,
-  .fixed.inset-0.top-16 button.typography-button,
-  .tablet-menu a.typography-nav,
-  .tablet-menu a.typography-nav.font-medium,
-  .tablet-menu button.typography-button {
-    font-size: 24px !important;
-  }
- }
- 
- /* Assurer la progression cohérente pour les textes des boutons */
- .fixed.inset-0.top-16 .pt-6 a,
- .tablet-menu .pt-6 a,
- .fixed.inset-0.top-16 .pt-6 a[href="#contact"],
- .tablet-menu .pt-6 a[href="#contact"],
- .fixed.inset-0.top-16 .pt-6 a[href="/connexion"],
- .tablet-menu .pt-6 a[href="/connexion"] {
-  font-size: 18px !important;
- }
- 
- @media (min-width: 480px) and (max-width: 639px) {
-  .fixed.inset-0.top-16 .pt-6 a,
-  .tablet-menu .pt-6 a,
-  .fixed.inset-0.top-16 .pt-6 a[href="#contact"],
-  .tablet-menu .pt-6 a[href="#contact"],
-  .fixed.inset-0.top-16 .pt-6 a[href="/connexion"],
-  .tablet-menu .pt-6 a[href="/connexion"] {
-    font-size: 20px !important;
-  }
- }
- 
- @media (min-width: 640px) and (max-width: 767px) {
-  .fixed.inset-0.top-16 .pt-6 a,
-  .tablet-menu .pt-6 a,
-  .fixed.inset-0.top-16 .pt-6 a[href="#contact"],
-  .tablet-menu .pt-6 a[href="#contact"],
-  .fixed.inset-0.top-16 .pt-6 a[href="/connexion"],
-  .tablet-menu .pt-6 a[href="/connexion"] {
-    font-size: 21px !important;
-  }
- }
- 
- @media (min-width: 768px) and (max-width: 1023px) {
-  .fixed.inset-0.top-16 .pt-6 a,
-  .tablet-menu .pt-6 a,
-  .fixed.inset-0.top-16 .pt-6 a[href="#contact"],
-  .tablet-menu .pt-6 a[href="#contact"],
-  .fixed.inset-0.top-16 .pt-6 a[href="/connexion"],
-  .tablet-menu .pt-6 a[href="/connexion"] {
-    font-size: 22px !important;
-  }
- }
- 
- @media (min-width: 1024px) {
-  .fixed.inset-0.top-16 .pt-6 a,
-  .tablet-menu .pt-6 a,
-  .fixed.inset-0.top-16 .pt-6 a[href="#contact"],
-  .tablet-menu .pt-6 a[href="#contact"],
-  .fixed.inset-0.top-16 .pt-6 a[href="/connexion"],
-  .tablet-menu .pt-6 a[href="/connexion"] {
-    font-size: 24px !important;
-  }
- }
- 
- /* Adaptations spécifiques pour sous-breakpoints du menu mobile */
- @media (min-width: 480px) and (max-width: 640px) {
-  .fixed.inset-0.top-16 .typography-nav.font-medium {
-    font-size: 20px !important;
-  }
-  
-  .fixed.inset-0.top-16 .pt-6.space-y-4 {
-    padding-top: 1.5rem !important;
-  }
- }
- 
+  * AJUSTEMENTS SPÉCIFIQUES POUR TABLETTE (640px-768px)
+  * ========================================= */
  @media (min-width: 640px) and (max-width: 768px) {
-  .fixed.inset-0.top-16 .typography-nav.font-medium {
-    font-size: 21px !important;
-  }
-  
-  .fixed.inset-0.top-16 .pt-6.space-y-4 {
-    padding-top: 1.75rem !important;
-  }
- }
- 
- @media (min-width: 768px) and (max-width: 1023px) {
-  .tablet-menu .typography-nav.font-medium,
-  .fixed.inset-0.top-16 .typography-nav.font-medium {
-    font-size: 22px !important;
-  }
-  
-  .tablet-menu .space-y-6,
-  .fixed.inset-0.top-16 .space-y-6 {
-    margin-top: 1rem !important;
-  }
-  
-  .tablet-menu .pt-6.space-y-4,
-  .fixed.inset-0.top-16 .pt-6.space-y-4 {
-    padding-top: 2rem !important;
-    margin-top: 2rem !important;
-  }
-  
-  .tablet-menu .max-w-\[80\%\],
-  .fixed.inset-0.top-16 .max-w-\[80\%\] {
-    max-width: 86% !important;
-  }
- }
- 
- /* Adaptation générale pour tous les menus déroulants sur petits écrans */
- @media (max-width: 1023px) {
-  /* Forcer le fond opaque pour le menu déroulant */
-  .fixed.inset-0.top-16 {
-    background-color: hsl(var(--background)) !important;
-    backdrop-filter: none !important;
-  }
-  
-  /* S'assurer que le texte des liens est bien visible */
-  .fixed.inset-0.top-16 a {
-    color: hsl(var(--foreground)) !important;
-  }
-  
-  /* S'assurer que les liens ont un état de survol visible */
-  .fixed.inset-0.top-16 a:hover {
-    color: hsl(var(--primary)) !important;
-  }
-  
-  /* Adaptation de la largeur du conteneur de menu */
-  .fixed.inset-0.top-16 > div {
-    width: 86% !important;
-    max-width: 86% !important;
-  }
+   :root {
+     --hero-image-y: -5px;
+   }
+   
+   section#hero .container {
+     padding-top: 1.5rem;
+     max-width: 90%;
+   }
+   
+   section#hero h1 {
+     margin-bottom: 1.5rem;
+   }
+   
+   section#hero .absolute[style*="top: 92%"] {
+     top: 94% !important;
+   }
  }

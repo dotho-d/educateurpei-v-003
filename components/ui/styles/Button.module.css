@@ -1,0 +1,165 @@
+/* components/ui/styles/Button.module.css */
+.base {
+  border-radius: var(--button-radius);
+  font-family: var(--font-caveat), cursive;
+  font-size: 24px;
+  padding: 0.5rem 1.25rem;
+  transition: all 0.2s ease-in-out;
+  font-weight: 400;
+  line-height: 1.5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.default {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.default:hover {
+  background-color: hsl(var(--primary) / 0.9);
+}
+
+.destructive {
+  background-color: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
+}
+
+.destructive:hover {
+  background-color: hsl(var(--destructive) / 0.9);
+}
+
+.outline {
+  border: 1px solid hsl(var(--input));
+  background-color: hsl(var(--background));
+}
+
+.outline:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.secondary {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+}
+
+.secondary:hover {
+  background-color: hsl(var(--secondary) / 0.8);
+}
+
+.ghost {
+  background-color: transparent;
+}
+
+.ghost:hover {
+  background-color: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+}
+
+.link {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  background-color: transparent;
+  padding: 0;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.sm {
+  height: 2.25rem; /* h-9 */
+  padding-left: 0.75rem; /* px-3 */
+  padding-right: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.lg {
+  height: 3rem; /* h-12 */
+  padding-left: 2rem; /* px-8 */
+  padding-right: 2rem;
+}
+
+.icon {
+  height: 2.5rem; /* h-10 */
+  width: 2.5rem; /* w-10 */
+  border-radius: 9999px;
+  padding: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(var(--background) / 0.2);
+  color: hsl(var(--foreground));
+}
+
+.icon svg {
+  color: currentColor;
+  visibility: visible;
+  opacity: 1;
+}
+
+.icon:hover {
+  background-color: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+}
+
+/* Hero section specific buttons */
+.heroButton {
+  font-size: 24px;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .base {
+    font-size: 24px;
+    padding: 0.5rem 1.25rem;
+  }
+  
+  .heroButton {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .base {
+    font-size: 21px;
+    padding: 0.4rem 1rem;
+  }
+  
+  .heroButton {
+    font-size: 21px;
+  }
+  
+  .lg {
+    padding: 0.5rem 1rem;
+    font-size: 21px;
+  }
+  
+  .icon {
+    padding: 0.4rem;
+  }
+  
+  .icon svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .lg {
+    padding: 0.5rem 1rem;
+    font-size: 21px;
+  }
+  
+  .icon {
+    padding: 0.35rem;
+  }
+  
+  .icon svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+}

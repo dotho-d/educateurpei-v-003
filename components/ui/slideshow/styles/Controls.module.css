@@ -1,0 +1,194 @@
+/* components/ui/slideshow/styles/Controls.module.css */
+
+.controlsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.75rem; /* Réduit pour tous les breakpoints */
+}
+
+/* Boutons de navigation (précédent/suivant) */
+.navigationButton {
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background-color: hsla(var(--primary) / 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative; /* Ajouté pour le positionnement des icônes */
+}
+
+.navigationButton:hover {
+  background-color: hsla(var(--primary) / 0.4);
+}
+
+.navigationButton:active {
+  background-color: hsla(var(--primary) / 0.6);
+}
+
+.navigationButton:focus {
+  outline: none;
+}
+
+/* Tailles pour les boutons de navigation */
+.buttonSmall {
+  width: 2rem;
+  height: 2rem;
+}
+
+.buttonMedium {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.buttonLarge {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Wrapper pour les icônes de navigation */
+.navigationIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--primary));
+  position: absolute; /* IMPORTANT: Positionnement absolu */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60% !important; /* Taille fixe en pourcentage */
+  height: 60% !important; /* Taille fixe en pourcentage */
+}
+
+/* Icône de navigation - CORRIGÉ pour tous les breakpoints */
+.navigationIcon {
+  color: hsl(var(--primary)) !important;
+  stroke: hsl(var(--primary)) !important;
+  fill: none !important;
+  stroke-width: 3 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Solution pour les petits écrans (<480px) */
+@media (max-width: 480px) {
+  .navigationButton {
+    background-color: hsla(var(--primary) / 0.25);
+  }
+}
+
+/* Solution pour les écrans moyens (480px-1024px) */
+@media (min-width: 480px) and (max-width: 1024px) {
+  .navigationButton {
+    background-color: hsla(var(--primary) / 0.25);
+  }
+  
+  .navigationIcon {
+    stroke-width: 3 !important;
+    color: hsl(var(--primary)) !important;
+  }
+}
+
+/* Solution pour les grands écrans (>1024px) */
+@media (min-width: 1024px) {
+  .navigationButton {
+    background-color: hsla(var(--primary) / 0.25);
+  }
+  
+  .navigationIcon {
+    stroke-width: 2.5 !important;
+  }
+  
+  /* Espacement réduit pour les contrôles en desktop */
+  .controlsContainer {
+    margin-top: 0.1rem; /* Encore plus réduit (était 0.25rem) */
+  }
+}
+
+/* Container de pagination */
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.125rem;
+  margin: 0 0.75rem;
+}
+
+/* Bouton de pagination */
+.paginationButton {
+  padding: 0.125rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Indicateur de pagination */
+.indicator {
+  transition: all 0.3s;
+  border-radius: 9999px;
+}
+
+/* Tailles pour les indicateurs actifs */
+.indicatorActiveSmall {
+  background-color: hsl(var(--primary));
+  width: 1.25rem;
+  height: 0.5rem;
+}
+
+.indicatorActiveMedium {
+  background-color: hsl(var(--primary));
+  width: 1.5rem;
+  height: 0.5rem;
+}
+
+.indicatorActiveLarge {
+  background-color: hsl(var(--primary));
+  width: 1.75rem;
+  height: 0.5rem;
+}
+
+/* Tailles pour les indicateurs inactifs */
+.indicatorSmall {
+  background-color: hsla(var(--primary) / 0.3);
+  width: 0.375rem;
+  height: 0.375rem;
+}
+
+.indicatorMedium {
+  background-color: hsla(var(--primary) / 0.3);
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.indicatorLarge {
+  background-color: hsla(var(--primary) / 0.3);
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+/* Survol des indicateurs inactifs */
+.indicatorSmall:hover,
+.indicatorMedium:hover,
+.indicatorLarge:hover {
+  background-color: hsla(var(--primary) / 0.5);
+}
+
+/* Marges réduites pour tous les indicateurs */
+@media (min-width: 1024px) {
+  .indicatorActiveSmall,
+  .indicatorActiveMedium,
+  .indicatorActiveLarge,
+  .indicatorSmall,
+  .indicatorMedium,
+  .indicatorLarge {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,83 @@
+/* components/ui/styles/Accordion.module.css */
+
+.root {
+    /* Pas de styles spécifiques pour le root, mais on garde la classe pour la cohérence */
+  }
+  
+  .item {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: hsl(var(--border));
+  }
+  
+  .trigger {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  
+  .trigger:hover {
+    text-decoration: underline;
+  }
+  
+  .chevron {
+    height: 1rem;
+    width: 1rem;
+    flex-shrink: 0;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+  
+  .triggerOpen .chevron {
+    transform: rotate(180deg);
+  }
+  
+  .content {
+    overflow: hidden;
+    text-align: left;
+    font-size: 0.875rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+  
+  .contentContainer {
+    padding: 0 0 1rem 0;
+  }
+  
+  .contentHidden {
+    animation: accordionUp 0.2s ease-out;
+    height: 0;
+  }
+  
+  .contentVisible {
+    animation: accordionDown 0.2s ease-out;
+    height: var(--radix-accordion-content-height);
+  }
+  
+  @keyframes accordionDown {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  
+  @keyframes accordionUp {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }

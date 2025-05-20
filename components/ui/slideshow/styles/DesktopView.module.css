@@ -1,0 +1,104 @@
+/* components/ui/slideshow/styles/DesktopView.module.css */
+
+.desktopViewWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0; /* Complètement supprimé */
+}
+
+.desktopContainer {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 450px; /* Considérablement réduit */
+  perspective: 2600px;
+}
+
+.perspectiveWrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.carouselWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.slideMotionContainer {
+  position: absolute;
+  background: transparent;
+}
+
+.slideContainer {
+  width: 100%;
+  border-radius: 1rem;
+  overflow: visible;
+}
+
+.activeSlide {
+  background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--primary) / 0.05));
+}
+
+.inactiveSlide {
+  background-color: hsla(var(--background) / 0.6);
+}
+
+.slideTitleWrapper {
+  text-align: center;
+  padding: 0.75rem 1rem 0.25rem; /* Réduit */
+}
+
+.slideTitle {
+  font-family: var(--font-alegreya), Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0; /* Suppression de la marge */
+}
+
+.slideContent {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+/* Media queries pour grands écrans - ESPACEMENT SIGNIFICATIVEMENT RÉDUIT */
+@media (min-width: 1024px) {
+  .desktopContainer {
+    min-height: 400px; /* Encore plus réduit (était 420px) */
+  }
+  
+  .slideTitle {
+    font-size: 2.25rem; /* Légèrement réduit */
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .desktopContainer {
+    min-height: 420px; /* Ajusté pour xl (était 450px) */
+  }
+  
+  .slideTitle {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .desktopContainer {
+    min-height: 450px; /* Ajusté pour 2xl (était 480px) */
+  }
+  
+  .slideTitle {
+    font-size: 2.75rem;
+  }
+}

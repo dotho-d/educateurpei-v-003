@@ -1,0 +1,236 @@
+/* components/layout/styles/Footer.module.css */
+
+/* =========================================
+ * STYLES DE BASE DU FOOTER
+ * ========================================= */
+ .footerBase {
+    background-image: linear-gradient(to top, hsl(var(--primary) / 0.2), hsl(var(--background)));
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    margin-top: 1rem;
+  }
+  
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+  }
+  
+  @media (min-width: 480px) {
+    .container {
+      max-width: 90%;
+    }
+  }
+  
+  @media (min-width: 640px) {
+    .container {
+      max-width: 90%;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .container {
+      max-width: 86%;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 82%;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .container {
+      max-width: 76%;
+    }
+  }
+  
+  /* =========================================
+   * TYPOGRAPHIE DU FOOTER
+   * ========================================= */
+  .title {
+    font-family: var(--font-alegreya), Georgia, serif;
+    font-weight: 600;
+    font-size: 20px;
+  }
+  
+  .brand {
+    font-family: var(--font-annie), cursive;
+    font-weight: 400;
+    font-size: 28px;
+  }
+  
+  .text {
+    font-family: var(--font-brawler), Georgia, serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  
+  .small {
+    font-family: var(--font-brawler), Georgia, serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  
+  .link {
+    font-family: var(--font-brawler), Georgia, serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  
+  /* =========================================
+   * ÉLÉMENTS DU FOOTER
+   * ========================================= */
+  .socialIconLink {
+    background-color: hsl(var(--primary) / 0.1);
+    padding: 0.75rem;
+    border-radius: 9999px;
+    color: hsl(var(--primary));
+    transition: background-color 0.2s;
+  }
+  
+  .socialIconLink:hover {
+    background-color: hsl(var(--primary) / 0.2);
+  }
+  
+  .iconContainer {
+    background-color: hsl(var(--primary) / 0.1);
+    padding: 0.5rem;
+    border-radius: 9999px;
+    margin-right: 0.75rem;
+  }
+  
+  .iconContainer svg {
+    color: hsl(var(--primary));
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .footerLinkItem {
+    display: flex;
+    align-items: center;
+    color: hsl(var(--muted-foreground));
+    transition: color 0.2s;
+    font-family: var(--font-brawler), Georgia, serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  
+  .footerLinkItem:hover {
+    color: hsl(var(--primary));
+  }
+  
+  .linkDot {
+    background-color: hsl(var(--primary) / 0.1);
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 9999px;
+    margin-right: 0.5rem;
+  }
+  
+  .zoneCard {
+    background-color: hsl(var(--background) / 0.5);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .gridLinkMobile {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25rem;
+    margin: -0.25rem;
+  }
+  
+  .gridLinkItem {
+    padding: 0.25rem;
+  }
+  
+  .smallLinkCard {
+    text-align: center;
+    color: hsl(var(--muted-foreground));
+    background-color: hsl(var(--background) / 0.3);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    font-family: var(--font-brawler), Georgia, serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  
+  .smallLinkCard:hover {
+    color: hsl(var(--primary));
+  }
+  
+  .copyrightBar {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid hsl(var(--border));
+  }
+  
+  .copyrightText {
+    text-align: center;
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+  }
+  
+  /* =========================================
+   * MEDIA QUERIES
+   * ========================================= */
+  @media (max-width: 768px) {
+    .brand {
+      font-size: 24px;
+    }
+    
+    .text {
+      font-size: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .brand {
+      font-size: 22px;
+    }
+    
+    .text {
+      font-size: 14px;
+    }
+    
+    .small {
+      font-size: 13px;
+    }
+    
+    .link {
+      font-size: 13px;
+    }
+    
+    .footerLinkItem {
+      font-size: 13px;
+    }
+    
+    .smallLinkCard {
+      font-size: 13px;
+    }
+  }

@@ -1,0 +1,89 @@
+/* components/home/cta-section/styles/CTASection.module.css */
+
+.section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: hsl(var(--section-bg-1));
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .ctaCard {
+    background-image: linear-gradient(to right, hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.2));
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    text-align: center;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  /* Media queries */
+  @media (max-width: 479px) {
+    .container {
+      max-width: 80%;
+    }
+  }
+  
+  @media (min-width: 480px) and (max-width: 639px) {
+    .container {
+      max-width: 72%;
+    }
+  }
+  
+  @media (min-width: 640px) and (max-width: 767px) {
+    .container {
+      max-width: 74%;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    
+    .ctaCard {
+      border-radius: 1.5rem;
+      padding: 2rem;
+    }
+    
+    .buttonContainer {
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .section {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+    
+    .container {
+      max-width: 90%;
+      max-width: 48rem;
+    }
+    
+    .ctaCard {
+      padding: 3rem;
+      border-radius: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 76%;
+      max-width: 56rem;
+    }
+  }

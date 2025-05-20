@@ -24,10 +24,10 @@ const config: Config = {
         'h5': '30px',
         'h6': '24px',
         'nav': '24px',
-        'body': '20px', // Réduit de 21px à 20px
-        'brawler-large': '20px', // Réduit de 21px à 20px
-        'brawler-medium': '17px', // Réduit de 18px à 17px
-        'brawler-small': '14px', // Réduit de 15px à 14px
+        'body': '20px',
+        'brawler-large': '20px',
+        'brawler-medium': '17px',
+        'brawler-small': '14px',
       },
       fontWeight: {
         'light': '300',
