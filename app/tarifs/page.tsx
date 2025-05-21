@@ -1,9 +1,12 @@
-import Link from "next/link";
+
 import { ArrowRight, Check } from "lucide-react";
+import Link from "next/link";
+
+import CTASection from '@/components/home/cta-section/cta-section';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ContactCTA from "@/components/home/contact-cta";
+
 
 export default function TarifsPage() {
   return (
@@ -212,7 +215,7 @@ export default function TarifsPage() {
               <tbody>
                 <tr className="border-b">
                   <td className="p-4">Consultation sociale</td>
-                  <td className="p-4 text-right">Souvent gratuit mais délai d'attente de plusieurs semaines/mois</td>
+                  <td className="p-4 text-right">Souvent gratuit mais délai d&apos;attente de plusieurs semaines/mois</td>
                   <td className="p-4 text-right font-medium">30€-45€</td>
                   <td className="p-4 text-right">Accès immédiat</td>
                 </tr>
@@ -305,7 +308,7 @@ export default function TarifsPage() {
       </section>
 
       {/* CTA Section */}
-      <ContactCTA />
+      <CTASection />
     </div>
   );
 }

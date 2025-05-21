@@ -35,12 +35,13 @@ const nextConfig = {
     },
   },
   // Optimisations supplémentaires 
-  // swcMinify est maintenant activé par défaut, donc pas besoin de le spécifier
   poweredByHeader: false,   // Supprime l'en-tête X-Powered-By pour plus de sécurité
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production', // Supprime les console.log en production
+    removeConsole: process.env.NODE_ENV === 'production' 
+      ? { exclude: ['error', 'warn'] } 
+      : false, // Conserve les console.error et console.warn
   },
-  // En-têtes HTTP de sécurité
+  // En-têtes HTTP de sécurité renforcés
   headers: async () => [
     {
       source: '/(.*)',
@@ -63,7 +64,7 @@ const nextConfig = {
         },
         {
           key: 'Permissions-Policy',
-          value: 'camera=(), microphone=(), geolocation=()',
+          value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
         },
         {
           key: 'Content-Security-Policy',
@@ -76,6 +77,10 @@ const nextConfig = {
             connect-src 'self';
             frame-src 'self';
             form-action 'self';
+            base-uri 'self';
+            object-src 'none';
+            frame-ancestors 'none';
+            upgrade-insecure-requests;
           `.replace(/\s+/g, ' ').trim(),
         },
         {
@@ -92,3 +97,42 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+// Injected content via Sentry wizard below
+
+const { withSentryConfig } = require("@sentry/nextjs");
+
+module.exports = withSentryConfig(
+  module.exports,
+  {
+    // For all available options, see:
+    // https://www.npmjs.com/package/@sentry/webpack-plugin#options
+
+    org: "influx-social",
+    project: "javascript-nextjs",
+
+    // Only print logs for uploading source maps in CI
+    silent: !process.env.CI,
+
+    // For all available options, see:
+    // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+
+    // Upload a larger set of source maps for prettier stack traces (increases build time)
+    widenClientFileUpload: true,
+
+    // Uncomment to route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
+    // This can increase your server load as well as your hosting bill.
+    // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
+    // side errors will fail.
+    // tunnelRoute: "/monitoring",
+
+    // Automatically tree-shake Sentry logger statements to reduce bundle size
+    disableLogger: true,
+
+    // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
+    // See the following for more information:
+    // https://docs.sentry.io/product/crons/
+    // https://vercel.com/docs/cron-jobs
+    automaticVercelMonitors: true,
+  }
+);

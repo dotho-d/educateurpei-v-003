@@ -3,16 +3,18 @@
  * Composant de bouton personnalisé avec plusieurs variantes et tailles
  * Basé sur Radix UI et personnalisé pour le design du site
  */
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
 
-import { cn } from "@/lib/utils"
-import styles from "./styles/Button.module.css" // Chemin mis à jour vers le dossier styles
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
+
+import { cn } from "@/lib/utils";
+
+import styles from "./styles/Button.module.css";
 
 // Définition des variantes de bouton avec class-variance-authority
 const buttonVariants = cva(
-  styles.base, // Utiliser la classe de base du module CSS
+  styles.base,
   {
     variants: {
       variant: {
@@ -35,35 +37,37 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
 // Interface définissant les props du bouton
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   /** Indique si le bouton doit agir comme un enfant */
-  asChild?: boolean
+  asChild?: boolean;
 }
 
 /**
  * Composant Button
  * Bouton personnalisé avec différentes variantes et tailles
  * Supporte l'option asChild pour envelopper d'autres éléments
+ * Amélioré pour l'accessibilité avec focus visible
  */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     // Utilise Slot de Radix UI si asChild est true, sinon utilise un bouton standard
-    const Comp = asChild ? Slot : "button"
+    const Comp = asChild ? Slot : "button";
     
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
+        aria-disabled={props.disabled}
       />
-    )
+    );
   }
-)
-Button.displayName = "Button"
+);
+Button.displayName = "Button";
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

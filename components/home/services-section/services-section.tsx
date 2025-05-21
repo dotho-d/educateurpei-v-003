@@ -2,7 +2,7 @@
  * services-section.tsx
  * Composant représentant la section des services proposés sur la page d'accueil
  */
-import React from 'react';
+
 import { 
   MessageSquare, 
   Calendar, 
@@ -11,14 +11,19 @@ import {
   Phone, 
   Clock 
 } from 'lucide-react';
+import React, { forwardRef } from 'react';
+
 import ServiceCard from '@/components/home/service-card';
+import Section from '@/components/ui/section';
+import SectionTitle from '@/components/ui/section-title';
+
 import styles from './styles/ServicesSection.module.css';
 
 /**
  * Composant de la section des services
  * Affiche les différents services proposés sous forme de grille de cartes
  */
-const ServicesSection: React.FC = () => {
+const ServicesSection = forwardRef<HTMLElement, {}>(function ServicesSection(props, ref) {
   // Données des services
   const services = [
     {
@@ -60,35 +65,37 @@ const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section id="services" className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.titleContainer}>
-          <h2 className="typography-h2 mb-4">
-            Les services proposés
-          </h2>
-          <p className="typography-body text-muted-foreground max-w-2xl mx-auto">
-            Découvrez comment nous pouvons vous accompagner dans vos défis quotidiens
-          </p>
-        </div>
+    <Section
+      ref={ref}
+      id="services"
+      background="primary"
+      withPadding={true}
+    >
+      <SectionTitle
+        description="Découvrez comment nous pouvons vous accompagner dans vos défis quotidiens"
+      >
+        Les services proposés
+      </SectionTitle>
 
-        {/* Grille de services */}
-        <div className={styles.servicesGrid}>
-          {services.map((service, index) => (
-            <ServiceCard
-              key={`service-${index}`}
-              icon={
-                <div className={`${styles.iconContainer} ${service.iconStyle}`}>
-                  {service.icon}
-                </div>
-              }
-              title={service.title}
-              description={service.description}
-            />
-          ))}
-        </div>
+      {/* Grille de services */}
+      <div className={styles.servicesGrid}>
+        {services.map((service, index) => (
+          <ServiceCard
+            key={`service-${index}`}
+            icon={
+              <div className={`${styles.iconContainer} ${service.iconStyle}`}>
+                {service.icon}
+              </div>
+            }
+            title={service.title}
+            description={service.description}
+          />
+        ))}
       </div>
-    </section>
+    </Section>
   );
-};
+});
+
+ServicesSection.displayName = 'ServicesSection';
 
 export default ServicesSection;

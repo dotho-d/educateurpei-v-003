@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import animate from 'tailwindcss-animate';
 
 const config: Config = {
   darkMode: ['class'],
@@ -87,6 +88,20 @@ const config: Config = {
         sectionBg1: 'hsl(var(--section-bg-1))',
         sectionBg2: 'hsl(var(--section-bg-2))',
       },
+      // Nouvelles extensions pour remplacer les styles inline
+      width: {
+        'hero-circle-sm': 'clamp(240px, 36vw, 340px)',
+        'hero-circle-lg': 'clamp(260px, 40vw, 360px)',
+        'hero-image': 'clamp(225px, 60vw, 450px)',
+      },
+      height: {
+        'hero-circle-sm': 'clamp(240px, 36vw, 340px)',
+        'hero-circle-lg': 'clamp(260px, 40vw, 360px)',
+        'hero-image': 'clamp(150px, 40vw, 300px)',
+      },
+      borderWidth: {
+        'dashed-4': '4px',
+      },
       keyframes: {
         'accordion-down': {
           from: {
@@ -104,15 +119,48 @@ const config: Config = {
             height: '0',
           },
         },
+        'rotate': {
+          from: {
+            transform: 'rotate(0deg)',
+          },
+          to: {
+            transform: 'rotate(360deg)',
+          },
+        },
+        'pulse': {
+          '0%': {
+            transform: 'scale(1)',
+            opacity: '0.8',
+          },
+          '50%': {
+            transform: 'scale(1.05)',
+            opacity: '1',
+          },
+          '100%': {
+            transform: 'scale(1)',
+            opacity: '0.8',
+          },
+        },
+        'tickerAnimation': {
+          '0%': {
+            transform: 'translateX(0)',
+          },
+          '100%': {
+            transform: 'translateX(-100%)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'rotate-slow': 'rotate 30s linear infinite',
+        'pulse-gentle': 'pulse 4s infinite ease-in-out',
+        'ticker': 'tickerAnimation 30s linear infinite',
       },
     },
   },
   plugins: [
-    require('tailwindcss-animate'),
+    animate,
   ],
 };
 

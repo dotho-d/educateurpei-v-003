@@ -3,6 +3,7 @@
  * Composant de bande défilante pour afficher des informations en continu
  */
 import React from 'react';
+import { cn } from '@/lib/utils';
 import styles from './styles/Ticker.module.css';
 
 interface TickerItem {
@@ -26,25 +27,26 @@ interface TickerProps {
 /**
  * Composant Ticker
  * Affiche une bande défilante horizontale avec des éléments répétés
+ * Utilise des CSS modules pour une hauteur cohérente
  */
 export default function Ticker({ items, className = '' }: TickerProps) {
   return (
-    <div className={`absolute w-full sm:pb-0 ${className}`} style={{ top: "92%" }}>
-      <div className="ticker-wrap overflow-hidden bg-gradient-to-r from-primary/10 to-primary/10 py-3 sm:py-3 md:py-4">
-        <div className="ticker flex">
+    <div className={cn(styles.tickerContainer, className)}>
+      <div className={styles.tickerWrap}>
+        <div className={styles.ticker}>
           {/* Premier ensemble d'éléments */}
-          <div className="ticker-content flex whitespace-nowrap">
+          <div className={styles.tickerContent}>
             {items.map((item, index) => (
-              <span key={`ticker-item-1-${index}`} className="ticker-item flex-shrink-0 px-4 sm:px-8 text-sm sm:text-base">
+              <span key={`ticker-item-1-${index}`} className={styles.tickerItem}>
                 ✦ {item.text}
               </span>
             ))}
           </div>
 
           {/* Deuxième ensemble (identique) pour assurer la continuité */}
-          <div className="ticker-content flex whitespace-nowrap">
+          <div className={styles.tickerContent}>
             {items.map((item, index) => (
-              <span key={`ticker-item-2-${index}`} className="ticker-item flex-shrink-0 px-4 sm:px-8 text-sm sm:text-base">
+              <span key={`ticker-item-2-${index}`} className={styles.tickerItem}>
                 ✦ {item.text}
               </span>
             ))}

@@ -2,16 +2,19 @@
  * domaines-section.tsx
  * Section des domaines d'intervention affichant un slideshow avec les différents domaines
  */
-import React from 'react';
+import React, { forwardRef } from 'react';
+
+import Section from '@/components/ui/section';
+import SectionTitle from '@/components/ui/section-title';
 import Slideshow from '@/components/ui/slideshow/slideshow';
+
 import SlideContent from './slide-content';
-import styles from './styles/DomainesSection.module.css';
 
 /**
  * Section des domaines d'intervention
  * Affiche un slideshow avec les différents domaines d'intervention
  */
-const DomainesSection: React.FC = () => {
+const DomainesSection = forwardRef<HTMLElement, {}>(function DomainesSection(props, ref) {
   // Données des slides
   const slides = [
     // Slide 1: Handicap
@@ -90,28 +93,31 @@ const DomainesSection: React.FC = () => {
   const slideTitles = slides.map(slide => slide.title);
 
   return (
-    <section id="domaines-intervention" className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.titleContainer}>
-          <h2 className="typography-h2">
-            Nos domaines d&apos;intervention
-          </h2>
-        </div>
+    <Section
+      ref={ref}
+      id="domaines-intervention"
+      background="secondary"
+      withPadding={true}
+    >
+      <SectionTitle>
+        Nos domaines d&apos;intervention
+      </SectionTitle>
 
-        <Slideshow autoPlay={true} interval={24000} slideTitles={slideTitles}>
-          {slides.map((slide, index) => (
-            <SlideContent
-              key={`slide-content-${index}`}
-              description={slide.description}
-              points={slide.points}
-              linkUrl={slide.linkUrl}
-              linkText={slide.linkText}
-            />
-          ))}
-        </Slideshow>
-      </div>
-    </section>
+      <Slideshow autoPlay={true} interval={24000} slideTitles={slideTitles}>
+        {slides.map((slide, index) => (
+          <SlideContent
+            key={`slide-content-${index}`}
+            description={slide.description}
+            points={slide.points}
+            linkUrl={slide.linkUrl}
+            linkText={slide.linkText}
+          />
+        ))}
+      </Slideshow>
+    </Section>
   );
-};
+});
+
+DomainesSection.displayName = 'DomainesSection';
 
 export default DomainesSection;

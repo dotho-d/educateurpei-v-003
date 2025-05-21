@@ -2,6 +2,7 @@
  * card.tsx
  * Composants Card de base pour l'interface utilisateur
  * Inclut Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter
+ * Optimisé pour l'accessibilité avec attributs ARIA
  */
 import * as React from 'react';
 import { cn } from '@/lib/utils';
@@ -25,7 +26,12 @@ interface CardBaseProps {
   priceCard?: boolean;
 }
 
-interface CardProps extends CardBaseProps, React.HTMLAttributes<HTMLDivElement> {}
+interface CardProps extends CardBaseProps, React.HTMLAttributes<HTMLDivElement> {
+  /** Identifiant pour l'accessibilité */
+  ariaLabelledby?: string;
+  /** Description pour l'accessibilité */
+  ariaDescribedby?: string;
+}
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(({ 
   className, 
@@ -35,7 +41,11 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(({
   hoverScale, 
   hoverShadow, 
   noBorder, 
-  priceCard, 
+  priceCard,
+  ariaLabelledby,
+  ariaDescribedby,
+  role = "region",
+  tabIndex,
   ...props 
 }, ref) => {
   const cardClasses = cn(
@@ -50,11 +60,23 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     className
   );
   
-  return <div ref={ref} className={cardClasses} {...props} />;
+  return (
+    <div 
+      ref={ref} 
+      className={cardClasses}
+      role={role}
+      aria-labelledby={ariaLabelledby}
+      aria-describedby={ariaDescribedby}
+      tabIndex={tabIndex || 0}
+      {...props} 
+    />
+  );
 });
 Card.displayName = 'Card';
 
-const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(styles.header, className)}
@@ -63,19 +85,27 @@ const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 ));
 CardHeader.displayName = 'CardHeader';
 
-const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(({ className, ...props }, ref) => (
-  <h3
+interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  /** Niveau de titre (h1-h6) */
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+}
+
+const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(({ 
+  className, 
+  as: Comp = 'h3',
+  ...props 
+}, ref) => (
+  <Comp
     ref={ref}
-    className={cn(
-      styles.title,
-      className
-    )}
+    className={cn(styles.title, className)}
     {...props}
   />
 ));
 CardTitle.displayName = 'CardTitle';
 
-const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(({ className, ...props }, ref) => (
+interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+
+const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(({ className, ...props }, ref) => (
   <p
     ref={ref}
     className={cn(styles.description, className)}
@@ -84,12 +114,20 @@ const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttribu
 ));
 CardDescription.displayName = 'CardDescription';
 
-const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn(styles.content, className)} {...props} />
+interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(({ className, ...props }, ref) => (
+  <div 
+    ref={ref} 
+    className={cn(styles.content, className)} 
+    {...props} 
+  />
 ));
 CardContent.displayName = 'CardContent';
 
-const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(styles.footer, className)}

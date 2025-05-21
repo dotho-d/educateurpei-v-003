@@ -1,14 +1,17 @@
 /**
  * hero-section.tsx
  * Composant de la section héro de la page d'accueil
+ * Optimisé pour l'accessibilité
  */
 "use client";
 
-import React from 'react';
-import Image from 'next/image';
 import { ArrowDown } from 'lucide-react';
+import Image from 'next/image';
+import React from 'react';
+
 import { Button } from '@/components/ui/button';
 import Ticker from '@/components/ui/ticker';
+
 import styles from './styles/HeroSection.module.css';
 
 interface HeroSectionProps {
@@ -32,11 +35,12 @@ export default function HeroSection({ heroRef, handleSmoothScroll }: HeroSection
       ref={heroRef}
       id="hero"
       className={`relative w-full overflow-hidden min-h-screen h-screen flex items-center section-bg-1 ${styles.heroSection}`}
+      aria-labelledby="hero-heading"
     >
       <div className="container mx-auto max-w-[86%] xs:max-w-[86%] sm:max-w-[86%] md:max-w-[82%] lg:max-w-[82%] px-4 sm:px-6 flex flex-col lg:flex-row items-center sm:pt-4 md:pt-0">
         {/* Contenu à gauche - centré sur mobile, aligné à gauche sur desktop */}
         <div className="w-full lg:w-1/2 z-10 mb-12 lg:mb-0 text-center lg:text-left">
-          <h1 className="typography-h1 mb-6 sm:mb-4 md:mb-6 mx-auto lg:mx-0">
+          <h1 id="hero-heading" className="typography-h1 mb-6 sm:mb-4 md:mb-6 mx-auto lg:mx-0">
             Résolvez vos difficultés sociales et éducatives de façon innovante
           </h1>
           <p className="typography-body text-muted-foreground mb-4 mx-auto lg:mx-0">
@@ -51,8 +55,9 @@ export default function HeroSection({ heroRef, handleSmoothScroll }: HeroSection
               variant="default"
               className="typography-button py-8 sm:py-6 px-4 sm:px-6 rounded-btn shadow-lg gap-2"
               onClick={() => handleSmoothScroll('domaines-intervention')}
+              aria-label="Découvrir nos services"
             >
-              Découvrir nos services <ArrowDown className="ml-2" />
+              Découvrir nos services <ArrowDown className="ml-2" aria-hidden="true" />
             </Button>
           </div>
         </div>
@@ -60,7 +65,7 @@ export default function HeroSection({ heroRef, handleSmoothScroll }: HeroSection
         {/* Image à droite avec cercle décoratif */}
         <div className="w-full lg:w-1/2 relative mt-12 sm:mt-8 lg:mt-0 hero-image-container">
           {/* Conteneur centré pour les cercles */}
-          <div className="hero-circles-container">
+          <div className="hero-circles-container" aria-hidden="true">
             {/* Cercle décoratif */}
             <div className="absolute rounded-full bg-gradient-to-r from-primary/20 to-primary/20 z-0" style={{
               width: 'clamp(240px, 36vw, 340px)',
@@ -89,11 +94,17 @@ export default function HeroSection({ heroRef, handleSmoothScroll }: HeroSection
             }}>
               <Image
                 src="https://images.pexels.com/photos/3184405/pexels-photo-3184405.jpeg"
-                alt="Éducateur spécialisé"
+                alt="Accompagnement par un éducateur spécialisé - personnes en discussion lors d'une séance de suivi"
                 fill
                 sizes="(max-width: 480px) 30vw, (max-width: 768px) 35vw, (max-width: 1024px) 40vw, 450px"
                 className="object-cover"
                 priority
+                onError={(e) => {
+                  // Gestion d'erreur basique pour les images
+                  console.error("Erreur de chargement de l'image hero");
+                  // Remplacer par une image de secours si disponible
+                  // e.currentTarget.src = "/images/fallback-hero.jpg";
+                }}
               />
             </div>
           </div>
@@ -113,7 +124,7 @@ export default function HeroSection({ heroRef, handleSmoothScroll }: HeroSection
       />
 
       {/* Formes décoratives */}
-      <div className="absolute bottom-1/4 right-1/3 w-8 h-8 bg-primary/15 rounded-full"></div>
+      <div className="absolute bottom-1/4 right-1/3 w-8 h-8 bg-primary/15 rounded-full" aria-hidden="true"></div>
     </section>
   );
 }
