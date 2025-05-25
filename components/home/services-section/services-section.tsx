@@ -1,6 +1,7 @@
 /**
  * services-section.tsx
  * Composant représentant la section des services proposés sur la page d'accueil
+ * VERSION OPTIMISÉE : Tailwind pur + constantes centralisées
  */
 
 import { 
@@ -16,53 +17,23 @@ import React, { forwardRef } from 'react';
 import ServiceCard from '@/components/home/service-card';
 import Section from '@/components/ui/section';
 import SectionTitle from '@/components/ui/section-title';
-
-import styles from './styles/ServicesSection.module.css';
+import { SERVICES_DATA } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 
 /**
  * Composant de la section des services
  * Affiche les différents services proposés sous forme de grille de cartes
  */
 const ServicesSection = forwardRef<HTMLElement, {}>(function ServicesSection(props, ref) {
-  // Données des services
-  const services = [
-    {
-      icon: <MessageSquare className={styles.icon} />,
-      iconStyle: styles.iconPrimary,
-      title: "Soutien psychologique",
-      description: "Écoute bienveillante pour vous aider à traverser les périodes difficiles"
-    },
-    {
-      icon: <Calendar className={styles.icon} />,
-      iconStyle: styles.iconAccent,
-      title: "Prise de RDV en ligne",
-      description: "Réservez facilement vos rendez-vous depuis notre plateforme en ligne"
-    },
-    {
-      icon: <BarChart className={styles.icon} />,
-      iconStyle: styles.iconAccent,
-      title: "Gamification et suivi objectif",
-      description: "Solution en ligne et application mobile pour suivre vos progrès et atteindre vos objectifs"
-    },
-    {
-      icon: <CreditCard className={styles.icon} />,
-      iconStyle: styles.iconPrimary,
-      title: "Visioconsultations",
-      description: "Pour les accompagnements qui ne nécessitent pas d'interactions directes, les visioconsultations sont possibles"
-    },
-    {
-      icon: <Phone className={styles.icon} />,
-      iconStyle: styles.iconPrimary,
-      title: "Astreinte AI + SMS / appel",
-      description: "Assistance SMS et appel téléphonique pendant les heures d'interventions, assistance IA, 24h / 24, 7 jours / 7"
-    },
-    {
-      icon: <Clock className={styles.icon} />,
-      iconStyle: styles.iconPrimary,
-      title: "Astreinte physique",
-      description: "Disponibilité 24h/24 et 7j/7 avec une intervention par mois (tarifée)"
-    }
-  ];
+  // Mapping des icônes pour chaque service
+  const iconMap = {
+    'soutien-psychologique': <MessageSquare className="w-6 h-6" />,
+    'prise-rdv-en-ligne': <Calendar className="w-6 h-6" />,
+    'gamification-suivi': <BarChart className="w-6 h-6" />,
+    'visioconsultations': <CreditCard className="w-6 h-6" />,
+    'astreinte-ai-sms': <Phone className="w-6 h-6" />,
+    'astreinte-physique': <Clock className="w-6 h-6" />
+  };
 
   return (
     <Section
@@ -77,14 +48,30 @@ const ServicesSection = forwardRef<HTMLElement, {}>(function ServicesSection(pro
         Les services proposés
       </SectionTitle>
 
-      {/* Grille de services */}
-      <div className={styles.servicesGrid}>
-        {services.map((service, index) => (
+      {/* Grille de services - VERSION TAILWIND PURE */}
+      <div className={cn(
+        // Grille responsive
+        "grid grid-cols-1 gap-4",
+        "sm:grid-cols-2 sm:gap-6",
+        "lg:grid-cols-3 lg:gap-8",
+        // Container
+        "w-full max-w-7xl mx-auto",
+        // Espacement
+        "mt-8 sm:mt-12"
+      )}>
+        {SERVICES_DATA.map((service) => (
           <ServiceCard
-            key={`service-${index}`}
+            key={service.id}
             icon={
-              <div className={`${styles.iconContainer} ${service.iconStyle}`}>
-                {service.icon}
+              <div className={cn(
+                // Container de l'icône
+                "w-12 h-12 rounded-full flex items-center justify-center",
+                // Couleurs selon la catégorie
+                service.category === 'primary' 
+                  ? "bg-primary/10 text-primary" 
+                  : "bg-accent/10 text-accent"
+              )}>
+                {iconMap[service.id as keyof typeof iconMap]}
               </div>
             }
             title={service.title}

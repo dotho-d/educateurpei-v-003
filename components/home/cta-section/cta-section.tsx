@@ -26,10 +26,10 @@ const CTASection = forwardRef<HTMLElement, {}>(function CTASection(props, ref) {
       containerSize="sm"
     >
       <div className={styles.ctaCard}>
-        <h2 className="typography-h2 mb-4">
+        <h2 className="heading-2 mb-4">
           Prêt à commencer ?
         </h2>
-        <p className="typography-body text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8">
+        <p className="body-text text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8">
           Contactez-nous dès aujourd&apos;hui pour un premier entretien gratuit
         </p>
         <div className={styles.buttonContainer}>
@@ -37,7 +37,7 @@ const CTASection = forwardRef<HTMLElement, {}>(function CTASection(props, ref) {
             size="lg" 
             variant="outline" 
             asChild 
-            className="typography-button py-4 sm:py-6 px-4 sm:px-8 border-2 shadow-md rounded-btn w-fit self-center"
+            className="nav-text py-4 sm:py-6 px-4 sm:px-8 border-2 shadow-md rounded-btn w-fit self-center"
           >
             <Link href="/contact">
               Prendre rendez-vous

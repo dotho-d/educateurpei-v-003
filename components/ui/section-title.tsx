@@ -23,10 +23,10 @@ export default function SectionTitle({
       alignCenter && 'text-center',
       className
     )}>
-      <h2 className="typography-h2 mb-4">{children}</h2>
+      <h2 className="heading-2 mb-4">{children}</h2>
       {description && (
         <p className={cn(
-          'typography-body text-muted-foreground max-w-2xl',
+          'body-text text-muted-foreground max-w-2xl',
           alignCenter && 'mx-auto',
           descriptionClassName
         )}>

@@ -1,28 +1,19 @@
 /* 
- * globals.css
- * Fichier de styles globaux pour l'application
+ * globals.css optimisé - VERSION FINALE
+ * Suppression maximale des redondances, focus sur l'essentiel
  */
 
 /* =========================================
- * INITIALISATION TAILWIND
+ * DIRECTIVES TAILWIND (ORDRE CRITIQUE)
  * ========================================= */
  @tailwind base;
  @tailwind components;
  @tailwind utilities;
-  
+ 
  /* =========================================
-  * BASE & VARIABLES
+  * VARIABLES CSS ESSENTIELLES UNIQUEMENT
   * ========================================= */
  @layer base {
-   /* Optimisation du rendu des polices */
-   html, body {
-     -webkit-font-smoothing: antialiased;
-     -moz-osx-font-smoothing: grayscale;
-     text-rendering: optimizeLegibility;
-     font-feature-settings: "kern" 1, "liga" 1;
-   }
-   
-   /* Variables globales */
    :root {
      /* Couleurs - Mode clair */
      --background: 40 38% 95%;
@@ -59,27 +50,6 @@
      /* Rayons de bordure */
      --radius: 0.5rem;
      --button-radius: 1rem;
-     
-     /* Variables pour ajustements Hero */
-     --hero-image-y: 0;
-     --hero-circles-y: 0;
-
-     /* Tailles de police - Desktop (≥1024px) */
-     --font-size-h1: 56px;
-     --font-size-h2: 50px;
-     --font-size-h3: 44px;
-     --font-size-h4: 36px;
-     --font-size-h5: 30px;
-     --font-size-h6: 24px;
-     --font-size-nav: 24px;
-     --font-size-body: 20px;
-     --font-size-body-medium: 17px;
-     --font-size-body-small: 14px;
-     
-     /* Line heights */
-     --line-height-heading: 1.2;
-     --line-height-subheading: 1.3;
-     --line-height-body: 1.6;
    }
       
    /* Mode sombre */
@@ -115,147 +85,15 @@
      --section-bg-1: 30 15% 14%;
      --section-bg-2: 30 15% 10%;
    }
-  
-   /* =========================================
-    * SYSTÈME TYPOGRAPHIQUE
-    * ========================================= */
-     
-   /* Système de titres - utilisant les variables */
-   .typography-h1,
-   html h1 {
-     font-family: var(--font-alegreya), Georgia, serif;
-     font-size: var(--font-size-h1);
-     font-weight: 700;
-     letter-spacing: 0.25px;
-     color: hsl(var(--foreground));
-     line-height: var(--line-height-heading);
-   }
-      
-   .typography-h2,
-   html h2 {
-     font-family: var(--font-alegreya), Georgia, serif;
-     font-size: var(--font-size-h2);
-     font-weight: 700;
-     letter-spacing: 0.25px;
-     color: hsl(var(--foreground));
-     line-height: var(--line-height-heading);
-   }
-      
-   .typography-h3,
-   html h3 {
-     font-family: var(--font-alegreya), Georgia, serif;
-     font-size: var(--font-size-h3);
-     font-weight: 600;
-     letter-spacing: 0.25px;
-     color: hsl(var(--foreground));
-     line-height: var(--line-height-heading);
-   }
-      
-   .typography-h4,
-   html h4 {
-     font-family: var(--font-alegreya), Georgia, serif;
-     font-size: var(--font-size-h4);
-     font-weight: 600;
-     letter-spacing: 0.25px;
-     color: hsl(var(--foreground));
-     line-height: var(--line-height-subheading);
-   }
-      
-   .typography-h5,
-   html h5 {
-     font-family: var(--font-alegreya), Georgia, serif;
-     font-size: var(--font-size-h5);
-     font-weight: 500;
-     letter-spacing: 0.25px;
-     color: hsl(var(--foreground));
-     line-height: var(--line-height-subheading);
-   }
-      
-   .typography-h6,
-   html h6 {
-     font-family: var(--font-alegreya), Georgia, serif;
-     font-size: var(--font-size-h6);
-     font-weight: 500;
-     letter-spacing: 0.25px;
-     color: hsl(var(--foreground));
-     line-height: var(--line-height-subheading);
-   }
-      
-   /* Système de paragraphes */
-   .typography-body,
-   html p {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: var(--font-size-body);
-     font-weight: 400;
-     line-height: var(--line-height-body);
+ 
+   /* Optimisation du rendu des polices */
+   html, body {
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+     text-rendering: optimizeLegibility;
+     font-feature-settings: "kern" 1, "liga" 1;
    }
    
-   .typography-body-medium {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: var(--font-size-body-medium);
-     font-weight: 400;
-     line-height: 1.5;
-   }
-   
-   .typography-body-small {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: var(--font-size-body-small);
-     font-weight: 400;
-     line-height: 1.5;
-   }
-      
-   /* Paragraphes dans des contextes spécifiques */
-   h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: var(--font-size-body);
-     font-weight: 400;
-     line-height: var(--line-height-body);
-   }
-
-   /* =========================================
-    * COMPOSANTS SPÉCIFIQUES - TICKER
-    * ========================================= */
-   .ticker-item {
-     font-family: var(--font-brawler), Georgia, serif;
-     font-size: var(--font-size-body-medium);
-     font-weight: 400;
-     line-height: 1.5;
-   }
-      
-   /* =========================================
-    * COMPOSANTS SPÉCIFIQUES - PRIX
-    * ========================================= */
-   .price-display {
-     font-family: var(--font-cormorant), Georgia, serif;
-     font-weight: 600;
-   }
-   
-   /* =========================================
-    * BOUTONS ET NAVIGATION
-    * ========================================= */
-   .typography-button,
-   html button, 
-   html .btn,
-   html [type="button"], 
-   html [type="submit"],
-   html .tabs-list button,
-   html [role="tab"] {
-     font-family: var(--font-caveat), cursive;
-     font-size: var(--font-size-nav);
-   }
-      
-   .typography-nav,
-   html nav a,
-   html .navbar a,
-   html .nav-item,
-   html header a:not(.logo-text) {
-     font-family: var(--font-caveat), cursive;
-     font-size: var(--font-size-nav);
-   }
-      
-   /* =========================================
-    * ÉLÉMENTS DE BASE ET STRUCTURE
-    * ========================================= */
    * {
      @apply border-border;
    }
@@ -264,112 +102,130 @@
      @apply bg-background text-foreground;
    }
  }
-  
+ 
  /* =========================================
   * CLASSES TYPOGRAPHIQUES UTILITAIRES
   * ========================================= */
- .font-alegreya {
-   font-family: var(--font-alegreya), Georgia, serif;
+ @layer components {
+   /* Polices de base */
+   .font-alegreya {
+     font-family: var(--font-alegreya), Georgia, serif;
+   }
+    
+   .font-brawler {
+     font-family: var(--font-brawler), Georgia, serif;
+     font-weight: 400;
+   }
+    
+   .font-caveat {
+     font-family: var(--font-caveat), cursive;
+   }
+    
+   .font-cormorant {
+     font-family: var(--font-cormorant), Georgia, serif;
+   }
+    
+   .logo-text {
+     font-family: var(--font-annie), cursive;
+     font-weight: 400;
+   }
+ 
+   /* Classes de titre cohérentes */
+   .heading-1 {
+     @apply font-alegreya font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight;
+   }
+ 
+   .heading-2 {
+     @apply font-alegreya font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight;
+   }
+ 
+   .heading-3 {
+     @apply font-alegreya font-semibold text-2xl sm:text-3xl lg:text-4xl leading-snug;
+   }
+ 
+   /* Classes de texte cohérentes */
+   .body-text {
+     @apply font-brawler text-base sm:text-lg leading-relaxed;
+   }
+ 
+   .body-text-small {
+     @apply font-brawler text-sm leading-relaxed;
+   }
+   
+   .body-text-medium {
+     @apply font-brawler text-base leading-relaxed;
+   }
+ 
+   /* Navigation et boutons */
+   .nav-text {
+     @apply font-caveat text-xl sm:text-2xl;
+   }
+ 
+   /* Utilitaires de fonds pour les sections */
+   .section-bg-1 {
+     background-color: hsl(var(--section-bg-1));
+   }
+    
+   .section-bg-2 {
+     background-color: hsl(var(--section-bg-2));
+   }
+ 
+   /* Prix */
+   .price-display {
+     @apply font-cormorant font-semibold;
+   }
+   
+   /* Boutons optimisés */
+   .btn-primary {
+     @apply bg-primary text-primary-foreground hover:bg-primary/90 
+            rounded-[var(--button-radius)] px-6 py-3 font-medium
+            transition-colors duration-200 focus:outline-none 
+            focus:ring-2 focus:ring-primary focus:ring-offset-2;
+   }
+   
+   /* Cartes avec effets */
+   .card-hover {
+     @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+   }
+   
+   /* Container responsive */
+   .section-container {
+     @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+   }
  }
-  
- .font-brawler {
-   font-family: var(--font-brawler), Georgia, serif;
-   font-weight: 400;
- }
-  
- .font-caveat {
-   font-family: var(--font-caveat), cursive;
- }
-  
- .font-cormorant {
-   font-family: var(--font-cormorant), Georgia, serif;
- }
-  
- .logo-text {
-   font-family: var(--font-annie), cursive;
-   font-weight: 400;
- }
-  
+ 
  /* =========================================
-  * UTILITAIRES DE TEXTE ET COULEURS
+  * ANIMATIONS OPTIMISÉES
   * ========================================= */
- .gradient-text {
-   background-clip: text;
-   color: transparent;
-   background-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary)));
-   font-family: var(--font-alegreya), Georgia, serif;
+ @layer utilities {
+   .animate-rotate-slow {
+     animation: spin 30s linear infinite;
+   }
+ 
+   .animate-pulse-gentle {
+     animation: pulse 4s infinite ease-in-out;
+   }
+ 
+   .animate-fadeIn {
+     animation: fadeIn 0.6s ease-out forwards;
+   }
+ 
+   @keyframes fadeIn {
+     from {
+       opacity: 0;
+       transform: translateY(20px);
+     }
+     to {
+       opacity: 1;
+       transform: translateY(0);
+     }
+   }
  }
-  
+ 
  /* =========================================
-  * UTILITAIRES DE FONDS POUR LES SECTIONS
+  * ANIMATION TICKER GLOBALE UNIQUEMENT
   * ========================================= */
- .section-bg-1 {
-   background-color: hsl(var(--section-bg-1));
- }
-  
- .section-bg-2 {
-   background-color: hsl(var(--section-bg-2));
- }
-  
- /* =========================================
-  * UTILITAIRES POUR TAILLES DE TEXTE
-  * ========================================= */
- .text-brawler-large {
-   font-family: var(--font-brawler), Georgia, serif;
-   font-size: var(--font-size-body);
-   font-weight: 400;
- }
-  
- .text-brawler-medium {
-   font-family: var(--font-brawler), Georgia, serif;
-   font-size: var(--font-size-body-medium);
-   font-weight: 400;
- }
-  
- .text-brawler-small {
-   font-family: var(--font-brawler), Georgia, serif;
-   font-size: var(--font-size-body-small);
-   font-weight: 400;
- }
-  
- /* =========================================
-  * ANIMATIONS
-  * ========================================= */
- @keyframes fadeIn {
-   from {
-     opacity: 0;
-     transform: translateY(20px);
-   }
-   to {
-     opacity: 1;
-     transform: translateY(0);
-   }
- }
-  
- @keyframes rotate {
-   from {
-     transform: rotate(0deg);
-   }
-   to {
-     transform: rotate(360deg);
-   }
- }
-  
- @keyframes pulse {
-   0% {
-     transform: scale(1);
-     opacity: 0.8;
-   }
-   50% {
-     transform: scale(1.05);
-     opacity: 1;
-   }
-   100% {
-     transform: scale(1);
-     opacity: 0.8;
-   }
- }
-  
+ /* Animation référencée dans Ticker.module.css */
  @keyframes tickerAnimation {
    0% {
      transform: translateX(0);
@@ -378,590 +234,28 @@
      transform: translateX(-100%);
    }
  }
-  
- .animate-fadeIn {
-   animation: fadeIn 0.6s ease-out forwards;
- }
-  
- .animate-rotate {
-   animation: rotate 30s linear infinite;
- }
-  
- .animate-pulse {
-   animation: pulse 4s infinite ease-in-out;
- }
-  
- /* =========================================
-  * STYLES POUR TICKER
-  * ========================================= */
- .ticker {
-   display: flex;
-   width: fit-content;
-   height: 30px;
-   align-items: center;
- }
- 
- .ticker-content {
-   display: flex;
-   white-space: nowrap;
-   animation: tickerAnimation 30s linear infinite;
-   height: 100%;
-   align-items: center;
- }
- 
- .ticker-wrap {
-   position: relative;
-   width: 100%;
-   overflow: hidden;
-   padding: 8px 0;
-   display: flex;
-   align-items: center;
- }
- 
- .ticker-item {
-   flex-shrink: 0;
-   padding-left: 1rem;
-   padding-right: 1rem;
-   font-size: 17px;
-   line-height: 1.4;
-   padding-top: 3px;
-   padding-bottom: 3px;
- }
  
  /* =========================================
-  * STYLES POUR LES AJUSTEMENTS HERO
+  * OPTIMISATIONS PERFORMANCE
   * ========================================= */
- .hero-image-container {
-   transform: translateY(var(--hero-image-y));
-   transition: transform 0.3s ease;
- }
- 
- .hero-circles-container {
-   position: absolute;
-   inset: 0;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   transform: translateY(var(--hero-circles-y));
-   transition: transform 0.3s ease;
-   pointer-events: none;
- }
- 
- /* =========================================
-  * STYLES POUR DÉGRADÉS ET FONDS
-  * ========================================= */
- .gradient-bg-primary {
-   @apply bg-gradient-to-r from-primary/10 to-primary/10;
- }
-  
- .gradient-bg-footer {
-   @apply bg-gradient-to-t from-primary/20 to-background;
- }
-  
- /* =========================================
-  * UTILITAIRES DE CONTENEURS
-  * ========================================= */
- .container-custom {
-   @apply max-w-[76%] mx-auto px-4;
- }
-  
- /* =========================================
-  * ESPACEMENT DE SECTIONS
-  * ========================================= */
- section {
-   padding-top: 6rem;
-   padding-bottom: 6rem;
- }
-  
- /* =========================================
-  * AMÉLIORATION DE L'ACCESSIBILITÉ
-  * ========================================= */
- a:focus,
- button:focus,
- input:focus,
- textarea:focus,
- select:focus,
- [tabindex]:focus {
-   outline: none;
-   outline-offset: 0;
-   box-shadow: none;
- }
-  
- /* =========================================
-  * CONTAINER RESPONSIVE
-  * ========================================= */
- .container {
-   width: 100%;
-   margin-left: auto;
-   margin-right: auto;
-   padding-left: 1rem;
-   padding-right: 1rem;
- }
-  
- @media (min-width: 640px) {
-   .container {
-     max-width: 640px;
-     padding-left: 1.5rem;
-     padding-right: 1.5rem;
+ /* Préférence pour reduced motion */
+ @media (prefers-reduced-motion: reduce) {
+   * {
+     animation-duration: 0.01ms !important;
+     animation-iteration-count: 1 !important;
+     transition-duration: 0.01ms !important;
    }
  }
-  
- @media (min-width: 768px) {
-   .container {
-     max-width: 768px;
-   }
- }
-  
- @media (min-width: 1024px) {
-   .container {
-     max-width: 1024px;
-   }
- }
-  
- @media (min-width: 1280px) {
-   .container {
-     max-width: 1280px;
-   }
- }
-  
- /* =========================================
-  * MEDIA QUERIES - TYPOGRAPHIE RESPONSIVE
-  * ========================================= */
-  
- /* BREAKPOINT 768px-1024px (md) */
- @media (max-width: 1023px) {
+ 
+ /* Support pour high contrast */
+ @media (prefers-contrast: high) {
    :root {
-     --font-size-h1: 46px;
-     --font-size-h2: 42px;
-     --font-size-h3: 36px;
-     --font-size-h4: 32px;
-     --font-size-h5: 28px;
-     --font-size-h6: 24px;
-     --font-size-nav: 22px;
-     --font-size-body: 18px;
-     --font-size-body-medium: 16px;
-     --font-size-body-small: 14px;
-   }
- }
-    
- /* BREAKPOINT MOBILE (<= 768px) */
- @media (max-width: 767px) {
-   :root {
-     --font-size-h1: 40px;
-     --font-size-h2: 36px;
-     --font-size-h3: 32px;
-     --font-size-h4: 28px;
-     --font-size-h5: 24px;
-     --font-size-h6: 20px;
-     --font-size-nav: 21px;
-     --font-size-body: 18px;
-     --font-size-body-medium: 15px;
-     --font-size-body-small: 14px;
-   }
-    
-   section {
-     padding-top: 4rem;
-     padding-bottom: 4rem;
-   }
- }
-  
- /* BREAKPOINT PETIT MOBILE (<= 640px) */
- @media (max-width: 639px) {
-   :root {
-     --font-size-h1: 34px;
-     --font-size-h2: 30px;
-     --font-size-h3: 28px;
-     --font-size-h4: 26px;
-     --font-size-h5: 22px;
-     --font-size-h6: 20px;
-     --font-size-nav: 21px;
-     --font-size-body: 16px;
-     --font-size-body-medium: 14px;
-     --font-size-body-small: 14px;
-   }
-    
-   section {
-     padding-top: 3rem;
-     padding-bottom: 3rem;
-   }
- }
- 
- /* BREAKPOINT TRÈS PETIT (<= 480px) */
- @media (max-width: 479px) {
-   :root {
-     --font-size-h1: 32px;
-     --font-size-h2: 28px;
-     --font-size-h3: 24px;
-     --font-size-h4: 22px;
-     --font-size-h5: 20px;
-     --font-size-h6: 18px;
-     --font-size-nav: 21px;
-     --font-size-body: 16px;
-     --font-size-body-medium: 14px;
-     --font-size-body-small: 14px;
-   }
- }
-
- /* =========================================
- * AJUSTEMENTS SPÉCIFIQUES POUR LE TICKER (640px-768px)
- * ========================================= */
-@media (min-width: 641px) and (max-width: 767px) {
-  .ticker-wrap {
-    padding: 5px 0 !important;
-  }
-  
-  .ticker {
-    height: 26px !important;
-    align-items: center !important;
-  }
-  
-  .ticker-item {
-    font-size: 15px !important;
-    line-height: 1.3 !important;
-    padding-top: 3px !important;
-    padding-bottom: 3px !important;
-  }
-  
-  .ticker-content {
-    display: flex !important;
-    align-items: center !important;
-    height: 100% !important;
-  }
-}
-  
- /* =========================================
-  * AJUSTEMENTS POUR LE TICKER (> 1024px)
-  * ========================================= */
- @media (min-width: 1024px) {
-   .ticker-wrap {
-     padding: 5px 0 !important;
+     --border: 0 0% 20%;
+     --primary: 12 76% 45%;
    }
    
-   .ticker {
-     height: 30px !important;
-     align-items: center !important;
-   }
-   
-   .ticker-content {
-     display: flex !important;
-     align-items: center !important;
-     height: 100% !important;
-   }
-   
-   .ticker-item {
-     font-size: 17px !important;
-     line-height: 1.4 !important;
-     padding-top: 3px !important;
-     padding-bottom: 3px !important;
-   }
-   
-   section#hero .hero-content-container {
-     display: flex;
-     justify-content: space-around;
-     width: 100%;
-   }
-   
-   section#hero .hero-text-column,
-   section#hero .hero-image-column {
-     width: 45% !important;
-   }
- }
-  
- /* =========================================
-  * AJUSTEMENTS POUR LES PRIX PAR BREAKPOINT
-  * ========================================= */
- /* Breakpoint très petit (<= 480px) */
- @media (max-width: 480px) {
-   .price-display.text-xl {
-     font-size: 1.3rem !important;
-   }
-   
-   .price-display.text-2xl {
-     font-size: 1.8rem !important;
-   }
-   
-   .price-display.text-4xl,
-   span.text-4xl.font-cormorant {
-     font-size: 2.5rem !important;
-   }
-   
-   span.font-cormorant.font-medium.text-\[24px\] {
-     font-size: 1.6rem !important;
-   }
- }
-  
- /* Breakpoint petit (480px - 640px) */
- @media (min-width: 481px) and (max-width: 640px) {
-   .price-display.text-xl {
-     font-size: 1.5rem !important;
-   }
-   
-   .price-display.text-2xl {
-     font-size: 2rem !important;
-   }
-   
-   .price-display.text-4xl,
-   span.text-4xl.font-cormorant {
-     font-size: 2.6rem !important;
-   }
-   
-   span.font-cormorant.font-medium.text-\[24px\] {
-     font-size: 1.8rem !important;
-   }
- }
-  
- /* Breakpoint moyen (640px - 768px) */
- @media (min-width: 641px) and (max-width: 768px) {
-   .price-display.text-xl {
-     font-size: 1.6rem !important;
-   }
-   
-   .price-display.text-2xl {
-     font-size: 2.1rem !important;
-   }
-   
-   .price-display.text-4xl,
-   span.text-4xl.font-cormorant {
-     font-size: 2.75rem !important;
-   }
-   
-   span.font-cormorant.font-medium.text-\[24px\] {
-     font-size: 2rem !important;
-   }
- }
-  
- /* Breakpoint tablette large (768px - 1024px) */
- @media (min-width: 769px) and (max-width: 1023px) {
-   .price-display.text-xl {
-     font-size: 1.8rem !important;
-   }
-   
-   .price-display.text-2xl {
-     font-size: 2.25rem !important;
-   }
-   
-   .price-display.text-4xl,
-   span.text-4xl.font-cormorant {
-     font-size: 2.8rem !important;
-   }
-   
-   span.font-cormorant.font-medium.text-\[24px\] {
-     font-size: 2.25rem !important;
-   }
- }
-  
- /* Breakpoint desktop (>= 1024px) */
- @media (min-width: 1024px) {
-   .price-display.text-xl {
-     font-size: 2rem !important;
-   }
-   
-   .price-display.text-2xl {
-     font-size: 2.4rem !important;
-   }
-   
-   .price-display.text-4xl,
-   span.text-4xl.font-cormorant {
-     font-size: 3rem !important;
-   }
-   
-   span.font-cormorant.font-medium.text-\[24px\] {
-     font-size: 2.4rem !important;
-   }
- }
-  
- /* =========================================
-  * OPTIMISATION DU CONTENEUR
-  * ========================================= */
- .container-optimized {
-   margin-left: auto;
-   margin-right: auto;
-   padding-left: 1rem;
-   padding-right: 1rem;
-   max-width: 100%;
- }
-  
- @media (min-width: 480px) {
-   .container-optimized {
-     max-width: 90%;
-   }
- }
-  
- @media (min-width: 640px) {
-   .container-optimized {
-     max-width: 90%;
-   }
- }
-  
- @media (min-width: 768px) {
-   .container-optimized {
-     max-width: 86%;
-   }
- }
-  
- @media (min-width: 1024px) {
-   .container-optimized {
-     max-width: 82%;
-   }
- }
-  
- @media (min-width: 1280px) {
-   .container-optimized {
-     max-width: 76%;
-   }
- }
-  
- /* Adaptations spécifiques pour sous-breakpoints du menu mobile */
- @media (min-width: 480px) and (max-width: 640px) {
-   .fixed.inset-0.top-16 .typography-nav.font-medium {
-     font-size: 20px !important;
-   }
-   
-   .fixed.inset-0.top-16 .pt-6.space-y-4 {
-     padding-top: 1.5rem !important;
-   }
- }
-  
- @media (min-width: 640px) and (max-width: 768px) {
-   .fixed.inset-0.top-16 .typography-nav.font-medium {
-     font-size: 21px !important;
-   }
-   
-   .fixed.inset-0.top-16 .pt-6.space-y-4 {
-     padding-top: 1.75rem !important;
-   }
- }
-  
- @media (min-width: 768px) and (max-width: 1023px) {
-   .tablet-menu .typography-nav.font-medium,
-   .fixed.inset-0.top-16 .typography-nav.font-medium {
-     font-size: 22px !important;
-   }
-   
-   .tablet-menu .space-y-6,
-   .fixed.inset-0.top-16 .space-y-6 {
-     margin-top: 1rem !important;
-   }
-   
-   .tablet-menu .pt-6.space-y-4,
-   .fixed.inset-0.top-16 .pt-6.space-y-4 {
-     padding-top: 2rem !important;
-     margin-top: 2rem !important;
-   }
-   
-   .tablet-menu .max-w-\[80\%\],
-   .fixed.inset-0.top-16 .max-w-\[80\%\] {
-     max-width: 86% !important;
-   }
- }
-  
- /* Adaptation générale pour tous les menus déroulants sur petits écrans */
- @media (max-width: 1023px) {
-   /* Forcer le fond opaque pour le menu déroulant */
-   .fixed.inset-0.top-16 {
-     background-color: hsl(var(--background)) !important;
-     backdrop-filter: none !important;
-   }
-   
-   /* S'assurer que le texte des liens est bien visible */
-   .fixed.inset-0.top-16 a {
-     color: hsl(var(--foreground)) !important;
-   }
-   
-   /* S'assurer que les liens ont un état de survol visible */
-   .fixed.inset-0.top-16 a:hover {
-     color: hsl(var(--primary)) !important;
-   }
-   
-   /* Adaptation de la largeur du conteneur de menu */
-   .fixed.inset-0.top-16 > div {
-     width: 86% !important;
-     max-width: 86% !important;
-   }
- }
- 
- /* =========================================
-  * STYLES SECTION HERO 
-  * ========================================= */
- section#hero {
-   min-height: 100vh;
-   display: flex;
-   align-items: center;
-   padding-top: 8rem;
-   padding-bottom: 8rem;
- }
-  
- @media (max-width: 768px) {
-   section#hero {
-     padding-top: 6rem;
-     padding-bottom: 6rem;
-   }
- }
-  
- @media (max-width: 640px) {
-   section#hero {
-     padding-top: 5rem;
-     padding-bottom: 5rem;
-   }
- }
- 
- /* =========================================
-  * AJUSTEMENTS SPÉCIFIQUES PAR BREAKPOINT POUR HERO
-  * ========================================= */
- @media (max-width: 480px) {
-   :root {
-     --hero-image-y: -5%;
-     --hero-circles-y: -10%;
-   }
- }
- 
- @media (min-width: 481px) and (max-width: 1024px) {
-   :root {
-     --hero-image-y: -3%;
-     --hero-circles-y: -5%;
-   }
- }
- 
- @media (min-width: 1025px) {
-   :root {
-     --hero-image-y: 0;
-     --hero-circles-y: 0;
-   }
- }
-  
- /* =========================================
-  * CLASSES UTILITAIRES HERO
-  * ========================================= */
- .hero-justify-around {
-   display: flex;
-   flex-direction: column;
- }
-  
- @media (min-width: 1024px) {
-   .hero-justify-around {
-     flex-direction: row;
-     justify-content: space-around;
-   }
- }
- 
- /* =========================================
-  * AJUSTEMENTS SPÉCIFIQUES POUR TABLETTE (640px-768px)
-  * ========================================= */
- @media (min-width: 640px) and (max-width: 768px) {
-   :root {
-     --hero-image-y: -5px;
-   }
-   
-   section#hero .container {
-     padding-top: 1.5rem;
-     max-width: 90%;
-   }
-   
-   section#hero h1 {
-     margin-bottom: 1.5rem;
-   }
-   
-   section#hero .absolute[style*="top: 92%"] {
-     top: 94% !important;
+   .dark {
+     --border: 0 0% 80%;
+     --primary: 12 76% 65%;
    }
  }

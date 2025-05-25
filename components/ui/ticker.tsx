@@ -1,9 +1,12 @@
+// components/ui/ticker.tsx - VERIFICATION DE L'IMPORT CSS
 /**
  * ticker.tsx
  * Composant de bande défilante pour afficher des informations en continu
+ * CORRIGÉ : Vérification du chemin d'import CSS Module
  */
 import React from 'react';
 import { cn } from '@/lib/utils';
+// 🔧 VÉRIFIER : Le chemin d'import doit correspondre à la structure de fichiers
 import styles from './styles/Ticker.module.css';
 
 interface TickerItem {
@@ -27,7 +30,7 @@ interface TickerProps {
 /**
  * Composant Ticker
  * Affiche une bande défilante horizontale avec des éléments répétés
- * Utilise des CSS modules pour une hauteur cohérente
+ * Le positionnement à 92% est géré par le CSS Module (.tickerContainer)
  */
 export default function Ticker({ items, className = '' }: TickerProps) {
   return (

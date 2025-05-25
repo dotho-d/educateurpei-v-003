@@ -149,6 +149,35 @@ const config: Config = {
             transform: 'translateX(-100%)',
           },
         },
+        // Nouvelles animations pour performance
+        'shimmer': {
+          '0%': {
+            backgroundPosition: '-200% 0',
+          },
+          '100%': {
+            backgroundPosition: '200% 0',
+          },
+        },
+        'fade-in': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(10px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+        'slide-up': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(20px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -156,6 +185,10 @@ const config: Config = {
         'rotate-slow': 'rotate 30s linear infinite',
         'pulse-gentle': 'pulse 4s infinite ease-in-out',
         'ticker': 'tickerAnimation 30s linear infinite',
+        // Nouvelles animations
+        'shimmer': 'shimmer 1.5s infinite',
+        'fade-in': 'fade-in 0.6s ease-out forwards',
+        'slide-up': 'slide-up 0.8s ease-out forwards',
       },
     },
   },

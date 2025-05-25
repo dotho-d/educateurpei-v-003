@@ -1,0 +1,39 @@
+/* public/critical.css */
+/* CSS critique pour éviter FOUC et résoudre l'hydratation */
+
+.logo-text { 
+    font-family: var(--font-annie), cursive; 
+    font-display: swap;
+  }
+  
+  .nav-text { 
+    font-family: var(--font-caveat), cursive; 
+    font-display: swap;
+  }
+  
+  .heading-1 { 
+    font-family: var(--font-alegreya), serif; 
+    font-display: swap;
+  }
+  
+  .body-text { 
+    font-family: var(--font-brawler), serif; 
+    font-display: swap;
+  }
+  
+  body { 
+    margin: 0; 
+    font-family: system-ui, sans-serif; 
+  }
+  
+  /* Classes utilitaires anti-FOUC */
+  .loading-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
