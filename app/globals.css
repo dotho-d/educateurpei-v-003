@@ -1,7 +1,58 @@
 /* 
- * globals.css optimisé - VERSION FINALE
- * Suppression maximale des redondances, focus sur l'essentiel
+ * globals.css optimisé - VERSION CORRIGÉE SANS ERREUR D'HYDRATATION
+ * CSS critique déplacé du layout.tsx + Classes typographiques avec progression fluide
  */
+
+/* =========================================
+ * CSS CRITIQUE - DÉPLACÉ DU LAYOUT.TSX POUR ÉVITER L'ERREUR D'HYDRATATION
+ * ========================================= */
+/* CSS critique SÉCURISÉ pour éviter FOUC ET scroll horizontal */
+html, body { 
+  margin: 0; 
+  padding: 0;
+  font-family: system-ui, sans-serif; 
+  max-width: 100vw; 
+  overflow-x: hidden;
+  box-sizing: border-box; 
+}
+
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  max-width: 100%;
+}
+
+.sr-only { 
+  position: absolute; 
+  width: 1px; 
+  height: 1px; 
+  overflow: hidden; 
+}
+
+.fixed { position: fixed; }
+.relative { position: relative; }
+.flex { display: flex; }
+.min-h-screen { min-height: 100vh; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1 1 0%; }
+
+.no-horizontal-overflow { 
+  max-width: 100%; 
+  overflow-x: hidden; 
+  box-sizing: border-box; 
+}
+
+/* Protection globale contre les débordements */
+#__next, main { 
+  max-width: 100vw; 
+  overflow-x: hidden; 
+}
+
+/* Font display optimization pour éviter FOIT */
+.font-alegreya { font-display: swap; }
+.font-brawler { font-display: swap; }
+.font-caveat { font-display: swap; }
+.font-annie { font-display: swap; }
+.font-cormorant { font-display: swap; }
 
 /* =========================================
  * DIRECTIVES TAILWIND (ORDRE CRITIQUE)
@@ -11,7 +62,7 @@
  @tailwind utilities;
  
  /* =========================================
-  * VARIABLES CSS ESSENTIELLES UNIQUEMENT
+  * VARIABLES CSS ESSENTIELLES
   * ========================================= */
  @layer base {
    :root {
@@ -50,6 +101,62 @@
      /* Rayons de bordure */
      --radius: 0.5rem;
      --button-radius: 1rem;
+
+     /* =========================================
+      * VARIABLES POUR CONTRÔLER LES CERCLES HERO - TAILLES LIBRES
+      * ========================================= */
+     
+     /* Tailles des cercles (complètement libres, pas de contraintes min/max) */
+     --hero-circle-main-size: 280px;
+     --hero-circle-dashed-size: 320px;
+     
+     /* Position des cercles dans la section */
+     --hero-circle-offset-x: 65%; /* Position horizontale du centre */
+     --hero-circle-offset-y: 50%; /* Position verticale du centre */
+     
+     /* Décalage supplémentaire pour les placer à droite */
+     --hero-circle-right-shift: 100px;
+
+     /* =========================================
+      * VARIABLES POUR TAILLES DE POLICE PROGRESSIVES
+      * ========================================= */
+     
+     /* Variables pour H1 - CORRIGÉES selon les exigences */
+     --h1-mobile: 2rem;        /* 32px - Mobile */
+     --h1-tablet: 2.4rem;     /* 44px - Tablet (sm) */
+     --h1-desktop: 2.8rem;    /* 52px - Desktop (lg) */
+     --h1-large: 3.2rem;       /* 56px - Large screens (xl) */
+     --h1-xlarge: 3.6rem;        /* 64px - Extra large (2xl) */
+     
+     /* Variables pour H2 - Progression logique sous H1 */
+     --h2-mobile: 1.8rem;     /* 28px - Mobile */
+     --h2-tablet: 2.2rem;     /* 36px - Tablet (sm) */
+     --h2-desktop: 2.6rem;    /* 44px - Desktop (lg) */
+     --h2-large: 3rem;         /* 48px - Large screens (xl) */
+     --h2-xlarge: 3.4rem;      /* 56px - Extra large (2xl) */
+     
+     /* Variables pour H3 - Progression logique sous H2 */
+     --h3-mobile: 1.6rem;      /* 24px - Mobile */
+     --h3-tablet: 2rem;    /* 30px - Tablet (sm) */
+     --h3-desktop: 2.4rem;    /* 36px - Desktop (lg) */
+     --h3-large: 2.8rem;       /* 40px - Large screens (xl) */
+     --h3-xlarge: 3.2rem;        /* 48px - Extra large (2xl) */
+     
+     /* Variables pour autres éléments */
+     --h4-mobile: 1.25rem;     /* 20px - Mobile */
+     --h4-tablet: 1.5rem;      /* 24px - Tablet */
+     --h4-desktop: 1.75rem;    /* 28px - Desktop */
+     --h4-large: 2rem;         /* 32px - Large screens */
+     
+     --h5-mobile: 1.125rem;    /* 18px - Mobile */
+     --h5-tablet: 1.25rem;     /* 20px - Tablet */
+     --h5-desktop: 1.5rem;     /* 24px - Desktop */
+     --h5-large: 1.75rem;      /* 28px - Large screens */
+     
+     --h6-mobile: 1rem;        /* 16px - Mobile */
+     --h6-tablet: 1.125rem;    /* 18px - Tablet */
+     --h6-desktop: 1.25rem;    /* 20px - Desktop */
+     --h6-large: 1.5rem;       /* 24px - Large screens */
    }
       
    /* Mode sombre */
@@ -85,82 +192,310 @@
      --section-bg-1: 30 15% 14%;
      --section-bg-2: 30 15% 10%;
    }
- 
-   /* Optimisation du rendu des polices */
-   html, body {
+
+   /* PROTECTION GLOBALE ANTI-DÉBORDEMENT HORIZONTAL - RENFORCÉE */
+   html {
      -webkit-font-smoothing: antialiased;
      -moz-osx-font-smoothing: grayscale;
      text-rendering: optimizeLegibility;
      font-feature-settings: "kern" 1, "liga" 1;
+     font-variant-ligatures: common-ligatures;
+     /* ESSENTIEL : Empêcher le scroll horizontal global */
+     overflow-x: hidden;
+     max-width: 100vw;
+   }
+   
+   body {
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+     text-rendering: optimizeLegibility;
+     /* ESSENTIEL : Empêcher le scroll horizontal sur le body */
+     overflow-x: hidden;
+     max-width: 100vw;
+     margin: 0;
+     padding: 0;
    }
    
    * {
      @apply border-border;
+     /* ESSENTIEL : Box-sizing uniforme pour éviter les débordements */
+     box-sizing: border-box;
    }
       
    body {
      @apply bg-background text-foreground;
+     /* Police par défaut avec fallback système optimisé */
+     font-family: var(--font-brawler), Georgia, 'Times New Roman', serif;
+   }
+
+   /* Font loading optimization - éviter FOIT */
+   @font-face {
+     font-display: swap;
    }
  }
  
  /* =========================================
-  * CLASSES TYPOGRAPHIQUES UTILITAIRES
+  * CLASSES POLICES OPTIMISÉES - 5 POLICES
   * ========================================= */
  @layer components {
-   /* Polices de base */
+   /* Police principale - Alegreya (Titres et headers) */
    .font-alegreya {
-     font-family: var(--font-alegreya), Georgia, serif;
+     font-family: var(--font-alegreya), Georgia, 'Times New Roman', serif;
+     font-display: swap;
+     font-feature-settings: "kern" 1, "liga" 1;
    }
     
+   /* Police corps de texte - Brawler (Texte principal) */
    .font-brawler {
-     font-family: var(--font-brawler), Georgia, serif;
+     font-family: var(--font-brawler), Georgia, 'Times New Roman', serif;
      font-weight: 400;
+     font-display: swap;
+     font-feature-settings: "kern" 1;
    }
     
+   /* Police UI - Caveat (Navigation, boutons) */
    .font-caveat {
-     font-family: var(--font-caveat), cursive;
+     font-family: var(--font-caveat), 'Comic Sans MS', cursive;
+     font-display: swap;
+     font-feature-settings: "kern" 1;
    }
     
+   /* Police accent - Cormorant (Prix, accents) */
    .font-cormorant {
-     font-family: var(--font-cormorant), Georgia, serif;
+     font-family: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+     font-display: swap;
+     font-feature-settings: "kern" 1, "liga" 1;
    }
-    
-   .logo-text {
-     font-family: var(--font-annie), cursive;
+
+   /* Police logo - Annie (Logo uniquement) */
+   .font-annie {
+     font-family: var(--font-annie), 'Comic Sans MS', cursive;
      font-weight: 400;
+     font-display: swap;
    }
  
-   /* Classes de titre cohérentes */
+   /* Classes typographiques sémantiques optimisées */
+   .logo-text {
+     @apply font-annie;
+     font-display: swap;
+   }
+
+   .nav-text {
+     @apply font-caveat text-brawler-medium sm:text-nav;
+     font-display: swap;
+   }
+
+   /* =========================================
+    * CLASSES DE TITRE CORRIGÉES - HIÉRARCHIE RESPECTÉE
+    * Progression fluide avec 6 breakpoints pour évolution progressive
+    * ========================================= */
+   
+   /* H1 - Titre principal - TAILLES CORRECTES selon exigences */
    .heading-1 {
-     @apply font-alegreya font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight;
+     @apply font-alegreya font-bold leading-tight;
+     font-size: var(--h1-mobile);      /* 32px - Mobile (< 640px) */
+     font-display: swap;
    }
- 
+   
+   /* H2 - Sous-titre principal - Toujours plus petit que H1 */
    .heading-2 {
-     @apply font-alegreya font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight;
+     @apply font-alegreya font-bold leading-tight;
+     font-size: var(--h2-mobile);      /* 28px - Mobile (< 640px) */
+     font-display: swap;
    }
  
+   /* H3 - Titre de section - Toujours plus petit que H2 */
    .heading-3 {
-     @apply font-alegreya font-semibold text-2xl sm:text-3xl lg:text-4xl leading-snug;
+     @apply font-alegreya font-semibold leading-snug;
+     font-size: var(--h3-mobile);      /* 24px - Mobile (< 640px) */
+     font-display: swap;
+   }
+
+   /* H4 - Titre de sous-section */
+   .heading-4 {
+     @apply font-alegreya font-semibold leading-snug;
+     font-size: var(--h4-mobile);      /* 20px - Mobile */
+     font-display: swap;
+   }
+
+   /* H5 - Titre de paragraphe */
+   .heading-5 {
+     @apply font-alegreya font-medium leading-normal;
+     font-size: var(--h5-mobile);      /* 18px - Mobile */
+     font-display: swap;
+   }
+
+   /* H6 - Plus petit titre */
+   .heading-6 {
+     @apply font-alegreya font-medium leading-normal;
+     font-size: var(--h6-mobile);      /* 16px - Mobile */
+     font-display: swap;
+   }
+
+   /* =========================================
+    * RESPONSIVE BREAKPOINTS - PROGRESSION FLUIDE
+    * ========================================= */
+
+   /* XS - Petits mobiles (475px+) */
+   @media (min-width: 475px) {
+     .heading-1 { font-size: calc(var(--h1-mobile) * 1.05); }  /* 33.6px */
+     .heading-2 { font-size: calc(var(--h2-mobile) * 1.05); }  /* 29.4px */
+     .heading-3 { font-size: calc(var(--h3-mobile) * 1.05); }  /* 25.2px */
+     .heading-4 { font-size: calc(var(--h4-mobile) * 1.05); }  /* 21px */
+     .heading-5 { font-size: calc(var(--h5-mobile) * 1.05); }  /* 18.9px */
+     .heading-6 { font-size: calc(var(--h6-mobile) * 1.05); }  /* 16.8px */
+   }
+
+   /* SM - Tablettes (640px+) - TABLET selon exigences */
+   @media (min-width: 640px) {
+     .heading-1 { font-size: var(--h1-tablet); }     /* 44px - REQUIS */
+     .heading-2 { font-size: var(--h2-tablet); }     /* 36px */
+     .heading-3 { font-size: var(--h3-tablet); }     /* 30px */
+     .heading-4 { font-size: var(--h4-tablet); }     /* 24px */
+     .heading-5 { font-size: var(--h5-tablet); }     /* 20px */
+     .heading-6 { font-size: var(--h6-tablet); }     /* 18px */
+   }
+
+   /* MD - Tablettes large (768px+) */
+   @media (min-width: 768px) {
+     .heading-1 { font-size: calc(var(--h1-tablet) * 1.1); }  /* 48.4px */
+     .heading-2 { font-size: calc(var(--h2-tablet) * 1.1); }  /* 39.6px */
+     .heading-3 { font-size: calc(var(--h3-tablet) * 1.1); }  /* 33px */
+     .heading-4 { font-size: calc(var(--h4-tablet) * 1.1); }  /* 26.4px */
+     .heading-5 { font-size: calc(var(--h5-tablet) * 1.1); }  /* 22px */
+     .heading-6 { font-size: calc(var(--h6-tablet) * 1.1); }  /* 19.8px */
+   }
+
+   /* LG - Desktop (1024px+) - DESKTOP selon exigences */
+   @media (min-width: 1024px) {
+     .heading-1 { font-size: var(--h1-desktop); }    /* 52px - REQUIS */
+     .heading-2 { font-size: var(--h2-desktop); }    /* 44px */
+     .heading-3 { font-size: var(--h3-desktop); }    /* 36px */
+     .heading-4 { font-size: var(--h4-desktop); }    /* 28px */
+     .heading-5 { font-size: var(--h5-desktop); }    /* 24px */
+     .heading-6 { font-size: var(--h6-desktop); }    /* 20px */
+   }
+
+   /* XL - Large screens (1280px+) */
+   @media (min-width: 1280px) {
+     .heading-1 { font-size: var(--h1-large); }      /* 56px */
+     .heading-2 { font-size: var(--h2-large); }      /* 48px */
+     .heading-3 { font-size: var(--h3-large); }      /* 40px */
+     .heading-4 { font-size: var(--h4-large); }      /* 32px */
+     .heading-5 { font-size: var(--h5-large); }      /* 28px */
+     .heading-6 { font-size: var(--h6-large); }      /* 24px */
+   }
+
+   /* 2XL - Extra large screens (1536px+) */
+   @media (min-width: 1536px) {
+     .heading-1 { font-size: var(--h1-xlarge); }     /* 64px */
+     .heading-2 { font-size: var(--h2-xlarge); }     /* 56px */
+     .heading-3 { font-size: var(--h3-xlarge); }     /* 48px */
+     .heading-4 { font-size: calc(var(--h4-large) * 1.125); }  /* 36px */
+     .heading-5 { font-size: calc(var(--h5-large) * 1.125); }  /* 31.5px */
+     .heading-6 { font-size: calc(var(--h6-large) * 1.125); }  /* 27px */
+   }
+
+   /* =========================================
+    * CLASSES ALTERNATIVES POUR CAS SPÉCIAUX
+    * ========================================= */
+
+   /* Classes Tailwind responsive traditionnelles - pour compatibilité */
+   .heading-1-tailwind {
+     @apply font-alegreya font-bold text-h1-mobile sm:text-h1-sm md:text-h1-md lg:text-h1-lg xl:text-h1-xl 2xl:text-h1-2xl leading-tight;
+     font-display: swap;
+   }
+
+   .heading-2-tailwind {
+     @apply font-alegreya font-bold text-h2-mobile sm:text-h2-sm md:text-h2-md lg:text-h2-lg xl:text-h2-xl 2xl:text-h2-2xl leading-tight;
+     font-display: swap;
+   }
+
+   .heading-3-tailwind {
+     @apply font-alegreya font-semibold text-h3-mobile sm:text-h3-sm md:text-h3-md lg:text-h3-lg xl:text-h3-xl 2xl:text-h3-2xl leading-snug;
+     font-display: swap;
+   }
+
+   /* Classes fluides avec clamp() pour progression ultra-smooth */
+   .heading-1-fluid {
+     @apply font-alegreya font-bold leading-tight;
+     font-size: clamp(var(--h1-mobile), 3.5vw + 1rem, var(--h1-xlarge));
+     font-display: swap;
+   }
+
+   .heading-2-fluid {
+     @apply font-alegreya font-bold leading-tight;
+     font-size: clamp(var(--h2-mobile), 3vw + 0.8rem, var(--h2-xlarge));
+     font-display: swap;
+   }
+
+   .heading-3-fluid {
+     @apply font-alegreya font-semibold leading-snug;
+     font-size: clamp(var(--h3-mobile), 2.5vw + 0.6rem, var(--h3-xlarge));
+     font-display: swap;
+   }
+
+   /* Classes spécialisées par contexte */
+   .heading-hero {
+     @apply font-alegreya font-bold leading-tight;
+     font-size: clamp(var(--h1-mobile), 4vw + 0.5rem, var(--h1-xlarge));
+     font-display: swap;
+   }
+
+   .heading-section {
+     @apply font-alegreya font-bold leading-tight; 
+     font-size: clamp(var(--h2-mobile), 3.2vw + 0.4rem, var(--h2-large));
+     font-display: swap;
+   }
+
+   .heading-card {
+     @apply font-alegreya font-semibold leading-snug;
+     font-size: clamp(var(--h3-mobile), 2.8vw + 0.3rem, var(--h3-large));
+     font-display: swap;
    }
  
-   /* Classes de texte cohérentes */
+   /* Classes de texte optimisées - TAILLES CUSTOMS */
    .body-text {
-     @apply font-brawler text-base sm:text-lg leading-relaxed;
+     @apply font-brawler text-brawler-medium sm:text-brawler-large leading-relaxed;
+     font-display: swap;
    }
  
    .body-text-small {
-     @apply font-brawler text-sm leading-relaxed;
+     @apply font-brawler text-brawler-small leading-relaxed;
+     font-display: swap;
    }
    
    .body-text-medium {
-     @apply font-brawler text-base leading-relaxed;
+     @apply font-brawler text-brawler-medium leading-relaxed;
+     font-display: swap;
    }
  
-   /* Navigation et boutons */
-   .nav-text {
-     @apply font-caveat text-xl sm:text-2xl;
+   /* Prix avec police spécialisée - VERSION RESPONSIVE AVEC TAILLES CUSTOMS */
+   .price-display {
+     @apply font-cormorant font-semibold text-h6 sm:text-h5 lg:text-h4;
+     font-display: swap;
+     font-feature-settings: "tnum" 1; /* Chiffres tabulaires */
    }
- 
+
+   /* Classes de prix spécialisées pour différents contextes */
+   .price-display-large {
+     @apply font-cormorant font-semibold text-h4 sm:text-h3 lg:text-h2;
+     font-display: swap;
+     font-feature-settings: "tnum" 1;
+   }
+
+   .price-display-small {
+     @apply font-cormorant font-semibold text-brawler-medium sm:text-h6;
+     font-display: swap;
+     font-feature-settings: "tnum" 1;
+   }
+
+   .price-display-hero {
+     @apply font-cormorant font-bold text-h3 sm:text-h2 lg:text-h1;
+     font-display: swap;
+     font-feature-settings: "tnum" 1;
+   }
+
    /* Utilitaires de fonds pour les sections */
    .section-bg-1 {
      background-color: hsl(var(--section-bg-1));
@@ -169,47 +504,249 @@
    .section-bg-2 {
      background-color: hsl(var(--section-bg-2));
    }
- 
-   /* Prix */
-   .price-display {
-     @apply font-cormorant font-semibold;
-   }
    
    /* Boutons optimisés */
    .btn-primary {
      @apply bg-primary text-primary-foreground hover:bg-primary/90 
             rounded-[var(--button-radius)] px-6 py-3 font-medium
             transition-colors duration-200 focus:outline-none 
-            focus:ring-2 focus:ring-primary focus:ring-offset-2;
+            focus:ring-2 focus:ring-primary focus:ring-offset-2
+            font-caveat;
+     font-display: swap;
    }
    
    /* Cartes avec effets */
    .card-hover {
      @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
    }
+
+   /* =========================================
+    * LARGEURS STANDARDISÉES POUR COHÉRENCE
+    * ========================================= */
    
-   /* Container responsive */
+   /* Container standardisé pour toutes les sections */
    .section-container {
      @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+   }
+   
+   /* Largeurs de contenu spécifiques par type de section */
+   .content-width-full {
+     @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+   }
+   
+   .content-width-large {
+     @apply w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+   }
+   
+   .content-width-medium {
+     @apply w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+   }
+   
+   .content-width-small {
+     @apply w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8;
+   }
+   
+   /* PROTECTION ANTI-DÉBORDEMENT HORIZONTAL - ESSENTIELLE */
+   .no-horizontal-overflow {
+     max-width: 100%;
+     overflow-x: hidden;
+     box-sizing: border-box;
+   }
+
+   /* =========================================
+    * CLASSES HERO SECTIONS - VERSION FIXE DANS LA SECTION
+    * ========================================= */
+   
+   /* Conteneur hero - RELATIF pour contenir les cercles absolus */
+   .hero-safe-container {
+     @apply relative w-full;
+     overflow-x: hidden; /* Seulement horizontal */
+     max-width: 100vw;
+     /* IMPORTANT : overflow-y hidden pour contenir les cercles dans la section */
+     overflow-y: hidden;
+     /* Position relative pour que les cercles absolus se positionnent par rapport à cette section */
+     position: relative;
+   }
+   
+   /* Container des cercles - ABSOLU dans la section (pas sticky) */
+   .hero-circles-background {
+     position: absolute; /* ABSOLU par rapport à .hero-safe-container */
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     pointer-events: none; /* N'interfère pas avec les interactions */
+     z-index: 1; /* Derrière l'image */
+     /* PAS d'overflow hidden - mais contenus dans la section */
+   }
+   
+   /* Cercle décoratif principal - TAILLES LIBRES PAR VARIABLES */
+   .hero-circle-main {
+     @apply absolute rounded-full bg-gradient-to-r from-primary/15 to-primary/15 animate-pulse-gentle;
+     /* Tailles directes sans contraintes min/max */
+     width: var(--hero-circle-main-size);
+     height: var(--hero-circle-main-size);
+     /* Position avec décalage à droite */
+     left: calc(var(--hero-circle-offset-x) + var(--hero-circle-right-shift));
+     top: var(--hero-circle-offset-y);
+     transform: translate(-50%, -50%);
+     z-index: 1;
+   }
+   
+   /* Cercle pointillé décoratif - TAILLES LIBRES PAR VARIABLES */
+   .hero-circle-dashed {
+     @apply absolute rounded-full border-4 border-dashed border-primary/30 animate-rotate-centered;
+     /* Tailles directes sans contraintes min/max */
+     width: var(--hero-circle-dashed-size);
+     height: var(--hero-circle-dashed-size);
+     /* Position avec décalage à droite */
+     left: calc(var(--hero-circle-offset-x) + var(--hero-circle-right-shift));
+     top: var(--hero-circle-offset-y);
+     transform: translate(-50%, -50%);
+     z-index: 1;
+   }
+   
+   /* Container pour l'image seule */
+   .hero-image-container {
+     @apply relative flex items-center justify-center;
+     width: 100%;
+     height: 100%;
+     z-index: 10; /* Au-dessus des cercles */
+   }
+   
+   /* Image wrapper - TAILLES RÉDUITES pour tous les breakpoints */
+   .hero-image-wrapper {
+     @apply relative rounded-3xl shadow-xl overflow-hidden;
+     /* Tailles optimisées et réduites */
+     width: min(280px, 40vw);
+     height: min(200px, 28vw);
+     max-width: calc(100vw - 4rem);
+     z-index: 10;
+   }
+
+   /* =========================================
+    * RESPONSIVE : TAILLES DES CERCLES PAR BREAKPOINT - LIBRES
+    * ========================================= */
+
+   /* EXTRA LARGE (1280px+) */
+   @media (min-width: 1280px) {
+     :root {
+       --hero-circle-main-size: 400px;
+       --hero-circle-dashed-size: 460px;
+       --hero-circle-right-shift: 120px;
+       --hero-circle-offset-x: 68%;
+     }
+     
+     .hero-image-wrapper {
+       width: min(320px, 45vw);
+       height: min(220px, 32vw);
+     }
+   }
+
+   /* LARGE (1024px - 1279px) */
+   @media (max-width: 1279px) and (min-width: 1024px) {
+     :root {
+       --hero-circle-main-size: 340px;
+       --hero-circle-dashed-size: 400px;
+       --hero-circle-right-shift: 100px;
+       --hero-circle-offset-x: 72%;
+     }
+
+     .hero-image-wrapper {
+       width: min(300px, 42vw);
+       height: min(210px, 30vw);
+     }
+   }
+
+   /* MEDIUM/TABLET (768px - 1023px) */
+   @media (max-width: 1023px) and (min-width: 768px) {
+     :root {
+      --hero-circle-main-size: 240px;
+      --hero-circle-dashed-size: 280px;
+      --hero-circle-right-shift: 0px;
+      --hero-circle-offset-x: 50%;
+      --hero-circle-offset-y: 72%;
+     }
+
+     .hero-image-wrapper {
+       width: min(260px, 38vw);
+       height: min(180px, 26vw);
+     }
+   }
+
+   /* SMALL/MOBILE LARGE (480px - 767px) */
+   @media (max-width: 767px) and (min-width: 480px) {
+     :root {
+      --hero-circle-main-size: 240px;
+      --hero-circle-dashed-size: 280px;
+      --hero-circle-right-shift: 0px;
+      --hero-circle-offset-x: 50%;
+      --hero-circle-offset-y: 73%;
+     }
+
+     .hero-image-wrapper {
+       width: min(220px, 50vw);
+       height: min(160px, 36vw);
+     }
+   }
+
+   /* EXTRA SMALL/MOBILE (moins de 480px) */
+   @media (max-width: 479px) {
+     :root {
+      --hero-circle-main-size: 200px;
+      --hero-circle-dashed-size: 240px;
+      --hero-circle-right-shift: 0px;
+      --hero-circle-offset-x: 50%;
+      --hero-circle-offset-y: 75%;
+     }
+
+     .hero-image-wrapper {
+       width: min(180px, 55vw);
+       height: min(130px, 40vw);
+     }
    }
  }
  
  /* =========================================
-  * ANIMATIONS OPTIMISÉES
+  * ANIMATIONS OPTIMISÉES - AMÉLIORÉES
   * ========================================= */
  @layer utilities {
-   .animate-rotate-slow {
-     animation: spin 30s linear infinite;
+   /* Rotation qui preserve le centrage - AMÉLIORÉE */
+   .animate-rotate-centered {
+     animation: spinCentered 40s linear infinite; /* Plus lent pour être plus subtil */
    }
- 
+
+   /* Respiration pour le cercle intérieur - AMÉLIORÉE */
    .animate-pulse-gentle {
-     animation: pulse 4s infinite ease-in-out;
+     animation: breathe 6s infinite ease-in-out; /* Plus lent et plus doux */
    }
- 
+
    .animate-fadeIn {
      animation: fadeIn 0.6s ease-out forwards;
    }
- 
+
+   /* Animation : Rotation + Centrage */
+   @keyframes spinCentered {
+     from {
+       transform: translate(-50%, -50%) rotate(0deg);
+     }
+     to {
+       transform: translate(-50%, -50%) rotate(360deg);
+     }
+   }
+
+   /* Animation de respiration en taille - AMÉLIORÉE */
+   @keyframes breathe {
+     0%, 100% {
+       transform: translate(-50%, -50%) scale(1);
+       opacity: 0.6;
+     }
+     50% {
+       transform: translate(-50%, -50%) scale(1.08);
+       opacity: 0.8;
+     }
+   }
+
    @keyframes fadeIn {
      from {
        opacity: 0;
@@ -220,12 +757,21 @@
        transform: translateY(0);
      }
    }
+
+   /* Optimisation pour font loading */
+   .font-loading {
+     font-display: swap;
+     visibility: hidden;
+   }
+
+   .font-loaded {
+     visibility: visible;
+   }
  }
  
  /* =========================================
-  * ANIMATION TICKER GLOBALE UNIQUEMENT
+  * ANIMATION TICKER GLOBALE
   * ========================================= */
- /* Animation référencée dans Ticker.module.css */
  @keyframes tickerAnimation {
    0% {
      transform: translateX(0);
@@ -236,14 +782,24 @@
  }
  
  /* =========================================
-  * OPTIMISATIONS PERFORMANCE
+  * OPTIMISATIONS PERFORMANCE ET ACCESSIBILITÉ
   * ========================================= */
+ 
  /* Préférence pour reduced motion */
  @media (prefers-reduced-motion: reduce) {
    * {
      animation-duration: 0.01ms !important;
      animation-iteration-count: 1 !important;
      transition-duration: 0.01ms !important;
+   }
+   
+   /* Maintenir font-display même en reduced motion */
+   .font-alegreya,
+   .font-brawler,
+   .font-caveat,
+   .font-cormorant,
+   .font-annie {
+     font-display: swap;
    }
  }
  
@@ -257,5 +813,43 @@
    .dark {
      --border: 0 0% 80%;
      --primary: 12 76% 65%;
+   }
+ }
+
+ /* Optimisation pour slow connections */
+ @media (prefers-reduced-data: reduce) {
+   /* Fallback fonts plus agressif pour économiser la bande passante */
+   .font-alegreya {
+     font-family: Georgia, 'Times New Roman', serif;
+   }
+   
+   .font-brawler {
+     font-family: Georgia, 'Times New Roman', serif;
+   }
+   
+   .font-caveat {
+     font-family: 'Comic Sans MS', cursive;
+   }
+   
+   .font-cormorant {
+     font-family: Georgia, 'Times New Roman', serif;
+   }
+   
+   .font-annie {
+     font-family: 'Comic Sans MS', cursive;
+   }
+ }
+
+ /* Support pour print */
+ @media print {
+   .font-alegreya,
+   .font-brawler,
+   .font-cormorant {
+     font-family: Georgia, 'Times New Roman', serif !important;
+   }
+   
+   .font-caveat,
+   .font-annie {
+     font-family: Arial, sans-serif !important;
    }
  }

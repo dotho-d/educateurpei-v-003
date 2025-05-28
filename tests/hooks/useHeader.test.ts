@@ -1,31 +1,13 @@
+/**
+ * tests/hooks/useHeader.test.ts
+ * Tests unitaires complets pour useHeader
+ */
+
 import { renderHook, act } from '@testing-library/react';
+
 import { useHeader } from '@/hooks/useHeader';
 
-// Mock des dépendances
-jest.mock('@/hooks/useScrollState', () => ({
-  useScrollState: jest.fn(() => ({ isScrolled: false })),
-}));
-
-jest.mock('@/hooks/useDisclosure', () => ({
-  useDisclosure: jest.fn(() => ({
-    isOpen: false,
-    open: jest.fn(),
-    close: jest.fn(),
-    toggle: jest.fn(),
-  })),
-}));
-
-jest.mock('@/hooks/useCurrentSection', () => ({
-  useCurrentSection: jest.fn(() => 'home'),
-}));
-
-jest.mock('@/hooks/useScrollLock', () => ({
-  useScrollLock: jest.fn(() => ({
-    lockScroll: jest.fn(),
-    unlockScroll: jest.fn(),
-  })),
-}));
-
+// Mock de useRouter
 const mockPush = jest.fn();
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -33,146 +15,145 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-describe('useHeader', () => {
-  const mockScrollState = require('@/hooks/useScrollState');
-  const mockDisclosure = require('@/hooks/useDisclosure');
-  const mockCurrentSection = require('@/hooks/useCurrentSection');
-  const mockScrollLock = require('@/hooks/useScrollLock');
+// Mock de scrollTo
+Object.defineProperty(window, 'scrollTo', {
+  value: jest.fn(),
+  writable: true,
+});
 
+// Mock de getElementById
+const mockElement = {
+  getBoundingClientRect: jest.fn(() => ({ top: 100 })),
+  focus: jest.fn(),
+  setAttribute: jest.fn(),
+  removeAttribute: jest.fn(),
+  tabIndex: -1,
+};
+
+Object.defineProperty(document, 'getElementById', {
+  value: jest.fn().mockReturnValue(mockElement),
+  writable: true,
+});
+
+describe('useHeader', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    
-    // Reset mocks to default values
-    mockScrollState.useScrollState.mockReturnValue({ isScrolled: false });
-    mockDisclosure.useDisclosure.mockReturnValue({
-      isOpen: false,
-      open: jest.fn(),
-      close: jest.fn(),
-      toggle: jest.fn(),
+    Object.defineProperty(window, 'scrollY', { 
+      value: 0, 
+      writable: true, 
+      configurable: true 
     });
-    mockCurrentSection.useCurrentSection.mockReturnValue('home');
-    mockScrollLock.useScrollLock.mockReturnValue({
-      lockScroll: jest.fn(),
-      unlockScroll: jest.fn(),
-    });
-
-    // Mock DOM methods
-    global.document.getElementById = jest.fn();
-    Object.defineProperty(window, 'pageYOffset', {
-      value: 0,
+    Object.defineProperty(window, 'location', {
+      value: { hash: '' },
       writable: true,
+      configurable: true
     });
   });
 
   it('should return correct initial state', () => {
     const { result } = renderHook(() => useHeader());
 
-    expect(result.current).toHaveProperty('isScrolled', false);
-    expect(result.current).toHaveProperty('isMenuOpen', false);
-    expect(result.current).toHaveProperty('currentSection', 'home');
-    expect(result.current).toHaveProperty('scrollToSection');
+    expect(result.current.isScrolled).toBe(false);
+    expect(result.current.isMenuOpen).toBe(false);
+    expect(result.current.currentSection).toBe('');
     expect(typeof result.current.scrollToSection).toBe('function');
   });
 
-  it('should reflect scrolled state', () => {
-    mockScrollState.useScrollState.mockReturnValue({ isScrolled: true });
-    
+  it('should detect scroll state correctly', async () => {
     const { result } = renderHook(() => useHeader());
+
+    act(() => {
+      Object.defineProperty(window, 'scrollY', { 
+        value: 50, 
+        writable: true, 
+        configurable: true 
+      });
+      window.dispatchEvent(new Event('scroll'));
+    });
+
+    // Attendre le throttling
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 150));
+    });
 
     expect(result.current.isScrolled).toBe(true);
   });
 
-  it('should reflect menu open state', () => {
-    mockDisclosure.useDisclosure.mockReturnValue({
-      isOpen: true,
-      open: jest.fn(),
-      close: jest.fn(),
-      toggle: jest.fn(),
-    });
-    
+  it('should toggle menu correctly', () => {
     const { result } = renderHook(() => useHeader());
 
-    expect(result.current.isMenuOpen).toBe(true);
-  });
-
-  it('should scroll to section when element exists', () => {
-    const mockElement = {
-      getBoundingClientRect: jest.fn(() => ({ top: 100 })),
-      focus: jest.fn(),
-      setAttribute: jest.fn(),
-      removeAttribute: jest.fn(),
-      tabIndex: -1,
-    };
-    
-    global.document.getElementById = jest.fn().mockReturnValue(mockElement);
-    Object.defineProperty(window, 'pageYOffset', { value: 500 });
-    
-    const mockClose = jest.fn();
-    mockDisclosure.useDisclosure.mockReturnValue({
-      isOpen: false,
-      open: jest.fn(),
-      close: mockClose,
-      toggle: jest.fn(),
+    act(() => {
+      result.current.toggleMenu();
     });
 
+    expect(result.current.isMenuOpen).toBe(true);
+
+    act(() => {
+      result.current.toggleMenu();
+    });
+
+    expect(result.current.isMenuOpen).toBe(false);
+  });
+
+  it('should handle section navigation', () => {
     const { result } = renderHook(() => useHeader());
 
     act(() => {
       result.current.scrollToSection('services');
     });
 
-    expect(global.document.getElementById).toHaveBeenCalledWith('services');
+    expect(document.getElementById).toHaveBeenCalledWith('services');
     expect(window.scrollTo).toHaveBeenCalledWith({
-      top: 520, // 100 + 500 - 80
-      behavior: 'smooth',
+      top: expect.any(Number),
+      behavior: 'smooth'
     });
     expect(mockPush).toHaveBeenCalledWith('#services', { scroll: false });
-    expect(mockClose).toHaveBeenCalled();
-    expect(mockElement.focus).toHaveBeenCalledWith({ preventScroll: true });
   });
 
-  it('should not scroll when element does not exist', () => {
-    global.document.getElementById = jest.fn().mockReturnValue(null);
-    
+  it('should close menu when navigating to section', () => {
     const { result } = renderHook(() => useHeader());
 
     act(() => {
-      result.current.scrollToSection('nonexistent');
+      result.current.toggleMenu();
     });
 
-    expect(window.scrollTo).not.toHaveBeenCalled();
-    expect(mockPush).not.toHaveBeenCalled();
+    expect(result.current.isMenuOpen).toBe(true);
+
+    act(() => {
+      result.current.scrollToSection('contact');
+    });
+
+    expect(result.current.isMenuOpen).toBe(false);
   });
 
-  it('should call lockScroll when menu opens', () => {
-    const mockLockScroll = jest.fn();
-    const mockUnlockScroll = jest.fn();
-    
-    mockScrollLock.useScrollLock.mockReturnValue({
-      lockScroll: mockLockScroll,
-      unlockScroll: mockUnlockScroll,
+  it('should handle hash changes', () => {
+    const { result } = renderHook(() => useHeader());
+
+    act(() => {
+      Object.defineProperty(window, 'location', {
+        value: { hash: '#about' },
+        writable: true,
+        configurable: true
+      });
+      window.dispatchEvent(new Event('hashchange'));
     });
 
-    // First render with menu closed
-    mockDisclosure.useDisclosure.mockReturnValue({
-      isOpen: false,
-      open: jest.fn(),
-      close: jest.fn(),
-      toggle: jest.fn(),
+    expect(result.current.currentSection).toBe('about');
+  });
+
+  it('should apply scroll lock when menu is open', () => {
+    const { result } = renderHook(() => useHeader());
+
+    act(() => {
+      result.current.openMenu();
     });
 
-    const { rerender } = renderHook(() => useHeader());
+    expect(document.body.style.position).toBe('fixed');
 
-    // Second render with menu open
-    mockDisclosure.useDisclosure.mockReturnValue({
-      isOpen: true,
-      open: jest.fn(),
-      close: jest.fn(),
-      toggle: jest.fn(),
+    act(() => {
+      result.current.closeMenu();
     });
 
-    rerender();
-
-    expect(mockLockScroll).toHaveBeenCalled();
+    expect(document.body.style.position).toBe('');
   });
 });

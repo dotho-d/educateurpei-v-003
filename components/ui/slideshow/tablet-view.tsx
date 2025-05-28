@@ -1,9 +1,12 @@
 /**
  * tablet-view.tsx
  * Vue tablette du slideshow pour les écrans entre 640px et 1024px
+ * VERSION CORRIGÉE - CSS limité aux tablettes uniquement
  */
-import React from 'react';
+
 import { Accessibility, Users, Cannabis, FileText, Briefcase } from 'lucide-react';
+import React from 'react';
+
 import SlideshowControls from './slideshow-controls';
 import styles from './styles/TabletView.module.css';
 
@@ -54,27 +57,30 @@ const TabletView: React.FC<TabletViewProps> = ({
     <Briefcase key="briefcase-icon" className={styles.slideIcon} />
   ];
 
-  // CSS pour forcer les largeurs à 100% des éléments du slide
-  const largeScreenCSS = `
-    .${styles.slideContent} [class*="md:w-"] {
-      width: 100% !important;
-      max-width: 100% !important;
-    }
-    .${styles.slideContent} [class*="md:flex-row"] {
-      flex-direction: column !important;
-    }
-    .${styles.slideContent} .w-full.md\\:w-\\[48\\%\\] {
-      width: 100% !important;
-    }
-    .${styles.slideContent} .w-full.md\\:w-\\[42\\%\\] {
-      display: none !important;
+  // CSS pour forcer les largeurs à 100% des éléments du slide - LIMITÉ AUX TABLETTES UNIQUEMENT
+  const tabletOnlyCSS = `
+    /* IMPORTANT : Appliquer UNIQUEMENT sur les tablettes (640px à 1023px) */
+    @media (min-width: 640px) and (max-width: 1023px) {
+      .${styles.slideContent} [class*="md:w-"] {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .${styles.slideContent} [class*="md:flex-row"] {
+        flex-direction: column !important;
+      }
+      .${styles.slideContent} .w-full.md\\:w-\\[48\\%\\] {
+        width: 100% !important;
+      }
+      .${styles.slideContent} .w-full.md\\:w-\\[42\\%\\] {
+        display: none !important;
+      }
     }
   `;
 
   return (
     <div className={styles.tabletContainer}>
-      {/* Injecter le CSS pour correction des largeurs */}
-      <style dangerouslySetInnerHTML={{ __html: largeScreenCSS }} />
+      {/* Injecter le CSS pour correction des largeurs - LIMITÉ AUX TABLETTES */}
+      <style dangerouslySetInnerHTML={{ __html: tabletOnlyCSS }} />
       
       {/* Conteneur du slide actif avec padding et spacing améliorés */}
       <div className={styles.contentWrapper}>

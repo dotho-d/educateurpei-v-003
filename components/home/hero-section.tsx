@@ -1,7 +1,6 @@
-// components/home/hero-section.tsx - CORRECTION DU CONFLIT DE POSITIONNEMENT
 /**
  * hero-section.tsx
- * Composant de la section héro optimisé - CORRIGÉ : suppression du conflit de positionnement
+ * VERSION CORRIGÉE - Centrage intelligent responsive + ticker fonctionnel
  */
 "use client";
 
@@ -13,37 +12,56 @@ import Ticker from '@/components/ui/ticker';
 import { cn } from '@/lib/utils';
 
 interface HeroSectionProps {
-  /**
-   * Référence à transmettre à la section hero
-   */
   heroRef: React.RefObject<HTMLElement>;
-  /**
-   * Fonction pour gérer le défilement fluide
-   */
   handleSmoothScroll: (targetId: string) => void;
 }
 
-/**
- * Composant HeroSection optimisé
- * Affiche la section d'introduction principale du site avec optimisations performance
- */
 export default function HeroSection({ heroRef, handleSmoothScroll }: HeroSectionProps) {
   return (
     <section
       ref={heroRef}
       id="hero"
       className={cn(
-        "relative w-full overflow-hidden min-h-screen h-screen",
-        "flex items-center section-bg-1",
-        "py-20 sm:py-24 lg:py-32"
+        "hero-safe-container h-screen relative",
+        "flex section-bg-1",
+        // ALIGNEMENT RESPONSIVE INTELLIGENT
+        "items-start",           // Mobile : contrôle avec padding
+        "sm:items-start",        // Tablet : contrôle avec padding  
+        "md:items-start",        // Medium : contrôle avec padding
+        "lg:items-center",       // Desktop : centrage naturel
+        "xl:items-center",       // Large : centrage naturel
+        // ESPACEMENTS AJUSTÉS
+        "pt-20 pb-20",          // Mobile : 80px haut, 80px bas
+        "sm:pt-20 sm:pb-20",    // Tablet : 80px haut, 80px bas
+        "md:pt-30 md:pb-30",    // Medium : 120px haut, 120px bas
+        "lg:pt-0 lg:pb-0",      // Desktop : pas de padding (centrage naturel)
+        "xl:pt-0 xl:pb-0"       // Large : pas de padding (centrage naturel)
       )}
+      style={{ 
+        overflowX: 'hidden', 
+        maxWidth: '100vw' 
+      }}
       aria-labelledby="hero-heading"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      {/* Cercles décoratifs en arrière-plan */}
+      <div className="hero-circles-background" aria-hidden="true">
+        <div className="hero-circle-main" />
+        <div className="hero-circle-dashed" />
+      </div>
+
+      {/* CONTAINER AVEC OFFSET POUR DESKTOP */}
+      <div className={cn(
+        "section-container w-full",
+        // Offset vers le haut pour desktop (pour compenser le ticker)
+        "lg:-mt-12 xl:-mt-16"  // Léger décalage vers le haut pour les grands écrans
+      )}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
-          {/* Contenu à gauche - centré sur mobile, aligné à gauche sur desktop */}
-          <div className="w-full z-10 text-center lg:text-left space-y-6 lg:space-y-8">
+          {/* Contenu à gauche */}
+          <div className={cn(
+            "w-full z-20 text-center lg:text-left space-y-6 lg:space-y-8",
+            "mt-0 sm:mt-4 md:mt-6 lg:mt-0" // Marges conservées pour petits écrans
+          )}>
             <h1 id="hero-heading" className="heading-1">
               Résolvez vos difficultés sociales et éducatives de façon innovante
             </h1>
@@ -75,39 +93,23 @@ export default function HeroSection({ heroRef, handleSmoothScroll }: HeroSection
             </div>
           </div>
 
-          {/* Image à droite avec cercle décoratif */}
-          <div className="w-full relative mt-12 lg:mt-0 flex justify-center lg:justify-end">
-            {/* Conteneur centré pour les cercles */}
-            <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-              {/* Cercle décoratif */}
-              <div className={cn(
-                "absolute rounded-full bg-gradient-to-r from-primary/20 to-primary/20",
-                "w-[min(340px,36vw)] h-[min(340px,36vw)]",
-                "animate-pulse-gentle"
-              )} />
-
-              {/* Cercle pointillé décoratif */}
-              <div className={cn(
-                "absolute rounded-full border-4 border-dashed border-primary/40",
-                "w-[min(360px,40vw)] h-[min(360px,40vw)]",
-                "animate-rotate-slow"
-              )} />
-            </div>
-
-            {/* Image optimisée au premier plan */}
-            <div className="relative z-10 flex h-full items-center justify-center">
-              <div className="relative rounded-3xl shadow-xl overflow-hidden w-[min(450px,60vw)] h-[min(300px,40vw)]">
+          {/* Image à droite */}
+          <div 
+            className="w-full relative mt-8 lg:mt-0 flex justify-center lg:justify-end"
+            style={{ maxWidth: '100%' }}
+          >
+            <div className="hero-image-container">
+              <div className="hero-image-wrapper">
                 <OptimizedImage
                   src="https://images.pexels.com/photos/3184405/pexels-photo-3184405.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt="Accompagnement par un éducateur spécialisé - personnes en discussion lors d'une séance de suivi"
                   fill
-                  sizes="(max-width: 480px) 90vw, (max-width: 768px) 80vw, (max-width: 1024px) 50vw, 450px"
+                  sizes="(max-width: 480px) 260px, (max-width: 768px) 320px, (max-width: 1024px) 360px, 400px"
                   className="object-cover"
                   priority
                   quality={90}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                  // ✅ Props d'erreur supprimées ou désactivées
                   showErrorMessage={false}
                   fallbackSrc="/images/hero-fallback.jpg"
                 />
@@ -117,8 +119,7 @@ export default function HeroSection({ heroRef, handleSmoothScroll }: HeroSection
         </div>
       </div>
 
-      {/* 🔧 CORRECTION: Suppression du div wrapper qui causait le conflit */}
-      {/* Le ticker gère maintenant son propre positionnement via Ticker.module.css */}
+      {/* Ticker - Position à 92% via CSS Module */}
       <Ticker 
         items={[
           { text: 'Handicap' },
@@ -131,7 +132,14 @@ export default function HeroSection({ heroRef, handleSmoothScroll }: HeroSection
       />
 
       {/* Formes décoratives */}
-      <div className="absolute bottom-1/4 right-1/3 w-8 h-8 bg-primary/15 rounded-full" aria-hidden="true" />
+      <div 
+        className="absolute bottom-16 w-8 h-8 bg-primary/15 rounded-full z-5" 
+        aria-hidden="true"
+        style={{
+          right: 'min(33%, calc(100vw - 4rem))',
+          maxWidth: 'calc(100vw - 2rem)'
+        }}
+      />
     </section>
   );
 }

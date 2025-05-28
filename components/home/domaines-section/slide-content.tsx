@@ -1,11 +1,13 @@
 /**
  * slide-content.tsx
- * Contenu d'un slide pour la section domaines d'intervention
+ * Contenu d'un slide avec Tailwind pur
+ * VERSION VÉRIFIÉE - Structure correcte pour l'affichage horizontal desktop
  */
-import React from 'react';
 import Link from 'next/link';
+import React from 'react';
+
 import { Button } from '@/components/ui/button';
-import styles from './styles/SlideContent.module.css';
+import { cn } from '@/lib/utils';
 
 interface SlideContentProps {
   /**
@@ -41,24 +43,44 @@ const SlideContent: React.FC<SlideContentProps> = ({
   className
 }) => {
   return (
-    <div className={`${styles.slideContent} ${className || ''}`}>
-      <div className={styles.flexContainer}>
-        {/* Contenu textuel */}
-        <div className={styles.textContent}>
-          <p className={styles.description} data-slideshow-text="description">
+    <div className={cn("w-full", className)}>
+      {/* STRUCTURE FLEX CORRECTE pour l'affichage horizontal desktop */}
+      <div className={cn(
+        "flex flex-col lg:flex-row lg:justify-between lg:items-start"
+      )}>
+        {/* Contenu textuel - 48% sur desktop, 100% sur mobile/tablette */}
+        <div className={cn(
+          "w-full lg:w-[48%] mb-6 lg:mb-0"
+        )}>
+          <p 
+            className={cn(
+              "font-brawler text-[17px] md:text-[18px] leading-6",
+              "mb-5 lg:mb-6 text-muted-foreground"
+            )}
+            data-slideshow-text="description"
+          >
             {description}
           </p>
           
-          <ul className={styles.pointsList}>
+          <ul className={cn(
+            "list-disc pl-5 mb-5 lg:mb-6"
+          )}>
             {points.map((point, index) => (
-              <li key={`point-${index}`} className={styles.pointItem}>
+              <li 
+                key={`point-${index}`} 
+                className={cn(
+                  "font-brawler text-sm md:text-[15px] leading-6 mb-1.5"
+                )}
+              >
                 {point}
               </li>
             ))}
           </ul>
           
-          <div className="flex justify-center lg:justify-center">
-            <Button variant="outline" asChild className={styles.actionButton}>
+          <div className="flex justify-center mt-2">
+            <Button variant="outline" asChild className={cn(
+              "font-caveat py-2 px-6 rounded-[var(--button-radius)]"
+            )}>
               <Link href={linkUrl}>
                 {linkText}
               </Link>
@@ -66,11 +88,20 @@ const SlideContent: React.FC<SlideContentProps> = ({
           </div>
         </div>
 
-        {/* Image placeholder - sera masquée en mobile/tablette */}
-        <div className={styles.imageContainer}>
-          <div className={styles.imagePlaceholder}>
-            <div className={styles.placeholderContent}>
-              <p className={styles.placeholderText}>Contenu illustratif</p>
+        {/* Image placeholder - 42% sur desktop, masquée en mobile/tablette */}
+        <div className={cn(
+          "w-full lg:w-[42%] hidden lg:block"
+        )}>
+          <div className={cn(
+            "h-44 rounded-xl overflow-hidden bg-muted/10",
+            "flex items-center justify-center"
+          )}>
+            <div className="p-4 text-center">
+              <p className={cn(
+                "font-brawler text-sm text-muted-foreground"
+              )}>
+                Contenu illustratif
+              </p>
             </div>
           </div>
         </div>

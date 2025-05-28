@@ -2,8 +2,10 @@
  * slideshow-controls.tsx
  * Composant pour les contrôles de navigation du slideshow
  */
-import React from 'react';
+
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
+
 import styles from './styles/Controls.module.css';
 
 interface SlideshowControlsProps {

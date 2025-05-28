@@ -13,7 +13,6 @@ const customJestConfig = {
     '<rootDir>/build/',
     '<rootDir>/out/',
   ],
-  // CORRIGÉ : moduleNameMapping → moduleNameMapping
   moduleNameMapping: {
     '^@/(.*)$': '<rootDir>/$1',
   },
@@ -29,27 +28,28 @@ const customJestConfig = {
     '!app/**/*.d.ts',
     '!**/*.d.ts',
     '!**/node_modules/**',
-    // Exclure les fichiers problématiques
     '!components/LazyComponents.tsx',
   ],
   coverageThreshold: {
     global: {
-      branches: 40, // Abaissé temporairement
-      functions: 40,
-      lines: 40,
-      statements: 40,
+      branches: 50,
+      functions: 50,
+      lines: 50,
+      statements: 50,
     },
   },
   testMatch: [
-    '<rootDir>/__tests__/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/tests/**/*.{js,jsx,ts,tsx}',
     '<rootDir>/**/*.(test|spec).{js,jsx,ts,tsx}',
   ],
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testTimeout: 10000,
-  // Ignorer les erreurs de dynamic import
   transformIgnorePatterns: [
     'node_modules/(?!(.*\\.mjs$))',
   ],
+  
+  // Configuration pour axe-core
+  setupFiles: ['<rootDir>/tests/setup/axe-setup.js'],
 };
 
 module.exports = createJestConfig(customJestConfig);

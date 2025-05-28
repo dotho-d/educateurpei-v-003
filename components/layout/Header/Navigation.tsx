@@ -1,18 +1,30 @@
 /**
  * components/layout/Header/Navigation.tsx
- * Composant navigation desktop optimisé - VERSION CORRIGÉE
+ * Composant navigation desktop optimisé avec memoization
  */
-import { memo } from "react";
-import { cn } from "@/lib/utils";
-import { NavigationProps } from "./types";
-// CHANGEMENT : Import depuis lib/constants
+
+import { memo, useMemo } from "react";
+
 import { NAVIGATION_LINKS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+
 import NavLink from "./NavLink";
+import { NavigationProps } from "./types";
 
 const Navigation = memo(function Navigation({ 
   currentSection, 
   onNavigate 
 }: NavigationProps) {
+  // Memoized navigation items pour éviter re-création
+  const navigationItems = useMemo(() => 
+    NAVIGATION_LINKS.map((link) => ({
+      ...link,
+      isActive: link.id === currentSection,
+      onClick: () => onNavigate(link.id)
+    })),
+    [currentSection, onNavigate]
+  );
+
   return (
     <nav 
       className={cn(
@@ -20,16 +32,16 @@ const Navigation = memo(function Navigation({
       )}
       aria-label="Navigation principale"
     >
-      <ul className="flex space-x-8">
-        {/* CHANGEMENT : NAVIGATION_LINKS au lieu de NAV_LINKS */}
-        {NAVIGATION_LINKS.map((link) => (
-          <li key={link.href}>
+      <ul className="flex space-x-8" role="menubar">
+        {navigationItems.map((item) => (
+          <li key={item.href} role="none">
             <NavLink
-              href={link.href}
-              label={link.label}
-              ariaLabel={link.ariaLabel}
-              isActive={link.id === currentSection}
-              onClick={() => onNavigate(link.id)}
+              href={item.href}
+              label={item.label}
+              ariaLabel={item.ariaLabel}
+              isActive={item.isActive}
+              onClick={item.onClick}
+              role="menuitem"
             />
           </li>
         ))}

@@ -1,41 +1,16 @@
 /**
- * slideshow.tsx
- * Composant principal du slideshow qui gère l'état et détermine quelle vue afficher
+ * slideshow.tsx - VERSION AVEC HYDRATION SAFE
  */
+
 import React, { useState, useEffect } from "react";
+
 import useBreakpoint from "@/hooks/useBreakpoint";
-import MobileView from "./mobile-view";
-import TabletView from "./tablet-view";
+
 import DesktopView from "./desktop-view";
+import MobileView from "./mobile-view";
 import styles from "./styles/Slideshow.module.css";
+import TabletView from "./tablet-view";
 
-interface SlideshowProps {
-  /**
-   * Éléments enfants à afficher dans le slideshow (généralement des slides)
-   */
-  children: React.ReactNode[];
-  /**
-   * Indique si le défilement automatique est activé
-   */
-  autoPlay?: boolean;
-  /**
-   * Intervalle de temps entre chaque défilement (en ms)
-   */
-  interval?: number;
-  /**
-   * Titres des slides (optionnel)
-   */
-  slideTitles?: string[];
-  /**
-   * Classe CSS supplémentaire
-   */
-  className?: string;
-}
-
-/**
- * Composant Slideshow
- * Affiche un diaporama interactif avec différentes vues selon la taille d'écran
- */
 export function Slideshow({ 
   children, 
   autoPlay = true, 
@@ -43,15 +18,17 @@ export function Slideshow({
   slideTitles: propSlideTitles,
   className
 }: SlideshowProps) {
-  // État pour suivre l'index de la slide active
   const [currentIndex, setCurrentIndex] = useState(0);
-  // Utiliser le hook de breakpoint pour déterminer la taille d'écran
+  const [mounted, setMounted] = useState(false); // ← AJOUT
   const { isMobile, isTablet, isDesktop } = useBreakpoint();
   
-  // Conversion des enfants en array
+  // ← AJOUT : Attendre l'hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
   const slides = Array.isArray(children) ? children : [children];
   
-  // Titres par défaut si non fournis
   const defaultTitles = [
     "Handicap", 
     "Conflits familiaux et difficultés éducatives", 
@@ -60,47 +37,43 @@ export function Slideshow({
     "Insertion professionnelle"
   ];
   
-  // Utiliser les titres fournis ou les titres par défaut
   const slideTitles = propSlideTitles || defaultTitles;
 
-  // Effet pour gérer le défilement automatique
   useEffect(() => {
     if (!autoPlay) return;
 
-    // Timer pour le défilement automatique
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % slides.length);
     }, interval);
 
-    // Nettoyage du timer lors du démontage du composant
     return () => clearInterval(timer);
   }, [autoPlay, interval, slides.length]);
 
-  /**
-   * Navigue vers la slide précédente
-   */
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
-  /**
-   * Navigue vers la slide suivante
-   */
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % slides.length);
   };
 
-  /**
-   * Gère le changement d'onglet en définissant l'index actuel
-   * @param index Nouvel index à définir
-   */
   const handleTabChange = (index: number) => {
     setCurrentIndex(index);
   };
 
+  // ← AJOUT : Afficher un placeholder pendant l'hydration
+  if (!mounted) {
+    return (
+      <div className={`${styles.slideshowContainer} ${className || ''}`}>
+        <div style={{ minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div>Chargement...</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`${styles.slideshowContainer} ${className || ''} ClientSlideshow`}>
-      {/* Afficher la vue correspondant à la taille d'écran */}
       {isMobile && (
         <MobileView
           currentIndex={currentIndex}

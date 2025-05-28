@@ -1,14 +1,15 @@
 /**
  * page.tsx (home page)
- * Page d'accueil avec optimisations performance avancées - VERSION CORRIGÉE
+ * Page d'accueil avec optimisations performance avancées - VERSION OPTIMISÉE
  */
 "use client";
 
 import { useRef, useEffect, useState } from 'react';
 import { usePreload } from '@/components/LazyComponents';
 import LazySection from '@/components/ui/LazySection';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
-// Import des composants lazy-loaded - IMPORTS CORRIGES
+// Import des composants lazy-loaded
 import {
   LazyHeroSection,
   LazyDomainesSection, 
@@ -23,6 +24,9 @@ import {
  * Utilise le lazy loading intelligent et le preloading
  */
 export default function Home() {
+  // Analytics tracking
+  const { trackEvent, measurePerformance } = useAnalytics();
+  
   // Références pour chaque section
   const heroRef = useRef<HTMLElement>(null);
   const domainesRef = useRef<HTMLElement>(null);
@@ -39,25 +43,32 @@ export default function Home() {
 
   // Preloading intelligent basé sur l'interaction utilisateur
   useEffect(() => {
-    // Preload critique immédiatement
-    if (!hasPreloadedCritical) {
-      preloadCritical();
-      setHasPreloadedCritical(true);
-    }
+    // Mesurer la performance du preloading
+    measurePerformance('critical-preload', () => {
+      if (!hasPreloadedCritical) {
+        preloadCritical();
+        setHasPreloadedCritical(true);
+      }
+    });
 
     // Preload medium priority après un délai
     const mediumTimer = setTimeout(() => {
-      if (!hasPreloadedMedium) {
-        preloadMedium();
-        setHasPreloadedMedium(true);
-      }
+      measurePerformance('medium-preload', () => {
+        if (!hasPreloadedMedium) {
+          preloadMedium();
+          setHasPreloadedMedium(true);
+        }
+      });
     }, 2000);
 
     // Preload au hover/focus sur des éléments de navigation
     const handleUserInteraction = () => {
       if (!hasPreloadedMedium) {
-        preloadMedium();
-        setHasPreloadedMedium(true);
+        trackEvent('user_interaction_preload');
+        measurePerformance('interaction-preload', () => {
+          preloadMedium();
+          setHasPreloadedMedium(true);
+        });
       }
     };
 
@@ -75,7 +86,7 @@ export default function Home() {
         el.removeEventListener('focus', handleUserInteraction);
       });
     };
-  }, [preloadCritical, preloadMedium, hasPreloadedCritical, hasPreloadedMedium]);
+  }, [preloadCritical, preloadMedium, hasPreloadedCritical, hasPreloadedMedium, measurePerformance, trackEvent]);
 
   // Debug pour vérifier que les refs sont correctement attachées (mode dev)
   useEffect(() => {
@@ -93,33 +104,38 @@ export default function Home() {
 
   /**
    * Fonction pour gérer le défilement fluide vers les sections
-   * Optimisée pour les performances
+   * Optimisée pour les performances avec analytics
    */
   const handleSmoothScroll = (targetId: string) => {
+    // Track user interaction
+    trackEvent('section_navigation', { target: targetId });
+    
     // Utiliser requestAnimationFrame pour des performances optimales
     requestAnimationFrame(() => {
-      const targetElement = document.getElementById(targetId);
+      measurePerformance(`scroll-to-${targetId}`, () => {
+        const targetElement = document.getElementById(targetId);
 
-      if (targetElement) {
-        // Calculer la position de l'élément cible
-        const targetPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = targetPosition + window.pageYOffset - 80; // 80px pour l'en-tête
+        if (targetElement) {
+          // Calculer la position de l'élément cible
+          const targetPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = targetPosition + window.pageYOffset - 80; // 80px pour l'en-tête
 
-        // Utiliser scrollTo avec behavior: 'smooth' pour un défilement fluide
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
+          // Utiliser scrollTo avec behavior: 'smooth' pour un défilement fluide
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
 
-        // Mettre à jour l'URL sans recharger la page
-        window.history.pushState(null, '', `#${targetId}`);
-        
-        // Précharger les composants si pas encore fait
-        if (!hasPreloadedMedium) {
-          preloadMedium();
-          setHasPreloadedMedium(true);
+          // Mettre à jour l'URL sans recharger la page
+          window.history.pushState(null, '', `#${targetId}`);
+          
+          // Précharger les composants si pas encore fait
+          if (!hasPreloadedMedium) {
+            preloadMedium();
+            setHasPreloadedMedium(true);
+          }
         }
-      }
+      });
     });
   };
 

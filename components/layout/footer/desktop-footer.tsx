@@ -37,10 +37,10 @@ export default function DesktopFooter() {
         <div>
           <h3 className={cn(styles.title, "text-xl font-semibold mb-6")}>Liens rapides</h3>
           <ul className="space-y-3">
-            <FooterListItem href="/services" label="Domaines d'intervention" />
-            <FooterListItem href="/secteur" label="Modalités d'intervention" />
+            <FooterListItem href="/modalites" label="Modalités d'interventions" />
             <FooterListItem href="/tarifs" label="Tarifs" />
-            <FooterListItem href="/contact" label="Contacts" />
+            <FooterListItem href="/a-propos" label="À propos" />
+            <FooterListItem href="/faq" label="FAQ" />
           </ul>
         </div>
 

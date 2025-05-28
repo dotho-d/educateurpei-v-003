@@ -1,0 +1,85 @@
+/* components/ui/styles/consolidated.module.css */
+/* Consolidation des styles redondants des sections */
+
+/* Variables communes */
+:root {
+    --section-padding-mobile: 3rem;
+    --section-padding-tablet: 4rem; 
+    --section-padding-desktop: 6rem;
+    --container-width-mobile: 72%;
+    --container-width-tablet: 86%;
+    --container-width-desktop: 76%;
+  }
+  
+  /* Classes de base réutilisables */
+  .sectionBase {
+    padding-top: var(--section-padding-mobile);
+    padding-bottom: var(--section-padding-mobile);
+  }
+  
+  .containerBase {
+    width: 100%;
+    max-width: var(--container-width-mobile);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .titleContainer {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .gridBase {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Media queries consolidées */
+  @media (min-width: 640px) {
+    .containerBase {
+      max-width: var(--container-width-tablet);
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    
+    .gridBase {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .sectionBase {
+      padding-top: var(--section-padding-tablet);
+      padding-bottom: var(--section-padding-tablet);
+    }
+    
+    .containerBase {
+      max-width: 90%;
+    }
+    
+    .titleContainer {
+      margin-bottom: 3rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .sectionBase {
+      padding-top: var(--section-padding-desktop);
+      padding-bottom: var(--section-padding-desktop);
+    }
+    
+    .containerBase {
+      max-width: var(--container-width-desktop);
+    }
+    
+    .gridBase {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }

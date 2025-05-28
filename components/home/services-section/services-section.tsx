@@ -1,7 +1,6 @@
 /**
  * services-section.tsx
- * Composant représentant la section des services proposés sur la page d'accueil
- * VERSION OPTIMISÉE : Tailwind pur + constantes centralisées
+ * Composant représentant la section des services avec Tailwind pur
  */
 
 import { 
@@ -36,50 +35,52 @@ const ServicesSection = forwardRef<HTMLElement, {}>(function ServicesSection(pro
   };
 
   return (
-    <Section
+    <section
       ref={ref}
       id="services"
-      background="primary"
-      withPadding={true}
+      className={cn(
+        "py-16 lg:py-16 section-bg-1"
+      )}
     >
-      <SectionTitle
-        description="Découvrez comment nous pouvons vous accompagner dans vos défis quotidiens"
-      >
-        Les services proposés
-      </SectionTitle>
-
-      {/* Grille de services - VERSION TAILWIND PURE */}
       <div className={cn(
-        // Grille responsive
-        "grid grid-cols-1 gap-4",
-        "sm:grid-cols-2 sm:gap-6",
-        "lg:grid-cols-3 lg:gap-8",
-        // Container
-        "w-full max-w-7xl mx-auto",
-        // Espacement
-        "mt-8 sm:mt-12"
+        "w-full px-4",
+        "max-w-[80%] sm:max-w-[72%] md:max-w-[90%] lg:max-w-[76%]",
+        "mx-auto"
       )}>
-        {SERVICES_DATA.map((service) => (
-          <ServiceCard
-            key={service.id}
-            icon={
-              <div className={cn(
-                // Container de l'icône
-                "w-12 h-12 rounded-full flex items-center justify-center",
-                // Couleurs selon la catégorie
-                service.category === 'primary' 
-                  ? "bg-primary/10 text-primary" 
-                  : "bg-accent/10 text-accent"
-              )}>
-                {iconMap[service.id as keyof typeof iconMap]}
-              </div>
-            }
-            title={service.title}
-            description={service.description}
-          />
-        ))}
+        <div className="text-center mb-8 sm:mb-12 lg:mb-12">
+          <SectionTitle
+            description="Découvrez comment nous pouvons vous accompagner dans vos défis quotidiens"
+          >
+            Les services proposés
+          </SectionTitle>
+        </div>
+
+        {/* Grille de services responsive */}
+        <div className={cn(
+          "grid gap-4 sm:gap-6 lg:gap-8",
+          "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+          "mx-auto"
+        )}>
+          {SERVICES_DATA.map((service) => (
+            <ServiceCard
+              key={service.id}
+              icon={
+                <div className={cn(
+                  "w-12 h-12 rounded-full flex items-center justify-center",
+                  service.category === 'primary' 
+                    ? "bg-primary/10 text-primary" 
+                    : "bg-accent/10 text-accent"
+                )}>
+                  {iconMap[service.id as keyof typeof iconMap]}
+                </div>
+              }
+              title={service.title}
+              description={service.description}
+            />
+          ))}
+        </div>
       </div>
-    </Section>
+    </section>
   );
 });
 

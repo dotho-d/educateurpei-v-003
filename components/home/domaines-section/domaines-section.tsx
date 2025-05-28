@@ -1,12 +1,14 @@
 /**
  * domaines-section.tsx
- * Section des domaines d'intervention affichant un slideshow avec les différents domaines
+ * Section des domaines d'intervention avec Tailwind pur
  */
+
 import React, { forwardRef } from 'react';
 
 import Section from '@/components/ui/section';
 import SectionTitle from '@/components/ui/section-title';
 import Slideshow from '@/components/ui/slideshow/slideshow';
+import { cn } from '@/lib/utils';
 
 import SlideContent from './slide-content';
 
@@ -93,28 +95,38 @@ const DomainesSection = forwardRef<HTMLElement, {}>(function DomainesSection(pro
   const slideTitles = slides.map(slide => slide.title);
 
   return (
-    <Section
+    <section
       ref={ref}
       id="domaines-intervention"
-      background="secondary"
-      withPadding={true}
+      className={cn(
+        "flex items-center justify-center section-bg-2",
+        "py-12 sm:py-10 lg:py-12"
+      )}
     >
-      <SectionTitle>
-        Nos domaines d&apos;intervention
-      </SectionTitle>
+      <div className={cn(
+        "w-full px-4",
+        "max-w-[86%] sm:max-w-[86%] md:max-w-[82%] lg:max-w-[82%] xl:max-w-[76%]",
+        "mx-auto"
+      )}>
+        <div className="text-center mb-1">
+          <SectionTitle>
+            Nos domaines d&apos;intervention
+          </SectionTitle>
+        </div>
 
-      <Slideshow autoPlay={true} interval={24000} slideTitles={slideTitles}>
-        {slides.map((slide, index) => (
-          <SlideContent
-            key={`slide-content-${index}`}
-            description={slide.description}
-            points={slide.points}
-            linkUrl={slide.linkUrl}
-            linkText={slide.linkText}
-          />
-        ))}
-      </Slideshow>
-    </Section>
+        <Slideshow autoPlay={true} interval={24000} slideTitles={slideTitles}>
+          {slides.map((slide, index) => (
+            <SlideContent
+              key={`slide-content-${index}`}
+              description={slide.description}
+              points={slide.points}
+              linkUrl={slide.linkUrl}
+              linkText={slide.linkText}
+            />
+          ))}
+        </Slideshow>
+      </div>
+    </section>
   );
 });
 

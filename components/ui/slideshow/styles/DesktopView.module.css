@@ -5,7 +5,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0; /* Complètement supprimé */
+  padding: 0;
+  /* CORRECTION : Empêcher le débordement horizontal */
+  overflow-x: hidden;
 }
 
 .desktopContainer {
@@ -14,8 +16,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 450px; /* Considérablement réduit */
+  min-height: 450px;
   perspective: 2600px;
+  /* CORRECTION : Contraindre le débordement */
+  overflow: hidden;
+  max-width: 100vw;
 }
 
 .perspectiveWrapper {
@@ -23,6 +28,8 @@
   height: 100%;
   position: absolute;
   transform-style: preserve-3d;
+  /* CORRECTION : Limiter le débordement */
+  overflow: hidden;
 }
 
 .carouselWrapper {
@@ -32,17 +39,24 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+  /* CORRECTION : Contraindre dans le viewport */
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .slideMotionContainer {
   position: absolute;
   background: transparent;
+  /* CORRECTION : Empêcher le débordement des slides */
+  max-width: 90%;
 }
 
 .slideContainer {
   width: 100%;
   border-radius: 1rem;
   overflow: visible;
+  /* CORRECTION : Limiter la largeur maximale */
+  max-width: 100%;
 }
 
 .activeSlide {
@@ -55,7 +69,7 @@
 
 .slideTitleWrapper {
   text-align: center;
-  padding: 0.75rem 1rem 0.25rem; /* Réduit */
+  padding: 0.75rem 1rem 0.25rem;
 }
 
 .slideTitle {
@@ -63,29 +77,63 @@
   font-size: 2.5rem;
   font-weight: 600;
   line-height: 1.2;
-  margin-bottom: 0; /* Suppression de la marge */
+  margin-bottom: 0;
+  /* CORRECTION : Empêcher le débordement du texte */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .slideContent {
   width: 100%;
   padding: 0.5rem;
+  /* CORRECTION : Contraindre le contenu */
+  max-width: 100%;
+  overflow: hidden;
 }
 
-/* Media queries pour grands écrans - ESPACEMENT SIGNIFICATIVEMENT RÉDUIT */
+/* Media queries pour grands écrans - AVEC CONTRAINTES DE DÉBORDEMENT */
 @media (min-width: 1024px) {
   .desktopContainer {
-    min-height: 400px; /* Encore plus réduit (était 420px) */
+    min-height: 400px;
+    /* CORRECTION : Forcer la largeur à 100% du parent */
+    max-width: 100%;
   }
   
   .slideTitle {
-    font-size: 2.25rem; /* Légèrement réduit */
+    font-size: 2.25rem;
     margin-bottom: 0;
+  }
+  
+  /* CORRECTION : Contraindre les transformations */
+  .slideMotionContainer {
+    /* Limiter les slides qui sortent trop du viewport */
+    max-width: 85%;
+  }
+  
+  /* Force l'affichage horizontal - CSS de secours */
+  .activeSlide :global(.flex.flex-col.lg\:flex-row) {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+  }
+  
+  .activeSlide :global(.w-full.lg\:w-\[48\%\]) {
+    width: 48% !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .activeSlide :global(.w-full.lg\:w-\[42\%\].hidden.lg\:block) {
+    display: block !important;
+    width: 42% !important;
+    flex-shrink: 0 !important;
   }
 }
 
 @media (min-width: 1280px) {
   .desktopContainer {
-    min-height: 420px; /* Ajusté pour xl (était 450px) */
+    min-height: 420px;
   }
   
   .slideTitle {
@@ -95,7 +143,7 @@
 
 @media (min-width: 1536px) {
   .desktopContainer {
-    min-height: 450px; /* Ajusté pour 2xl (était 480px) */
+    min-height: 450px;
   }
   
   .slideTitle {

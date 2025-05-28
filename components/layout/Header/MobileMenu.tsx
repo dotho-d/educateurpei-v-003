@@ -1,15 +1,18 @@
 /**
  * components/layout/Header/MobileMenu.tsx
- * Composant menu mobile optimisé - VERSION CORRIGÉE
+ * Composant menu mobile optimisé avec memoization
  */
-import { memo, useRef, useEffect, useCallback } from "react";
+
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { memo, useRef, useEffect, useCallback, useMemo } from "react";
+
 import { Button } from "@/components/ui/button";
-import { MobileMenuProps } from "./types";
-// CHANGEMENT : Import depuis lib/constants au lieu de ./constants
-import { NAVIGATION_LINKS } from "@/lib/constants";
 import { useFontSizes } from "@/hooks/useFontSizes";
+import { NAVIGATION_LINKS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+
+import { MobileMenuProps } from "./types";
+
 
 const MobileMenu = memo(function MobileMenu({ 
   isOpen, 
@@ -21,19 +24,32 @@ const MobileMenu = memo(function MobileMenu({
   const firstMenuItemRef = useRef<HTMLButtonElement>(null);
   const lastMenuItemRef = useRef<HTMLAnchorElement>(null);
 
-  // Focus management
+  // Memoized navigation items
+  const navigationItems = useMemo(() => 
+    NAVIGATION_LINKS.map((link, index) => ({
+      ...link,
+      isActive: link.id === currentSection,
+      isFirst: index === 0,
+      ref: index === 0 ? firstMenuItemRef : undefined
+    })),
+    [currentSection]
+  );
+
+  // Focus management optimisé
   useEffect(() => {
     if (isOpen && firstMenuItemRef.current) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         firstMenuItemRef.current?.focus();
       }, 100);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  // Keyboard navigation
+  // Keyboard navigation memoized
   const handleMenuKeyDown = useCallback((e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Escape') {
       onClose();
+      return;
     }
     
     if (e.key === 'Tab') {
@@ -47,50 +63,55 @@ const MobileMenu = memo(function MobileMenu({
     }
   }, [onClose]);
 
+  // Memoized navigate handler
   const handleNavigate = useCallback((sectionId: string) => {
     onNavigate(sectionId);
     onClose();
   }, [onNavigate, onClose]);
+
+  // Memoized container classes
+  const containerClasses = useMemo(() => cn(
+    "absolute top-16 sm:top-16 md:top-20 left-0 right-0 z-40",
+    "w-full h-fit bg-background shadow-lg overflow-visible",
+    "border-b border-border rounded-b-2xl animate-fadeIn"
+  ), []);
 
   if (!isOpen) return null;
 
   return (
     <nav 
       id="mobile-menu"
-      className={cn(
-        "absolute top-16 sm:top-16 md:top-20 left-0 right-0 z-40",
-        "w-full h-fit bg-background shadow-lg overflow-visible",
-        "border-b border-border rounded-b-2xl animate-fadeIn"
-      )}
+      className={containerClasses}
       aria-label="Menu principal mobile"
       aria-hidden={!isOpen}
       tabIndex={-1}
       onKeyDown={handleMenuKeyDown}
+      role="navigation"
     >
       <div className={cn(
         "w-[90%] max-w-[90%] mx-auto pt-8 pb-8",
         "flex flex-col items-center gap-6"
       )}>
-        <ul className="w-full space-y-4">
-          {/* CHANGEMENT : NAVIGATION_LINKS au lieu de NAV_LINKS */}
-          {NAVIGATION_LINKS.map((link, index) => (
-            <li key={link.href} className="w-full">
+        <ul className="w-full space-y-4" role="menu">
+          {navigationItems.map((item) => (
+            <li key={item.href} className="w-full" role="none">
               <button
-                ref={index === 0 ? firstMenuItemRef : undefined}
+                ref={item.ref}
                 type="button"
                 className={cn(
                   "font-caveat text-center transition-colors duration-200",
                   "py-2 w-full block hover:text-primary bg-transparent border-0 cursor-pointer",
                   "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
-                  currentSection === link.id && "text-primary font-semibold"
+                  item.isActive && "text-primary font-semibold"
                 )}
                 style={{ fontSize: fontSizes.navLink }}
-                onClick={() => handleNavigate(link.id)}
+                onClick={() => handleNavigate(item.id)}
                 tabIndex={isOpen ? 0 : -1}
-                aria-current={link.id === currentSection ? 'page' : undefined}
-                aria-label={link.ariaLabel}
+                aria-current={item.isActive ? 'page' : undefined}
+                aria-label={item.ariaLabel}
+                role="menuitem"
               >
-                {link.label}
+                {item.label}
               </button>
             </li>
           ))}
@@ -106,6 +127,7 @@ const MobileMenu = memo(function MobileMenu({
               onClick={() => handleNavigate('contact')}
               className="font-caveat"
               style={{ fontSize: fontSizes.button }}
+              role="menuitem"
             >
               Prendre RDV
             </button>
@@ -124,6 +146,7 @@ const MobileMenu = memo(function MobileMenu({
               className="font-caveat"
               style={{ fontSize: fontSizes.button }}
               ref={lastMenuItemRef}
+              role="menuitem"
             >
               Connexion
             </Link>

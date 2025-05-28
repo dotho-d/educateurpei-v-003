@@ -67,10 +67,10 @@ export default function TabletFooter({ largeTablet = false }: TabletFooterProps)
         <div>
           <h3 className={cn(styles.title, "text-xl font-semibold mb-3")}>Liens rapides</h3>
           <FooterList>
-            <FooterListItem href="/services" label="Domaines d'intervention" />
-            <FooterListItem href="/secteur" label="Modalités d'intervention" />
+            <FooterListItem href="/modalites" label="Modalités d'interventions" />
             <FooterListItem href="/tarifs" label="Tarifs" />
-            <FooterListItem href="/contact" label="Contacts" />
+            <FooterListItem href="/a-propos" label="À propos" />
+            <FooterListItem href="/faq" label="FAQ" />
           </FooterList>
         </div>
         

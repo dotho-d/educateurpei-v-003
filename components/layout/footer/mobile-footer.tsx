@@ -45,10 +45,10 @@ export default function MobileFooter() {
       <div className="mb-10">
         <h3 className={cn(styles.title, "text-xl font-semibold mb-3 text-center")}>Liens rapides</h3>
         <div className={styles.gridLinkMobile}>
-          <FooterGridLink href="/services" label="Domaines d'interventions" />
-          <FooterGridLink href="/contact" label="Modalités d'interventions" />
+          <FooterGridLink href="/modalites" label="Modalités d'interventions" />
           <FooterGridLink href="/tarifs" label="Tarifs" />
-          <FooterGridLink href="/contact" label="Contact" />
+          <FooterGridLink href="/a-propos" label="À propos" />
+          <FooterGridLink href="/faq" label="FAQ" />
         </div>
       </div>
 

@@ -1,8 +1,8 @@
 /**
  * components/layout/Header/index.tsx
- * Composant Header principal optimisé et refactorisé
+ * Header optimisé avec memoization et performance améliorée
  */
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { useHeader } from "@/hooks/useHeader";
 import { HeaderProps } from "./types";
@@ -21,7 +21,8 @@ const Header = memo(function Header({ className }: HeaderProps) {
     scrollToSection
   } = useHeader();
 
-  const headerClasses = cn(
+  // Memoization des classes CSS pour éviter les recalculs
+  const headerClasses = useMemo(() => cn(
     // Base styles
     "fixed top-0 w-full z-50 transition-all duration-300",
     "h-16 sm:h-18 md:h-20 lg:h-20",
@@ -30,34 +31,40 @@ const Header = memo(function Header({ className }: HeaderProps) {
       ? "bg-background/95 backdrop-blur-sm shadow-sm" 
       : "bg-background/50 backdrop-blur-sm",
     className
-  );
+  ), [isScrolled, className]);
+
+  const containerClasses = useMemo(() => cn(
+    "w-[90%] max-w-[1400px] mx-auto h-full",
+    "flex justify-between items-center pr-1 pl-4"
+  ), []);
+
+  // Memoization des props pour éviter les re-renders inutiles
+  const navigationProps = useMemo(() => ({
+    currentSection,
+    onNavigate: scrollToSection
+  }), [currentSection, scrollToSection]);
+
+  const actionsProps = useMemo(() => ({
+    onMenuToggle: toggleMenu,
+    onNavigate: scrollToSection,
+    isMenuOpen
+  }), [toggleMenu, scrollToSection, isMenuOpen]);
+
+  const mobileMenuProps = useMemo(() => ({
+    isOpen: isMenuOpen,
+    onClose: closeMenu,
+    currentSection,
+    onNavigate: scrollToSection
+  }), [isMenuOpen, closeMenu, currentSection, scrollToSection]);
 
   return (
     <header className={headerClasses} role="banner">
-      <div className={cn(
-        "w-[90%] max-w-[1400px] mx-auto h-full",
-        "flex justify-between items-center pr-1 pl-4"
-      )}>
+      <div className={containerClasses}>
         <Logo />
-        
-        <Navigation 
-          currentSection={currentSection}
-          onNavigate={scrollToSection}
-        />
-        
-        <Actions 
-          onMenuToggle={toggleMenu}
-          onNavigate={scrollToSection}
-          isMenuOpen={isMenuOpen}
-        />
+        <Navigation {...navigationProps} />
+        <Actions {...actionsProps} />
       </div>
-
-      <MobileMenu 
-        isOpen={isMenuOpen}
-        onClose={closeMenu}
-        currentSection={currentSection}
-        onNavigate={scrollToSection}
-      />
+      <MobileMenu {...mobileMenuProps} />
     </header>
   );
 });

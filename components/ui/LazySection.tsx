@@ -1,71 +1,106 @@
+/**
+ * components/ui/LazySection.tsx
+ * Composant LazySection adaptatif sans scroll vertical supplémentaire
+ * VERSION CORRIGÉE AVEC PROTECTION ANTI-DÉBORDEMENT HORIZONTAL
+ */
+
 'use client';
 
-import { ReactNode, memo } from 'react';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useEffect, useRef, useState, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface LazySectionProps {
   children: ReactNode;
-  fallback?: ReactNode;
   rootMargin?: string;
   threshold?: number;
+  minHeight?: string;
   className?: string;
-  minHeight?: string | number;
-  triggerOnce?: boolean;
-  as?: keyof JSX.IntrinsicElements;
+  fallback?: ReactNode;
 }
 
-/**
- * Composant LazySection
- * Charge le contenu seulement quand il devient visible
- * Optimise les performances en réduisant le contenu initial
- */
-const LazySection = memo(function LazySection({ 
-  children, 
-  fallback,
+export default function LazySection({
+  children,
   rootMargin = '100px',
   threshold = 0.1,
+  minHeight = '200px',
   className,
-  minHeight = '400px',
-  triggerOnce = true,
-  as: Component = 'div'
+  fallback
 }: LazySectionProps) {
-  const { elementRef, isIntersecting } = useIntersectionObserver({
-    rootMargin,
-    threshold,
-    triggerOnce,
-  });
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-  // Default fallback si aucun n'est fourni
-  const defaultFallback = (
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasLoaded) {
+          setIsVisible(true);
+          setHasLoaded(true);
+          // Déconnecter l'observer une fois que le contenu est chargé pour optimiser les performances
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin,
+        threshold,
+      }
+    );
+
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+      observer.disconnect();
+    };
+  }, [rootMargin, threshold, hasLoaded]);
+
+  const DefaultFallback = () => (
     <div 
-      className={cn(
-        'flex items-center justify-center bg-muted/10 rounded-lg',
-        'animate-pulse',
-        className
-      )}
+      className="w-full py-16 lg:py-20 animate-pulse bg-muted/5 flex items-center justify-center no-horizontal-overflow"
       style={{ 
-        minHeight: typeof minHeight === 'number' ? `${minHeight}px` : minHeight 
+        minHeight,
+        overflowX: 'hidden',
+        maxWidth: '100%'
       }}
     >
-      <div className="flex flex-col items-center space-y-3">
-        <div className="w-8 h-8 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
-        <span className="text-sm text-muted-foreground">Chargement...</span>
+      <div className="section-container">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-12 h-12 rounded-full bg-muted/20 animate-pulse" />
+          <div className="w-48 h-4 bg-muted/20 rounded animate-pulse" />
+          <div className="w-32 h-3 bg-muted/15 rounded animate-pulse" />
+        </div>
       </div>
     </div>
   );
 
   return (
-    <Component 
-      ref={elementRef} 
-      className={className}
+    <div
+      ref={ref}
+      className={cn("w-full no-horizontal-overflow", className)}
       style={{ 
-        minHeight: typeof minHeight === 'number' ? `${minHeight}px` : minHeight 
+        minHeight: hasLoaded ? 'auto' : minHeight,
+        overflowX: 'hidden',
+        maxWidth: '100%'
       }}
     >
-      {isIntersecting ? children : (fallback || defaultFallback)}
-    </Component>
+      {isVisible || hasLoaded ? (
+        <div 
+          className="w-full no-horizontal-overflow"
+          style={{ 
+            overflowX: 'hidden',
+            maxWidth: '100%'
+          }}
+        >
+          {children}
+        </div>
+      ) : (
+        fallback || <DefaultFallback />
+      )}
+    </div>
   );
-});
-
-export default LazySection;
+}

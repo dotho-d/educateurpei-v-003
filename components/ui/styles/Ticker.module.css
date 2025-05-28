@@ -1,13 +1,14 @@
 /* components/ui/styles/Ticker.module.css */
 
-/* Conteneur principal du ticker */
+/* Conteneur principal du ticker - CORRIGÉ pour h-screen */
 .tickerContainer {
   position: absolute;
   width: 100%;
-  top: 92%;
+  top: 96%; /* ← Position à 92% de la hauteur de la section hero */
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 30; /* ← Z-index élevé pour être au-dessus des cercles */
+  transform: translateY(-50%); /* ← Centrage vertical pour éviter le débordement */
 }
 
 /* Wrapper du ticker */
@@ -19,6 +20,9 @@
   background-image: linear-gradient(to right, hsl(var(--primary) / 0.1), hsl(var(--primary) / 0.1));
   display: flex;
   align-items: center;
+  /* Protection anti-débordement horizontal */
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 /* Conteneur principal du ticker */
@@ -39,34 +43,29 @@
   align-items: center;
 }
 
-/* Item du ticker */
+/* Item du ticker - TAILLE DE BASE */
 .tickerItem {
   flex-shrink: 0;
   padding: 0.25rem 1rem;
-  font-size: 17px;
+  font-size: 16px; /* Taille de base cohérente */
   line-height: 1.4;
   font-family: var(--font-brawler), Georgia, serif;
   color: hsl(var(--muted-foreground));
+  font-display: swap; /* Optimisation chargement police */
 }
 
-/* Ajustements pour les tablettes */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .tickerWrap {
-    padding: 5px 0;
+/* RESPONSIVE - Progression logique des tailles */
+
+/* Très petits écrans (mobile) */
+@media (max-width: 480px) {
+  .tickerContainer {
+    top: 96%; /* ← Légèrement plus haut sur mobile pour plus d'espace */
   }
   
   .tickerItem {
-    font-size: 16px;
-    line-height: 1.3;
-  }
-}
-
-/* Ajustements pour les petits écrans */
-@media (max-width: 640px) {
-  .tickerItem {
-    font-size: 14px;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    font-size: 14px; /* Le plus petit */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     line-height: 1.2;
   }
 
@@ -75,10 +74,74 @@
   }
 }
 
-/* Ajustements pour les très petits écrans */
-@media (max-width: 480px) {
+/* Petits écrans (grands mobiles) */
+@media (min-width: 481px) and (max-width: 640px) {
+  .tickerContainer {
+    top: 96%; /* ← Position intermédiaire */
+  }
+  
   .tickerItem {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    font-size: 15px; /* Progression logique */
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .tickerWrap {
+    padding: 5px 0;
+  }
+}
+
+/* Tablettes (640px-768px) */
+@media (min-width: 641px) and (max-width: 768px) {
+  .tickerContainer {
+    top: 96%; /* ← Position standard */
+  }
+  
+  .tickerItem {
+    font-size: 15px; 
+    line-height: 1.3;
+    padding: 0.25rem 0.875rem;
+  }
+  
+  .tickerWrap {
+    padding: 5px 0;
+  }
+}
+
+/* Tablettes larges et desktop */
+@media (min-width: 769px) {
+  .tickerContainer {
+    top: 94%; /* ← Position standard */
+  }
+  
+  .tickerItem {
+    font-size: 16px; /* Taille standard desktop */
+    line-height: 1.4;
+    padding: 0.25rem 1rem;
+  }
+  
+  .tickerWrap {
+    padding: 6px 0;
+  }
+}
+
+/* Grands écrans */
+@media (min-width: 1200px) {
+  .tickerContainer {
+    top: 94%; /* ← Légèrement plus bas sur grands écrans */
+  }
+  
+  .tickerItem {
+    font-size: 17px; /* Légèrement plus grand sur très grands écrans */
+    line-height: 1.4;
+  }
+}
+
+/* Protection contre les débordements */
+@media (max-width: 100vw) {
+  .tickerWrap {
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 }
